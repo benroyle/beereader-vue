@@ -47,15 +47,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "package.json",
-			"settings":
-			{
-				"buffer_size": 1042,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -105,6 +96,8 @@
 	],
 	"file_history":
 	[
+		"/D/Git/beereader-vue/package.json",
+		"/D/Git/beereader-vue/src/private/dbConfig.js",
 		"/D/Git/beereader-vue/src/router/index.js",
 		"/D/Git/beereader-vue/src/components/Content.vue",
 		"/D/Git/beereader/src/App.js",
@@ -121,7 +114,6 @@
 		"/D/Git/beereader-vue/src/assets/stylesheet.css",
 		"/D/Git/beereader-vue/src/Content.vue",
 		"/D/Git/beereader-vue/src/Navbar.vue",
-		"/D/Git/beereader-vue/package.json",
 		"/D/Git/beereader/src/Content.vue",
 		"/D/Git/beereader-vue/src/Login.vue",
 		"/D/Git/beereader-vue/src/Logout.vue",
@@ -130,7 +122,6 @@
 		"/D/Git/beereader-vue/src/MyDetails/Navbar.vue",
 		"/D/Git/beereader/src/index.js",
 		"/D/Git/beereader/src/index.css",
-		"/D/Git/beereader-vue/src/private/dbConfig.js",
 		"/D/Git/beereader/package.json",
 		"/D/Git/beereader/src/server/server.js",
 		"/D/Git/beereader/src/controllers/users.controller.js",
@@ -229,37 +220,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "package.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1042,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								377,
-								377
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 456.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
