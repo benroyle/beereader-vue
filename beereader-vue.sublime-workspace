@@ -47,6 +47,15 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 1042,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -88,13 +97,41 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Git/beereader-vue"
+		"/D/Git/beereader-vue",
+		"/D/Git/beereader-vue/src",
+		"/D/Git/beereader-vue/src/assets",
+		"/D/Git/beereader-vue/src/components",
+		"/D/Git/beereader-vue/src/server"
 	],
 	"file_history":
 	[
-		"/D/Git/beereader/package.json",
-		"/D/Git/beereader-vue/package.json",
+		"/D/Git/beereader-vue/src/router/index.js",
+		"/D/Git/beereader-vue/src/components/Content.vue",
+		"/D/Git/beereader/src/App.js",
+		"/D/Git/beereader-vue/src/App.vue",
+		"/C/Users/benro/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/D/Git/beereader-vue/src/main.js",
+		"/D/Git/testben/src/main.js",
+		"/D/Git/trebuchet-vue/src/components/Everything.vue",
+		"/D/Git/trebuchet-vue/src/router/index.js",
+		"/D/Git/trebuchet-vue/src/main.js",
+		"/D/Git/trebuchet-vue/src/App.vue",
+		"/D/Git/beereader/src/Navbar.js",
+		"/D/Git/beereader/src/Content.js",
+		"/D/Git/beereader-vue/src/assets/stylesheet.css",
+		"/D/Git/beereader-vue/src/Content.vue",
+		"/D/Git/beereader-vue/src/Navbar.vue",
+		"/D/Git/beereader-vue/package.json",
+		"/D/Git/beereader/src/Content.vue",
+		"/D/Git/beereader-vue/src/Login.vue",
+		"/D/Git/beereader-vue/src/Logout.vue",
+		"/D/Git/beereader-vue/src/Admin/Navbar.vue",
+		"/D/Git/beereader-vue/src/components/private-route.js",
+		"/D/Git/beereader-vue/src/MyDetails/Navbar.vue",
+		"/D/Git/beereader/src/index.js",
+		"/D/Git/beereader/src/index.css",
+		"/D/Git/beereader-vue/src/private/dbConfig.js",
+		"/D/Git/beereader/package.json",
 		"/D/Git/beereader/src/server/server.js",
 		"/D/Git/beereader/src/controllers/users.controller.js",
 		"/D/Git/beereader/src/services/users.service.js",
@@ -108,7 +145,6 @@
 		"/D/Git/beereader/src/database/database.js",
 		"/D/Git/beereader/src/private/dbConfig.js",
 		"/D/Git/beereader-react/beereader-react.sublime-project",
-		"/D/Git/trebuchet-vue/src/components/Everything.vue",
 		"/D/Git/trebuchet/assets/scripts/index.js",
 		"/D/Git/trebuchet-vue/src/components/Steam.vue",
 		"/D/Git/trebuchet-vue/src/data/localLaunchers.json",
@@ -153,6 +189,9 @@
 		"height": 104.0,
 		"where_history":
 		[
+			"",
+			"-*/node-modules/*",
+			"-/*node-modules*/",
 			""
 		]
 	},
@@ -161,6 +200,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"matched",
+			"className",
+			"root",
+			"import React from 'react';",
+			"NavLink",
+			"Navbar",
 			"user.service",
 			"http://localhost:3001/",
 			"3001"
@@ -171,6 +216,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"class",
+			"",
 			"http://localhost:4000/"
 		],
 		"reverse": false,
@@ -182,8 +229,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1042,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								377,
+								377
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 456.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -244,6 +320,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"D:\\Git\\beereader-vue\\beereader-vue.sublime-project"
+			]
 		],
 		"width": 380.0
 	},
