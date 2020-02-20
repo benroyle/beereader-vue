@@ -1,29 +1,29 @@
 <template>
-  <div className="modalDiv">
+  <div class="modalDiv">
     <h1>Login</h1>
     <form v-on:submit="handleSubmit">
-      <div className="left">
+      <div class="left">
         Username:
       </div>
-      <div className="right">
+      <div class="right">
         <input type="text" name="usernameField" id="usernameField" placeholder="username" v-model="username" />
       </div>
-      <div className="left">
+      <div class="left">
         Password:
       </div>
-      <div className="right">
+      <div class="right">
         <input type="password" name="passwordField" id="passwordField" placeholder="password" v-model="password" />
       </div>
-      <div className="left">
+      <div class="left">
         &nbsp;
       </div>
-      <div className="right">
+      <div class="right">
         <button type="submit">Log in</button>
       </div>
-      <div className="left">
+      <div class="left">
         &nbsp;
       </div>
-      <div className="right errorMsg">
+      <div class="right errorMsg">
       {{ errorMsg }}
       </div>
     </form>
