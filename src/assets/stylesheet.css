@@ -1,5 +1,5 @@
 /* --- general --- */
-body { background-color: #7ec0ee; font-size: 16px; font-weight: 400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; background-image: url('grass.png'); background-repeat: repeat-x; background-attachment: scroll; background-position: bottom; }
+body { background-color: #7ec0ee; font-size: 16px; font-weight: 400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; background-image: url('grass.png'); background-repeat: repeat-x; background-attachment: scroll; background-position: bottom; margin: 0; }
 .App { height: 100vh; }
 .modalDiv { display: block; position: absolute; width: 50%; min-height: 30%; top: 25%; left: 25%; background-color: white; border: 1px solid #292929; padding: 15px;
 }
