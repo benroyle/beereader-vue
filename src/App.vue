@@ -25,9 +25,7 @@
         </div>
       </nav>
     </div>
-    <div class="contentRow">
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 

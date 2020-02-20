@@ -1,32 +1,34 @@
 <template>
-  <div class="modalDiv">
-    <h1>Login</h1>
-    <form v-on:submit="handleSubmit">
-      <div class="left">
-        Username:
-      </div>
-      <div class="right">
-        <input type="text" name="usernameField" id="usernameField" placeholder="username" v-model="username" />
-      </div>
-      <div class="left">
-        Password:
-      </div>
-      <div class="right">
-        <input type="password" name="passwordField" id="passwordField" placeholder="password" v-model="password" />
-      </div>
-      <div class="left">
-        &nbsp;
-      </div>
-      <div class="right">
-        <button type="submit">Log in</button>
-      </div>
-      <div class="left">
-        &nbsp;
-      </div>
-      <div class="right errorMsg">
-      {{ errorMsg }}
-      </div>
-    </form>
+  <div class="contentRow">
+    <div class="modalDiv">
+      <h1>Login</h1>
+      <form v-on:submit="handleSubmit">
+        <div class="left">
+          Username:
+        </div>
+        <div class="right">
+          <input type="text" name="usernameField" id="usernameField" placeholder="username" v-model="username" />
+        </div>
+        <div class="left">
+          Password:
+        </div>
+        <div class="right">
+          <input type="password" name="passwordField" id="passwordField" placeholder="password" v-model="password" />
+        </div>
+        <div class="left">
+          &nbsp;
+        </div>
+        <div class="right">
+          <button type="submit">Log in</button>
+        </div>
+        <div class="left">
+          &nbsp;
+        </div>
+        <div class="right errorMsg">
+        {{ errorMsg }}
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -48,13 +50,8 @@
           await authenticationService.login(this.$data.username, this.$data.password)
           .then((response) => {
             if (response !== false) {
-              console.log(this.$route);
               this.$router.push("/app");
-              window.history.pushState(
-                null,
-                routes["/app"],
-                "/app"
-              )
+              history.pushState({urlPath: '/app'}, "");
             } else {
               this.$data.errorMsg = "Username and /or password fields are incorrect. Please try again.";
             }

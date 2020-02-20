@@ -28,33 +28,33 @@ form button:last-of-type { margin-right: 0px; }
 .headerRow nav .links a { margin-right: 20px; color: #292929; background-color: #ffca31; font-weight: 400; padding: 0 15px; }
 .headerRow nav .links a:last-of-type { margin-right: 0; }
 .headerRow nav .links .active { background-color: #292929; color: #ffca31; }
-.headerRow .navbar { width: 250px; height: calc(100% - 184px); float: left; clear: right; padding-left: 15px; }
-.headerRow .navbar .navbarHeader { background-color: #292929; color: white; border: 1px solid #292929; padding: 0 15px; }
-.headerRow .navbar .navbarContent { height: calc(100vh - 132px); overflow-x: hidden; overflow-y: auto; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar { height: 12px; width: 12px; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-thumb:vertical { background-color: transparent; border-radius: 6px; }
-.headerRow .navbar .navbarContent:hover::-webkit-scrollbar-thumb:vertical { background-color: rgba(0, 0, 0, 0.15); border: 3px solid #f6f7f8; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-button:vertical { display: block; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-button:start:decrement { display: block; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-button:end:increment { display: block; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-button:vertical:start:increment { display: none; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-button:vertical:end:decrement { display: none; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-button:vertical:increment { display: none; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-button:vertical:decrement { display: none; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-track:vertical { display: none; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-track-piece { background-color: transparent; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-corner:vertical { background-color: transparent; }
-.headerRow .navbar .navbarContent::-webkit-scrollbar-resizer:vertical { background-color: transparent; }
-.headerRow .navbar .navbarContent .buttonDiv { background-color: #ffca31; border-left: 1px solid #292929; border-right: 1px solid #292929; border-bottom: 1px solid #292929; }
-.headerRow .navbar .navbarContent .buttonDiv.random { margin-top: 15px; border-top: 1px solid #292929; }
-.headerRow .navbar .navbarContent .buttonDiv p { padding: 0 15px; }
-.headerRow .navbar .navbarContent .buttonDiv button { width: 100%; background: none; border: none; color: #292929; text-decoration: none; cursor: pointer; font-size: 16px; padding: 5px; }
-.headerRow .navbar .navbarContent .buttonDiv button:hover { text-decoration: underline; }
-.headerRow .navbar .navbarContent .buttonDiv button.active { background: #292929; color: #ffca31; }
 
 /* --- contentRow --- */
-.contentRow { width: 100%; min-height: calc(100vh - 90px); float: right; }
-.contentRow .contentDiv { width: calc(100% - 30px); float: right; clear: right; padding-left: 15px; padding-right: 15px; }
+.contentRow { width: calc(100% - 30px); min-height: calc(100vh - 90px); float: left; clear: right; padding: 0 15px; }
+.contentRow .navbar { width: 250px; float: left; clear: right; margin-right: 15px; }
+.contentRow .navbar .navbarHeader { background-color: #292929; color: white; border: 1px solid #292929; padding: 0 15px; }
+.contentRow .navbar .navbarContent { height: calc(100vh - 132px); overflow-x: hidden; overflow-y: auto; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar { height: 12px; width: 12px; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-thumb:vertical { background-color: transparent; border-radius: 6px; }
+.contentRow .navbar .navbarContent:hover::-webkit-scrollbar-thumb:vertical { background-color: rgba(0, 0, 0, 0.15); border: 3px solid #f6f7f8; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-button:vertical { display: block; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-button:start:decrement { display: block; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-button:end:increment { display: block; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-button:vertical:start:increment { display: none; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-button:vertical:end:decrement { display: none; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-button:vertical:increment { display: none; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-button:vertical:decrement { display: none; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-track:vertical { display: none; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-track-piece { background-color: transparent; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-corner:vertical { background-color: transparent; }
+.contentRow .navbar .navbarContent::-webkit-scrollbar-resizer:vertical { background-color: transparent; }
+.contentRow .navbar .navbarContent .buttonDiv { background-color: #ffca31; border-left: 1px solid #292929; border-right: 1px solid #292929; border-bottom: 1px solid #292929; }
+.contentRow .navbar .navbarContent .buttonDiv.random { margin-top: 15px; border-top: 1px solid #292929; }
+.contentRow .navbar .navbarContent .buttonDiv p { padding: 0 15px; }
+.contentRow .navbar .navbarContent .buttonDiv button { width: 100%; background: none; border: none; color: #292929; text-decoration: none; cursor: pointer; font-size: 16px; padding: 5px; }
+.contentRow .navbar .navbarContent .buttonDiv button:hover { text-decoration: underline; }
+.contentRow .navbar .navbarContent .buttonDiv button.active { background: #292929; color: #ffca31; }
+.contentRow .contentDiv { width: calc(100% - 265px); float: right; clear: right; }
 .contentRow .contentDiv .contentHeader { background-color: #292929; color: white; border: 1px solid #292929; padding: 0 15px; }
 .contentRow .contentDiv .item { width: calc(100% - 32px); display: block; float: left; clear: both; margin-bottom: 15px; padding: 0 15px; background-color: white; border: 1px solid #666; }
 .contentRow .contentDiv .item.opened .title, .contentRow .contentDiv .item.opened .date, .contentRow .contentDiv .item.opened .content { float: left; clear: both; }
