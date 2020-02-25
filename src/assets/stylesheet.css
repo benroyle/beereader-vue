@@ -23,6 +23,7 @@ form button:last-of-type { margin-right: 0px; }
 .headerRow .title .titleContainer .titleFont.black { background-color: #292929; color: #ffca31; }
 .headerRow .title .titleContainer .titleFont.yellow { background-color: #ffca31; color: #292929; }
 .headerRow .greeting { display: flex; justify-content: center; align-items: center; width: 200px; height: 90px; float: left; clear: right; }
+.headerRow .greeting .username { margin-left: 6px; font-weight: 700; }
 .headerRow nav { display: flex; justify-content: flex-end; align-items: center; width: calc(100% - 465px); height: 90px; float: left; clear: right; }
 .headerRow nav .links { float: right; clear: right; text-align: right; background-color: #ffca31; padding: 0 15px; border: 1px solid #292929; margin-right: 15px; }
 .headerRow nav .links a { margin-right: 20px; color: #292929; background-color: #ffca31; font-weight: 400; padding: 0 15px; }
@@ -30,10 +31,10 @@ form button:last-of-type { margin-right: 0px; }
 .headerRow nav .links .active { background-color: #292929; color: #ffca31; }
 
 /* --- contentRow --- */
-.contentRow { width: calc(100% - 30px); min-height: calc(100vh - 90px); float: left; clear: right; padding: 0 15px; }
-.contentRow .navbar { width: 250px; float: left; clear: right; margin-right: 15px; }
+.contentRow { width: calc(100% - 30px); min-height: calc(100vh - 154px); float: left; clear: right; padding: 0 15px 64px 15px; }
+.contentRow .navbar { width: 250px; min-height: calc(100vh - 154px); float: left; clear: right; margin-right: 15px; }
 .contentRow .navbar .navbarHeader { background-color: #292929; color: white; border: 1px solid #292929; padding: 0 15px; }
-.contentRow .navbar .navbarContent { height: calc(100vh - 132px); overflow-x: hidden; overflow-y: auto; }
+.contentRow .navbar .navbarContent { overflow-x: hidden; overflow-y: auto; }
 .contentRow .navbar .navbarContent::-webkit-scrollbar { height: 12px; width: 12px; }
 .contentRow .navbar .navbarContent::-webkit-scrollbar-thumb:vertical { background-color: transparent; border-radius: 6px; }
 .contentRow .navbar .navbarContent:hover::-webkit-scrollbar-thumb:vertical { background-color: rgba(0, 0, 0, 0.15); border: 3px solid #f6f7f8; }

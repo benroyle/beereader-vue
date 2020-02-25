@@ -5,6 +5,7 @@ import PageNotFound from './components/PageNotFound'
 Vue.use(Router)
 
 export default new Router({
+	mode: 'history',
 	routes: [
 		/*{
 			path: '/',
@@ -33,6 +34,11 @@ export default new Router({
 			name: 'AppFrame',
 			alias: '',
 			component: require('./components/AppFrame').default
+		},
+		{
+			path: '*',
+			name: 'PageNotFound',
+			component: require('./components/PageNotFound').default
 		}
 	]
 })

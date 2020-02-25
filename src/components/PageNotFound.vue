@@ -1,5 +1,9 @@
 <template>
-	<p>Something went wrong</p>
+	<div class="contentRow">
+    <div class="modalDiv">
+			<p>Something went wrong</p>
+		</div>
+	</div>
 </template>
 
 <script>

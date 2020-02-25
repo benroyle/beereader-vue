@@ -40,7 +40,8 @@
       return {
         username: '',
         password: '',
-        errorMsg: ''
+        errorMsg: '',
+        currentUser: {}
       }
     },
     methods: {
@@ -50,7 +51,8 @@
           await authenticationService.login(this.$data.username, this.$data.password)
           .then((response) => {
             if (response !== false) {
-              this.$router.push("/app");
+              this.$emit("authenticated", true);
+              this.$router.push({name: 'AppFrame'});
               history.pushState({urlPath: '/app'}, "");
             } else {
               this.$data.errorMsg = "Username and /or password fields are incorrect. Please try again.";

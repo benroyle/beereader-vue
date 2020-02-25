@@ -39,10 +39,12 @@ function getRandomNumber(maxNumber) {
 async function getFeeds(id, random) {
   const config = {
     headers: {
-      'content-type': 'application/json; charset=utf-8'
+      'accept': 'application/json, text/plain, */*',
+      'content-type': 'application/json; charset=utf-8',
+      'X-Requested-With': 'XmlHttpRequest'
     }
   }
-  await axios.post('http://localhost:4000/beereader/getFeedsForUser/', { 'id': id }, config)
+  await axios.post('http://192.168.28.38:4000/beereader-vue/getFeedsForUser/', { 'id': id }, config)
   .then((response) => (response.data))
   .then((feeds) => {
     if (feeds !== undefined) {
@@ -76,7 +78,7 @@ async function editFeed(id, sitename, siteurl) {
       'content-type': 'application/json; charset=utf-8'
     }
   }
-  const feedEdit = await axios.post('http://localhost:4000/beereader/editFeed/', { 'id': id, 'sitename': sitename, 'siteurl': siteurl }, config)
+  const feedEdit = await axios.post('http://192.168.28.38:4000/beereader-vue/editFeed/', { 'id': id, 'sitename': sitename, 'siteurl': siteurl }, config)
   .then((response) => (response.data))
   .then((response) => {
     if (response !== undefined) {
@@ -96,7 +98,7 @@ async function deleteFeed(id) {
       'content-type': 'application/json; charset=utf-8'
     }
   }
-  const feedDelete = await axios.post('http://localhost:4000/beereader/deleteFeed/', { 'id': id }, config)
+  const feedDelete = await axios.post('http://192.168.28.38:4000/beereader-vue/deleteFeed/', { 'id': id }, config)
   .then((response) => (response.data))
   .then((response) => {
     if (response !== undefined) {
@@ -116,7 +118,7 @@ async function deleteAllFeeds(userid) {
       'content-type': 'application/json; charset=utf-8'
     }
   }
-  const feedDeleteAll = await axios.post('http://localhost:4000/beereader/deleteAllFeeds/', { 'userid': userid }, config)
+  const feedDeleteAll = await axios.post('http://192.168.28.38:4000/beereader-vue/deleteAllFeeds/', { 'userid': userid }, config)
   .then((response) => (response.data))
   .then((response) => {
     if (response !== undefined) {
@@ -136,7 +138,7 @@ async function addFeed(sitename, siteurl, userid) {
       'content-type': 'application/json; charset=utf-8'
     }
   }
-  const feedAdd = await axios.post('http://localhost:4000/beereader/addFeed/', { 'sitename': sitename, 'siteurl': siteurl, 'userid': userid }, config)
+  const feedAdd = await axios.post('http://192.168.28.38:4000/beereader-vue/addFeed/', { 'sitename': sitename, 'siteurl': siteurl, 'userid': userid }, config)
   .then((response) => (response.data))
   .then((response) => {
     if (response !== undefined) {

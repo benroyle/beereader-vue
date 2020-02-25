@@ -14,10 +14,12 @@ export const authenticationService = {
 async function login(username, password) {
   const config = {
     headers: {
-      'content-type': 'application/json; charset=utf-8'
+      'accept': 'application/json, text/plain, */*',
+      'content-type': 'application/json; charset=utf-8',
+      'X-Requested-With': 'XmlHttpRequest'
     }
   }
-  const checkAuth = await axios.post('http://localhost:4000/beereader/checkAuth', { 'username': username, 'password': password }, config)
+  const checkAuth = await axios.post('http://192.168.28.38:4000/beereader-vue/checkAuth', { 'username': username, 'password': password }, config)
   .then((response) => (response.data[0]))
   .then((user) => {
     if (user !== undefined) {

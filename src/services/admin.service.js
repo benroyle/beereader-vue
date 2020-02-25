@@ -11,10 +11,12 @@ export const adminService = {
 async function getUsers() {
   const config = {
     headers: {
-      'content-type': 'application/json; charset=utf-8'
+      'accept': 'application/json, text/plain, */*',
+      'content-type': 'application/json; charset=utf-8',
+      'X-Requested-With': 'XmlHttpRequest'
     }
   }
-  const userItems = await axios.get('http://localhost:4000/beereader/adminGetUsers/', config)
+  const userItems = await axios.get('http://192.168.28.38:4000/beereader-vue/adminGetUsers/', config)
   .then((response) => (response.data))
   .then((response) => {
     if (response !== undefined) {
@@ -34,7 +36,7 @@ async function getUser(id) {
       'content-type': 'application/json; charset=utf-8'
     }
   }
-  const userItems = await axios.post('http://localhost:4000/beereader/adminGetUser/', { 'id': id }, config)
+  const userItems = await axios.post('http://192.168.28.38:4000/beereader-vue/adminGetUser/', { 'id': id }, config)
   .then((response) => (response.data))
   .then((response) => {
     if (response !== undefined) {
@@ -54,7 +56,7 @@ async function editUser(id, username, password, role) {
       'content-type': 'application/json; charset=utf-8'
     }
   }
-  const userEdit = await axios.post('http://localhost:4000/beereader/adminEditUser/', { 'id': id, 'username': username, 'password': password, 'role': role }, config)
+  const userEdit = await axios.post('http://192.168.28.38:4000/beereader-vue/adminEditUser/', { 'id': id, 'username': username, 'password': password, 'role': role }, config)
   .then((response) => (response.data))
   .then((response) => {
     if (response !== undefined) {
@@ -74,7 +76,7 @@ async function deleteUser(id) {
       'content-type': 'application/json; charset=utf-8'
     }
   }
-  const userDelete = await axios.post('http://localhost:4000/beereader/adminDeleteUser/', { 'id': id }, config)
+  const userDelete = await axios.post('http://192.168.28.38:4000/beereader-vue/adminDeleteUser/', { 'id': id }, config)
   .then((response) => (response.data))
   .then((response) => {
     if (response !== undefined) {
@@ -94,7 +96,7 @@ async function addUser(username, password, role) {
       'content-type': 'application/json; charset=utf-8'
     }
   }
-  const userAdd = await axios.post('http://localhost:4000/beereader/adminAddUser/', { 'username': username, 'password': password, 'role': role }, config)
+  const userAdd = await axios.post('http://192.168.28.38:4000/beereader-vue/adminAddUser/', { 'username': username, 'password': password, 'role': role }, config)
   .then((response) => (response.data))
   .then((response) => {
     if (response !== undefined) {
