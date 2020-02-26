@@ -2,3 +2,7 @@
 node_modules/
 
 src/private/
+
+*.sublime-project
+
+*.sublime-workspace
