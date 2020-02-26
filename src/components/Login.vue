@@ -25,7 +25,7 @@
           &nbsp;
         </div>
         <div class="right errorMsg">
-        {{ errorMsg }}
+          {{ errorMsg }}
         </div>
       </form>
     </div>
@@ -33,46 +33,58 @@
 </template>
 
 <script>
-  import { authenticationService } from './../services/auth.service.js'
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'Login',
     data() {
       return {
         username: '',
         password: '',
-        errorMsg: '',
-        currentUser: {}
+        errorMsg: ''
       }
     },
     methods: {
       handleSubmit: async function(event) {
         event.preventDefault();
-        if ((this.$data.username !== '') && (this.$data.password !== '')) {
-          await authenticationService.login(this.$data.username, this.$data.password)
+        if ((this.username !== '') && (this.password !== '')) {
+          await this.$http.post('/beereader-vue/checkAuth', {'username': this.username, 'password': this.password})
+          .then((response) => (response.data[0]))
           .then((response) => {
             if (response !== false) {
               this.$emit("authenticated", true);
               this.$router.push({name: 'AppFrame'});
               history.pushState({urlPath: '/app'}, "");
             } else {
-              this.$data.errorMsg = "Username and /or password fields are incorrect. Please try again.";
+              this.errorMsg = "Username and /or password fields are incorrect. Please try again.";
             }
           },
           error => {
             console.error(error);
           });
         } else {
-          if ((this.$data.username === '') && (this.$data.password === '')) {
-            this.$data.errorMsg = "Username and password fields are empty. Please complete the form and try again.";
+          if ((this.username === '') && (this.password === '')) {
+            this.errorMsg = "Username and password fields are empty. Please complete the form and try again.";
           } else {
-            if (this.$data.username === '') {
-              this.$data.errorMsg = "Username field is empty. Please complete the form and try again.";
+            if (this.username === '') {
+              this.errorMsg = "Username field is empty. Please complete the form and try again.";
             } else {
-              this.$data.errorMsg = "Password field is empty. Please complete the form and try again.";
+              this.errorMsg = "Password field is empty. Please complete the form and try again.";
             }
           }
         }
+      },
+      checkCurrentLogin () {
+        if (localStorage.token) {
+          this.$router.replace(this.$route.query.redirect || '/app')
+        }
       }
+    },
+    created () {
+      this.checkCurrentLogin()
+    },
+    updated () {
+      this.checkCurrentLogin()
     }
   }
 </script>

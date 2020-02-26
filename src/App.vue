@@ -15,28 +15,31 @@
           <div class="titleFont yellow">r</div>
         </div>
       </div>
-      <div class="greeting" v-if="currentUser !== null">Hello&nbsp;<div class="username">{{currentUser.username}}</div>!</div>
+      <div class="greeting" v-if="currentUser">Hello&nbsp;<div class="username">{{currentUser.username}}</div>!</div>
       <nav>
         <div class="links">
           <a href="/">Home</a>
           <a href="/admin" v-if="isAdmin === true">Admin</a>
-          <a href="/user" v-if="currentUser !== undefined">My Details</a>
-          <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
+          <a href="/user" v-if="currentUser">My Details</a>
+          <router-link v-if="authenticated" to="/logout" v-on:click.native="logout()" replace>Logout</router-link>
+          <router-link v-if="!authenticated" to="/login" v-on:click.native="login()" replace>Login</router-link>
         </div>
       </nav>
     </div>
-    <router-view v-bind:currentUser='currentUser' v-bind:feedList='feedList' v-bind:feed='feed' @authenticated="setAuthenticated"></router-view>
+    <router-view @authenticated="setAuthenticated" v-bind:feedList='feedList' v-bind:feed='feed'></router-view>
   </div>
 </template>
 
 <script>
   //import { adminService } from './services/admin.service.js'
-  import { Observable } from 'rxjs'
-  import { authenticationService } from './services/auth.service.js'
   import { feedService } from './services/feed.service.js'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'App',
+    computed: {
+      ...mapGetters({currentUser: 'currentUser'})
+    },
     methods: {
       checkAdmin(user) {
         if ((user) && (user.role === 'Admin')) {
@@ -46,25 +49,25 @@
         }
       },
       setAuthenticated(status) {
-        setAuthenticated = status;
+        this.authenticated = status;
       },
       logout() {
         this.authenticated = false;
+      },
+      login() {
+        if (this.$route.path !== "/login") {
+          this.$router.push("/login");
+        }
       }
     },
     subscriptions: function () {
       return {
-        currentUser: authenticationService.currentUser,
         feedList: feedService.feedList,
         feed: feedService.feed
       }
     },
     data() {
       return {
-        currentUser: {
-          username: '',
-          password: ''
-        },
         isAdmin: {
           type: Boolean
         },
@@ -79,27 +82,26 @@
     },
     mounted() {
       if ((this.$route.path !== '/login') && (this.authenticated)) {
-        this.$observables.currentUser.subscribe(currentUser => console.log(currentUser));
         this.$observables.feedList.source.subscribe(feedList => {
           console.log(feedList);
-          this.$data.feedList = feedList;
+          this.feedList = feedList;
         });
         this.$observables.feed.source.subscribe(feed => {
           console.log(feed);
-          this.$data.feed = feed;
+          this.feed = feed;
         });
         /*feedService.feedList.subscribe(x => 
-          this.$data.feedList: x
+          this.feedList: x
         );
         feedService.feed.subscribe(x => 
-          this.$data.feed: x
+          this.feed: x
         );*/
-        console.log(this.$data.feedList);
+        console.log(this.feedList);
       }
     },
-    updated() {
-      if (this.$data.currentUser !== null) {
-        feedService.getFeeds(this.$data.currentUser.id);
+    updated () {
+      if ((!localStorage.token) && (this.$route.path !== '/')) {
+        this.$router.push('/?redirect=' + this.$route.path);
       }
     }
   }
