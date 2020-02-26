@@ -78,9 +78,7 @@
       }
     },
     mounted() {
-      if (!this.authenticated) {
-        this.$router.replace({name: 'Login'});
-      } else {
+      if ((this.$route.path !== '/login') && (this.authenticated)) {
         this.$observables.currentUser.subscribe(currentUser => console.log(currentUser));
         this.$observables.feedList.source.subscribe(feedList => {
           console.log(feedList);
