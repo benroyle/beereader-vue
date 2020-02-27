@@ -49,9 +49,8 @@
         event.preventDefault();
         if ((this.username !== '') && (this.password !== '')) {
           await this.axios.post('http://localhost:8081/beereader-vue/checkAuth', {'username': this.username, 'password': this.password})
-          .then((response) => (response.data[0]))
           .then((response) => {
-            if (response !== false) {
+            if ((response.data.length !== 0) && (response !== false)) {
               this.$emit("authenticated", true);
               this.$router.push({name: 'AppFrame'});
               history.pushState({urlPath: '/app'}, "");
