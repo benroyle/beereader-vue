@@ -1,7 +1,11 @@
 
 node_modules/
 
-src/private/
+client/node_modules/
+
+server/node_modules/
+
+server/src/private/
 
 *.sublime-project
 
