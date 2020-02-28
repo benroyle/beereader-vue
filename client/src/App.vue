@@ -53,10 +53,13 @@
       },
       logout() {
         this.authenticated = false;
+        if (this.$route.path !== "/logout") {
+          this.$router.replace(this.$route.query.redirect || '/logout');
+        }
       },
       login() {
-        if (this.$route.path !== "/login") {
-          this.$router.push("/login");
+        if ((this.$route.path !== "/") || (this.$route.path !== "/login")) {
+          this.$router.replace(this.$route.query.redirect || '/');
         }
       }
     },
@@ -98,12 +101,12 @@
         );*/
         console.log(this.feedList);
       }
-    },
+    }/*,
     updated () {
       if ((!localStorage.token) && (this.$route.path !== '/')) {
         this.$router.push('/?redirect=' + this.$route.path);
       }
-    }
+    }*/
   }
 </script>
 

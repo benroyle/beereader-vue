@@ -52,38 +52,52 @@
           .then((response) => {
             if ((response.data.length !== 0) && (response !== false)) {
               this.$emit("authenticated", true);
-              this.$router.push({name: 'AppFrame'});
-              history.pushState({urlPath: '/app'}, "");
+              this.$router.replace(this.$route.query.redirect || '/app');
             } else {
-              this.errorMsg = "Username and /or password fields are incorrect. Please try again.";
+              this.loginFailed("Username and /or password fields are incorrect. Please try again.");
             }
-          },
-          error => {
-            console.error(error);
-          });
+          })
+          .catch(() => this.loginFailed());
         } else {
           if ((this.username === '') && (this.password === '')) {
-            this.errorMsg = "Username and password fields are empty. Please complete the form and try again.";
+            this.loginFailed("Username and password fields are empty. Please complete the form and try again.");
           } else {
             if (this.username === '') {
-              this.errorMsg = "Username field is empty. Please complete the form and try again.";
+              this.loginFailed("Username field is empty. Please complete the form and try again.");
             } else {
-              this.errorMsg = "Password field is empty. Please complete the form and try again.";
+              this.loginFailed("Password field is empty. Please complete the form and try again.");
             }
           }
         }
       },
-      checkCurrentLogin () {
+      loginSuccessful(response) {
+        if (!req.data.token) {
+          this.loginFailed("Invalid token. Please try again.");
+          return;
+        }
+        if ((response.data.length === 0) || (response === false)) {
+          this.loginFailed("Username and /or password fields are incorrect. Please try again.");
+          return;
+        }
+        localStorage.token = req.data.token;
+        this.error = false;
+        this.$router.replace(this.$route.query.redirect || '/app');
+      },
+      loginFailed(text) {
+        this.errorMsg = text;
+        delete localStorage.token;
+      },
+      checkCurrentLogin() {
         if (localStorage.token) {
-          this.$router.replace(this.$route.query.redirect || '/app')
+          this.$router.replace(this.$route.query.redirect || '/app');
         }
       }
     },
     created () {
-      this.checkCurrentLogin()
+      this.checkCurrentLogin();
     },
     updated () {
-      this.checkCurrentLogin()
+      this.checkCurrentLogin();
     }
   }
 </script>

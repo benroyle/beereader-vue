@@ -1,12 +1,14 @@
 <template>
   <div class="contentRow">
-  	<div className="modalDiv">
+  	<div class="modalDiv">
       <h1>Logout</h1>
-      <p>You have been logged out! Please click <a href="/login">here</a> to log back in.</p>
+      <p>You have been logged out! Please click <router-link to="/">here</router-link> to log back in.</p>
     </div>
   </div>
 </template>
 
 <script>
- 
+	export default {
+    name: 'Logout'
+  }
 </script>
