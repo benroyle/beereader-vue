@@ -10,3 +10,5 @@ server/src/private/
 *.sublime-project
 
 *.sublime-workspace
+
+server/private/

@@ -1,22 +1,66 @@
 const express = require('express')
-const mysql = require('mysql')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const morgan = require('morgan')
-const connectionDetails = require('./private/dbConfig.js')
-const connection = mysql.createPool(connectionDetails)
+//const morgan = require('morgan')
 const app = express()
+
+
+var corsOptions = {
+  origin: "http://localhost:8080"
+};
+
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//app.use(morgan('combined'))
+
+const db = require("./models");
+
+const Role = db.role;
+
+db.sequelize.sync({force: true}).then(() => {
+  console.log('Drop and Resync Db');
+  initial();
+});
+
+function initial() {
+  Role.create({
+    id: 1,
+    name: "user"
+  });
+ 
+  Role.create({
+    id: 2,
+    name: "moderator"
+  });
+ 
+  Role.create({
+    id: 3,
+    name: "admin"
+  });
+}
 
 function showError(err) {
   console.log('--------------- Error while performing Query.');
   console.log(err);
 }
 
-app.use(morgan('combined'))
-app.use(bodyParser.json())
-app.use(cors())
+// routes
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
 
-app.post("/beereader-vue/getFeedsForUser", function(req, res) {
+// set port, listen for requests
+const PORT = process.env.PORT || 8081;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
+
+/*app.post("/beereader-vue/getFeedsForUser", function(req, res) {
   const id = connection.escape(req.body.id);
   const sql = 'SELECT * from feeds WHERE userid = ' + id + ' ORDER BY sitename';
   connection.getConnection(function (err, connection) {
@@ -232,13 +276,11 @@ app.post("/beereader-vue/adminAddUser", function(req, res) {
   });
 });
 
-app.get('/posts', (req, res) => {
+app.get('/test', (req, res) => {
   res.send(
     [{
       title: "Hello World!",
       description: "Hi there! How are you?"
     }]
   )
-})
-
-app.listen(process.env.PORT || 8081)
+})*/

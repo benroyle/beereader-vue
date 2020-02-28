@@ -48,7 +48,7 @@
       handleSubmit: async function(event) {
         event.preventDefault();
         if ((this.username !== '') && (this.password !== '')) {
-          await this.axios.post('http://localhost:8081/beereader-vue/checkAuth', {'username': this.username, 'password': this.password})
+          await this.axios.get('http://localhost:8081/beereader-vue/checkAuth', {'username': this.username, 'password': this.password})
           .then((response) => {
             if ((response.data.length !== 0) && (response !== false)) {
               this.$emit("authenticated", true);
