@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/auth/';
+const API_URL = 'http://localhost:8081/beereader-vue/';
 
 class AuthService {
   login(user) {
     return axios
-      .post(API_URL + 'signin', {
+      .post(API_URL + 'checkAuth', {
         username: user.username,
         password: user.password
       })
@@ -13,7 +13,6 @@ class AuthService {
         if (response.data.accessToken) {
           localStorage.setItem('user', JSON.stringify(response.data));
         }
-
         return response.data;
       });
   }
@@ -25,7 +24,6 @@ class AuthService {
   register(user) {
     return axios.post(API_URL + 'signup', {
       username: user.username,
-      email: user.email,
       password: user.password
     });
   }

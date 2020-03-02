@@ -2,7 +2,7 @@
   <div class="contentRow">
     <div class="modalDiv">
       <h1>Login</h1>
-      <form v-on:submit="handleSubmit">
+      <form v-on:submit="handleLogin">
         <div class="left">
           <label for="username">Username:</label>
         </div>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import User from '../models/user';
+  import User from '../models/User';
 
   export default {
     name: 'Login',
@@ -56,11 +56,24 @@
       }
     },
     methods: {
-      handleSubmit: async function(event) {
+      handleLogin: async function(event) {
         event.preventDefault();
         this.loading = true;
         if ((this.username !== '') && (this.password !== '')) {
-          await this.axios.get('http://localhost:8081/beereader-vue/checkAuth', {'username': this.username, 'password': this.password})
+          this.$store.dispatch('auth/login', this.user).then(
+            () => {
+              this.$router.push('/app');
+            },
+            error => {
+              this.loading = false;
+              this.message =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+              this.loginFailed(this.message);
+            }
+          );
+          /*await this.axios.get('http://localhost:8081/beereader-vue/checkAuth', {'username': this.username, 'password': this.password})
           .then((response) => {
             if ((response.data.length !== 0) && (response !== false)) {
               this.loading = false;
@@ -71,7 +84,7 @@
               this.loginFailed("Username and /or password fields are incorrect. Please try again.");
             }
           })
-          .catch(() => this.loginFailed());
+          .catch(() => this.loginFailed());*/
         } else {
           if ((this.username === '') && (this.password === '')) {
             this.loginFailed("Username and password fields are empty. Please complete the form and try again.");

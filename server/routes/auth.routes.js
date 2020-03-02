@@ -10,12 +10,12 @@ module.exports = function(app) {
     next();
   });
   app.post(
-    "/api/auth/signup",
+    "/beereader-vue/signup",
     [
       verifySignUp.checkDuplicateUsernameOrEmail,
       verifySignUp.checkRolesExisted
     ],
     controller.signup
   );
-  app.post("/api/auth/signin", controller.signin);
+  app.post("/beereader-vue/checkAuth", controller.checkAuth);
 };

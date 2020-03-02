@@ -5,7 +5,7 @@ const initialState = user
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null };
 
-export const auth = {
+const auth = {
   namespaced: true,
   state: initialState,
   actions: {
@@ -59,3 +59,5 @@ export const auth = {
     }
   }
 };
+
+export default auth;

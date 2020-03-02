@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import AppFrame from '@/components/AppFrame'
+import Register from '@/components/Register'
 import Logout from '@/components/Logout'
 import PageNotFound from '@/components/PageNotFound'
 
@@ -18,9 +19,13 @@ export default new Router({
 		{
 			path: '/app',
 			name: 'AppFrame',
-			alias: '',
 			component: AppFrame
 		},
+		{
+      path: '/register',
+      name: 'Register',
+      component: Register
+    },
 		{
 			path: '/logout',
 			name: 'Logout',

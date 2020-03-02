@@ -26,11 +26,11 @@ module.exports = function(app) {
     });
   });
 
-  app.get(
+  /*app.get(
     "/beereader-vue/checkAuth",
     [authJwt.verifyToken],
     controller.userBoard
-  );
+  );*/
 
   app.post("/beereader-vue/editFeed", function(req, res) {
     const sitename = connection.escape(req.body.sitename);

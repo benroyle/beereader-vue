@@ -39,7 +39,7 @@ exports.signup = (req, res) => {
   });
 };
 
-exports.signin = (req, res) => {
+exports.checkAuth = (req, res) => {
   User.findOne({
     where: {
       username: req.body.username

@@ -18,11 +18,12 @@
       <div class="greeting" v-if="currentUser">Hello&nbsp;<div class="username">{{currentUser.username}}</div>!</div>
       <nav>
         <div class="links">
-          <a href="/">Home</a>
+          <a href="/" v-if="authenticated">Home</a>
           <a href="/admin" v-if="isAdmin === true">Admin</a>
           <a href="/user" v-if="currentUser">My Details</a>
           <router-link v-if="authenticated" to="/logout" v-on:click.native="logout()" replace>Logout</router-link>
           <router-link v-if="!authenticated" to="/login" v-on:click.native="login()" replace>Login</router-link>
+          <router-link v-if="!authenticated" to="/register" v-on:click.native="register()" replace>Register</router-link>
         </div>
       </nav>
     </div>
@@ -33,13 +34,9 @@
 <script>
   //import { adminService } from './services/admin.service.js'
   import { feedService } from './services/feed.service.js'
-  import { mapGetters } from 'vuex'
 
   export default {
     name: 'App',
-    computed: {
-      ...mapGetters({currentUser: 'currentUser'})
-    },
     methods: {
       checkAdmin(user) {
         if ((user) && (user.role === 'Admin')) {
@@ -61,6 +58,11 @@
         if ((this.$route.path !== "/") || (this.$route.path !== "/login")) {
           this.$router.replace(this.$route.query.redirect || '/');
         }
+      },
+      register() {
+        if (this.$route.path !== "/register") {
+          this.$router.replace(this.$route.query.redirect || '/register');
+        }
       }
     },
     subscriptions: function () {
@@ -80,7 +82,8 @@
         feed: {
           type: String
         },
-        authenticated: false
+        authenticated: false,
+        currentUser: ''
       }
     },
     mounted() {
