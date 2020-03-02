@@ -2,24 +2,25 @@
   <div class="contentRow">
     <div class="modalDiv">
       <h1>Login</h1>
-      <form v-on:submit="handleSubmit">
+      <form v-on:submit="handleLogin">
         <div class="left">
-          Username:
+          <label for="username">Username:</label>
         </div>
         <div class="right">
-          <input type="text" name="usernameField" id="usernameField" placeholder="username" v-model="username" />
+          <input type="text" name="username" placeholder="username" v-model="user.username" />
         </div>
         <div class="left">
-          Password:
+          <label for="password">Password:</label>
         </div>
         <div class="right">
-          <input type="password" name="passwordField" id="passwordField" placeholder="password" v-model="password" />
+          <input type="password" name="password" placeholder="password" v-model="user.password" />
         </div>
         <div class="left">
           &nbsp;
         </div>
         <div class="right">
-          <button type="submit">Log in</button>
+          <button type="submit" :disabled="loading">Log in</button>
+          <span v-show="loading" class="errorMsg">LOADING!!!!!</span>
         </div>
         <div class="left">
           &nbsp;
@@ -33,31 +34,57 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import User from '../models/User';
 
   export default {
     name: 'Login',
     data() {
       return {
-        username: '',
-        password: '',
+        user: new User('', ''),
+        loading: false,
         errorMsg: ''
       }
     },
+    computed: {
+      loggedIn() {
+        return this.$store.state.auth.status.loggedIn;
+      }
+    },
+    created() {
+      if (this.loggedIn) {
+        this.$router.push('/app');
+      }
+    },
     methods: {
-      handleSubmit: async function(event) {
+      handleLogin: async function(event) {
         event.preventDefault();
+        this.loading = true;
         if ((this.username !== '') && (this.password !== '')) {
-          await this.axios.post('http://localhost:8081/beereader-vue/checkAuth', {'username': this.username, 'password': this.password})
+          this.$store.dispatch('auth/login', this.user).then(
+            () => {
+              this.$router.push('/app');
+            },
+            error => {
+              this.loading = false;
+              this.message =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+              this.loginFailed(this.message);
+            }
+          );
+          /*await this.axios.get('http://localhost:8081/beereader-vue/checkAuth', {'username': this.username, 'password': this.password})
           .then((response) => {
             if ((response.data.length !== 0) && (response !== false)) {
+              this.loading = false;
               this.$emit("authenticated", true);
               this.$router.replace(this.$route.query.redirect || '/app');
             } else {
+              this.loading = false;
               this.loginFailed("Username and /or password fields are incorrect. Please try again.");
             }
           })
-          .catch(() => this.loginFailed());
+          .catch(() => this.loginFailed());*/
         } else {
           if ((this.username === '') && (this.password === '')) {
             this.loginFailed("Username and password fields are empty. Please complete the form and try again.");
@@ -92,12 +119,6 @@
           this.$router.replace(this.$route.query.redirect || '/app');
         }
       }
-    },
-    created () {
-      this.checkCurrentLogin();
-    },
-    updated () {
-      this.checkCurrentLogin();
     }
   }
 </script>
