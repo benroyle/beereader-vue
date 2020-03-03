@@ -1,35 +1,28 @@
 <template>
   <div class="contentRow">
     <div class="modalDiv">
-      <div class="col-md-12">
-        <div class="card card-container">
-          <img
-            id="profile-img"
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            class="profile-img-card"
-          />
-          <form name="form" v-on:submit="handleRegister">
-            <div v-if="!successful">
-              <div class="left">
-                <label for="username">Username</label>
-              </div>
-              <div class="right">
-                <input type="text" name="username" placeholder="username" v-model="user.username" />
-              </div>
-              <div class="left">
-                <label for="password">Password</label>
-              </div>
-              <div class="right">
-                <input type="password" name="password" placeholder="password" v-model="user.password" />
-              </div>
-              <div class="left">
-                &nbsp;
-              </div>
-              <div class="right">
-                <button type="submit" :disabled="submitted">Sign Up</button>
-              </div>
-            </div>
-          </form>
+      <h1>Register</h1>
+      <form v-on:submit="handleRegister">
+        <div v-if="!successful">
+          <div class="left">
+            <label for="username">Username</label>
+          </div>
+          <div class="right">
+            <input type="text" name="username" placeholder="username" v-model="user.username" />
+          </div>
+          <div class="left">
+            <label for="password">Password</label>
+          </div>
+          <div class="right">
+            <input type="password" name="password" placeholder="password" v-model="user.password" />
+          </div>
+          <div class="left">
+            &nbsp;
+          </div>
+          <div class="right">
+            <button type="submit" :disabled="loading">Sign Up</button>
+            <span v-show="loading" class="errorMsg">LOADING!!!!!</span>
+          </div>
           <div class="left">
             &nbsp;
           </div>
@@ -37,7 +30,11 @@
             {{ message }}
           </div>
         </div>
-      </div>
+        <div v-if="successful">
+          <h2>Registration complete</h2>
+          <p>{{ user.username }} was registered successfully. Please <a href="/app">click here </a> to go to the app.</p>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -49,8 +46,8 @@ export default {
   name: 'Register',
   data() {
     return {
-      user: new User('', '', ''),
-      submitted: false,
+      user: new User('', ''),
+      loading: false,
       successful: false,
       message: ''
     };
@@ -66,40 +63,49 @@ export default {
     }
   },
   methods: {
+    validate(username, password) {
+      let errorMsg = '';
+      if ((username === undefined) || (username === '')) {
+        errorMsg += "Username field is empty. ";
+      }
+      if ((password === undefined) || (password === '')) {
+        errorMsg += "Password field is empty. ";
+      }
+      if (errorMsg !== '') {
+        errorMsg += "Please complete the form and try again.";
+        this.loginFailed(errorMsg);
+        return false;
+      } else {
+        return true;
+      }
+    },
     handleRegister(event) {
       event.preventDefault();
       this.message = '';
-      this.submitted = true;
-      if ((this.username !== '') && (this.password !== '')) {
-        this.$store.dispatch('auth/register', this.user).then(
+      this.loading = true;
+      console.log(this.username);
+      console.log(this.password);
+      if (validate(this.username, this.password) === true) {
+        this.$store.dispatch('auth/register', this.user)
+        .then(
           data => {
-            console.log("done");
-            this.message = data.message;
+            this.loading = false;
             this.successful = true;
+            this.message = data.message;
           },
           error => {
+            this.loading = false;
             this.message =
               (error.response && error.response.data) ||
               error.message ||
               error.toString();
-            this.successful = false;
-            this.submitted = false;
+            this.loginFailed(this.message);
           }
         );
-      } else {
-        if ((this.username === '') && (this.password === '')) {
-          this.loginFailed("Username and password fields are empty. Please complete the form and try again.");
-        } else {
-          if (this.username === '') {
-            this.loginFailed("Username field is empty. Please complete the form and try again.");
-          } else {
-            this.loginFailed("Password field is empty. Please complete the form and try again.");
-          }
-        }
       }
     },
     loginFailed(text) {
-      this.message = text;
+      this.message = text.message;
       this.successful = false;
     }
   }

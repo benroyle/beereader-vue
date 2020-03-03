@@ -24,13 +24,13 @@ exports.signup = (req, res) => {
         }
       }).then(roles => {
         user.setRoles(roles).then(() => {
-          res.send({ message: "User was registered successfully!" });
+          res.send({message: "User was registered successfully!"});
         });
       });
     } else {
       // user role = 1
       user.setRoles([1]).then(() => {
-        res.send({ message: "User was registered successfully!" });
+        res.send({message: "User was registered successfully!"});
       });
     }
   })
@@ -47,7 +47,7 @@ exports.checkAuth = (req, res) => {
   })
   .then(user => {
     if (!user) {
-      return res.status(404).send({ message: "User Not found." });
+      return res.status(404).send({message: "User Not found."});
     }
     var passwordIsValid = bcrypt.compareSync(
       req.body.password,
@@ -76,6 +76,6 @@ exports.checkAuth = (req, res) => {
     });
   })
   .catch(err => {
-    res.status(500).send({ message: err.message });
+    res.status(500).send({message: err.message});
   });
 };

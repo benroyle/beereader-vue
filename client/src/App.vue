@@ -15,15 +15,18 @@
           <div class="titleFont yellow">r</div>
         </div>
       </div>
-      <div class="greeting" v-if="currentUser">Hello&nbsp;<div class="username">{{currentUser.username}}</div>!</div>
+      <div class="greeting" v-if="loggedIn">Hello&nbsp;<div class="username">{{currentUser.username}}</div>!</div>
       <nav>
-        <div class="links">
-          <a href="/" v-if="authenticated">Home</a>
-          <a href="/admin" v-if="isAdmin === true">Admin</a>
-          <a href="/user" v-if="currentUser">My Details</a>
-          <router-link v-if="authenticated" to="/logout" v-on:click.native="logout()" replace>Logout</router-link>
-          <router-link v-if="!authenticated" to="/login" v-on:click.native="login()" replace>Login</router-link>
-          <router-link v-if="!authenticated" to="/register" v-on:click.native="register()" replace>Register</router-link>
+        <div class="links" v-if="!loggedIn">
+          <a href="/">Login</a>
+          <a href="/register">Register</a>
+        </div>
+        <div class="links" v-if="loggedIn">
+          <a href="/" v-if="loggedIn">Home</a>
+          <a href="/admin" v-if="loggedIn && isAdmin === true">Admin</a>
+          <a href="/user" v-if="loggedIn">My Details</a>
+          <a href="/profile" v-if="loggedIn">Profile</a>
+          <a href="/logout" v-if="loggedIn">Logout</a>
         </div>
       </nav>
     </div>
@@ -37,6 +40,28 @@
 
   export default {
     name: 'App',
+    data() {
+      return {
+        isAdmin: {
+          type: Boolean
+        },
+        feedList: {
+          type: Array
+        },
+        feed: {
+          type: String
+        },
+        authenticated: false
+      }
+    },
+    computed: {
+      loggedIn() {
+        return this.$store.state.auth.status.loggedIn;
+      },
+      currentUser() {
+        return this.$store.state.auth.user;
+      }
+    },
     methods: {
       checkAdmin(user) {
         if ((user) && (user.role === 'Admin')) {
@@ -47,12 +72,6 @@
       },
       setAuthenticated(status) {
         this.authenticated = status;
-      },
-      logout() {
-        this.authenticated = false;
-        if (this.$route.path !== "/logout") {
-          this.$router.replace(this.$route.query.redirect || '/logout');
-        }
       },
       login() {
         if ((this.$route.path !== "/") || (this.$route.path !== "/login")) {
@@ -70,41 +89,8 @@
         feedList: feedService.feedList,
         feed: feedService.feed
       }
-    },
-    data() {
-      return {
-        isAdmin: {
-          type: Boolean
-        },
-        feedList: {
-          type: Array
-        },
-        feed: {
-          type: String
-        },
-        authenticated: false,
-        currentUser: ''
-      }
-    },
-    mounted() {
-      if ((this.$route.path !== '/login') && (this.authenticated)) {
-        this.$observables.feedList.source.subscribe(feedList => {
-          console.log(feedList);
-          this.feedList = feedList;
-        });
-        this.$observables.feed.source.subscribe(feed => {
-          console.log(feed);
-          this.feed = feed;
-        });
-        /*feedService.feedList.subscribe(x => 
-          this.feedList: x
-        );
-        feedService.feed.subscribe(x => 
-          this.feed: x
-        );*/
-        console.log(this.feedList);
-      }
-    }/*,
+    }
+    /*,
     updated () {
       if ((!localStorage.token) && (this.$route.path !== '/')) {
         this.$router.push('/?redirect=' + this.$route.path);
