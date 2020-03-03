@@ -15,17 +15,19 @@
           <div class="titleFont yellow">r</div>
         </div>
       </div>
-      <div class="greeting" v-if="loggedIn">Hello&nbsp;<div class="username">{{currentUser.username}}</div>!</div>
+      <div class="greeting">
+        <div v-if="isLoggedIn">Hello&nbsp;<strong>{{currentUser.username}}</strong>!</div>
+      </div>
       <nav>
-        <div class="links" v-if="!loggedIn">
+        <div class="links" v-if="!isLoggedIn">
           <a href="/">Login</a>
           <a href="/register">Register</a>
         </div>
-        <div class="links" v-if="loggedIn">
-          <a href="/" v-if="loggedIn">Home</a>
-          <a href="/admin" v-if="loggedIn && isAdmin === true">Admin</a>
-          <a href="/user" v-if="loggedIn">My Details</a>
-          <a href="/logout" v-if="loggedIn">Logout</a>
+        <div class="links" v-if="isLoggedIn">
+          <a href="/" v-if="isLoggedIn">Home</a>
+          <a href="/admin" v-if="isAdmin">Admin</a>
+          <a href="/user" v-if="isLoggedIn">My Details</a>
+          <a href="/logout" v-if="isLoggedIn">Logout</a>
         </div>
       </nav>
     </div>
@@ -35,15 +37,12 @@
 
 <script>
   //import { adminService } from './services/admin.service.js'
-  import { feedService } from './services/feed.service.js'
+  //import { feedService } from './services/feed.service.js'
 
   export default {
     name: 'App',
     data() {
       return {
-        isAdmin: {
-          type: Boolean
-        },
         feedList: {
           type: Array
         },
@@ -53,21 +52,20 @@
       }
     },
     computed: {
-      loggedIn() {
-        return this.$store.state.auth.status.loggedIn;
-      },
       currentUser() {
         return this.$store.state.auth.user;
+      },
+      isLoggedIn() {
+        return this.$store.state.auth.status.loggedIn;
+      },
+      isAdmin() {
+        if (this.currentUser && this.currentUser.roles) {
+          return this.currentUser.roles.includes('ROLE_ADMIN');
+        }
+        return false;
       }
     },
     methods: {
-      checkAdmin(user) {
-        if ((user) && (user.role === 'Admin')) {
-          return true;
-        } else {
-          return false;
-        }
-      },
       login() {
         if ((this.$route.path !== "/") || (this.$route.path !== "/login")) {
           this.$router.replace(this.$route.query.redirect || '/');
@@ -77,12 +75,6 @@
         if (this.$route.path !== "/register") {
           this.$router.replace(this.$route.query.redirect || '/register');
         }
-      }
-    },
-    subscriptions: function () {
-      return {
-        feedList: feedService.feedList,
-        feed: feedService.feed
       }
     }
   }
