@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import AppFrame from '@/components/AppFrame'
-import Profile from '@/components/Profile'
+import MyDetails from '@/components/MyDetails'
 import Register from '@/components/Register'
 import Logout from '@/components/Logout'
 import PageNotFound from '@/components/PageNotFound'
@@ -28,9 +28,9 @@ export default new Router({
 			component: AppFrame
 		},
 		{
-			path: '/profile',
-			name: 'Profile',
-			component: Profile
+			path: '/user',
+			name: 'MyDetails',
+			component: MyDetails
 		},
 		{
 			path: '/logout',

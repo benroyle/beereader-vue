@@ -25,12 +25,11 @@
           <a href="/" v-if="loggedIn">Home</a>
           <a href="/admin" v-if="loggedIn && isAdmin === true">Admin</a>
           <a href="/user" v-if="loggedIn">My Details</a>
-          <a href="/profile" v-if="loggedIn">Profile</a>
           <a href="/logout" v-if="loggedIn">Logout</a>
         </div>
       </nav>
     </div>
-    <router-view @authenticated="setAuthenticated" v-bind:feedList='feedList' v-bind:feed='feed'></router-view>
+    <router-view v-bind:feedList='feedList' v-bind:feed='feed'></router-view>
   </div>
 </template>
 
@@ -50,8 +49,7 @@
         },
         feed: {
           type: String
-        },
-        authenticated: false
+        }
       }
     },
     computed: {
@@ -70,9 +68,6 @@
           return false;
         }
       },
-      setAuthenticated(status) {
-        this.authenticated = status;
-      },
       login() {
         if ((this.$route.path !== "/") || (this.$route.path !== "/login")) {
           this.$router.replace(this.$route.query.redirect || '/');
@@ -90,12 +85,6 @@
         feed: feedService.feed
       }
     }
-    /*,
-    updated () {
-      if ((!localStorage.token) && (this.$route.path !== '/')) {
-        this.$router.push('/?redirect=' + this.$route.path);
-      }
-    }*/
   }
 </script>
 

@@ -1,5 +1,4 @@
 const { authJwt } = require("../middleware");
-const controller = require("../controllers/user.controller");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -25,12 +24,6 @@ module.exports = function(app) {
       });
     });
   });
-
-  /*app.get(
-    "/beereader-vue/checkAuth",
-    [authJwt.verifyToken],
-    controller.userBoard
-  );*/
 
   app.post("/beereader-vue/editFeed", function(req, res) {
     const sitename = connection.escape(req.body.sitename);
@@ -111,27 +104,4 @@ module.exports = function(app) {
       });
     });
   });
-
-  app.get('/test', (req, res) => {
-    res.send(
-      [{
-        title: "Hello World!",
-        description: "Hi there! How are you?"
-      }]
-    )
-  })
 };
-
-/*app.get("/api/test/all", controller.allAccess);
-
-  app.get(
-    "/api/test/user",
-    [authJwt.verifyToken],
-    controller.userBoard
-  );
-
-  app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );*/
