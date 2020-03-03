@@ -79,18 +79,6 @@
               this.loginFailed(this.message);
             }
           );
-          /*await this.axios.get('http://localhost:8081/beereader-vue/checkAuth', {'username': this.username, 'password': this.password})
-          .then((response) => {
-            if ((response.data.length !== 0) && (response !== false)) {
-              this.loading = false;
-              this.$emit("authenticated", true);
-              this.$router.replace(this.$route.query.redirect || '/app');
-            } else {
-              this.loading = false;
-              this.loginFailed({message:"Username and /or password fields are incorrect. Please try again.");
-            }
-          })
-          .catch(() => this.loginFailed());*/
         } else {
           if ((this.username === '') && (this.password === '')) {
             this.loginFailed({message:"Username and password fields are empty. Please complete the form and try again."});
