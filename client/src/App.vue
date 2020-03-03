@@ -63,19 +63,8 @@
           return this.currentUser.roles.includes('ROLE_ADMIN');
         }
         return false;
-      }
-    },
-    methods: {
-      login() {
-        if ((this.$route.path !== "/") || (this.$route.path !== "/login")) {
-          this.$router.replace(this.$route.query.redirect || '/');
-        }
       },
-      register() {
-        if (this.$route.path !== "/register") {
-          this.$router.replace(this.$route.query.redirect || '/register');
-        }
-      }
+
     }
   }
 </script>

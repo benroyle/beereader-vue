@@ -108,11 +108,6 @@
         this.message = text.message;
         this.successful = false;
         delete localStorage.token;
-      },
-      checkCurrentLogin() {
-        if (localStorage.token) {
-          this.$router.replace(this.$route.query.redirect || '/app');
-        }
       }
     }
   }
