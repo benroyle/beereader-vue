@@ -19,8 +19,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./models");
 
-const Role = db.role;
 const User = db.user;
+const Role = db.role;
+const UserRole = db.userrole;
 const Feed = db.feed;
 
 db.sequelize.sync({force: true}).then(() => {
@@ -29,16 +30,6 @@ db.sequelize.sync({force: true}).then(() => {
 });
 
 function initial() {
-  Role.create({
-    id: 1,
-    name: "user"
-  });
- 
-  Role.create({
-    id: 2,
-    name: "admin"
-  });
-
   User.create({
     id: 1,
     username: "benroyle",
@@ -49,6 +40,26 @@ function initial() {
     id: 2,
     username: "benroyleadm",
     password: bcrypt.hashSync("skunkap3", 8)
+  });
+
+  Role.create({
+    id: 1,
+    name: "user"
+  });
+ 
+  Role.create({
+    id: 2,
+    name: "admin"
+  });
+
+  UserRole.create({
+    roleId: 1,
+    userId: 1
+  });
+
+  UserRole.create({
+    roleId: 2,
+    userId: 2
   });
 
   Feed.create({
