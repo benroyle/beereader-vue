@@ -15,7 +15,13 @@
 		components: {
 			NavbarItem
 		},
-		props: ['feedList', 'isAdmin'],
+		props: [
+			"feedList",
+			"feed"
+		],
+		mounted() {
+			console.log(this.$props.feedList);
+		},
 		methods: {
 			mapFeedList(feedList) {
 	      return feedList.map(feed => ({...feed, id: feed.id, isActive: this.isFeedActive(feed)}))
@@ -23,9 +29,6 @@
 	    isFeedActive(feed) {
 	      return !!feed && feed.id !== undefined && feed.id === this.activeFeedId
 	    }
-		},
-		mounted() {
-			console.log(this.$props.feedList);
 		}
 	}
 </script>

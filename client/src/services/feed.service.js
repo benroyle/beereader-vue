@@ -1,45 +1,23 @@
-import { BehaviorSubject } from 'rxjs';
 import axios from 'axios';
 
-const feedList = localStorage.getItem('feedList') ? JSON.parse(localStorage.getItem('feedList')) : [];
-const feedListSubject = new BehaviorSubject(feedList);
-const feed = localStorage.getItem('feed') !== 'undefined' ? JSON.parse(localStorage.getItem('feed')) : '';
-const feedSubject = new BehaviorSubject(feed);
-const random = false;
-const randomSubject = new BehaviorSubject(random);
-const config = {
-  headers: {
-    'accept': 'application/json, text/plain, */*',
-    'content-type': 'application/json; charset=utf-8',
-    'X-Requested-With': 'XmlHttpRequest'
-  }
-}
+const API_URL = 'http://localhost:8081/beereader-vue/';
 
-export const feedService = {
-  feedList: feedListSubject.asObservable(),
-  get feedListValue() { return feedListSubject.value },
-  feed: feedSubject.asObservable(),
-  get feedValue() { return feedSubject.value },
-  random: randomSubject.asObservable(),
-  get randomValue() { return randomSubject.value },
-  getFeeds,
-  selectFeed,
-  editFeed,
-  deleteFeed,
-  deleteAllFeeds,
-  addFeed,
-  getRandomNumber,
-  setRandom
+class FeedService {
+  getFeedsForUser(userid) {
+    return axios.post(API_URL + 'getFeedsForUser', {
+      userid: userid
+    })
+    .then(response => {
+      return response.data;
+    });
+  }
 };
 
-function getRandomNumber(maxNumber) {
+export default new FeedService();
+
+/*function getRandomNumber(maxNumber) {
   let x = Math.floor((Math.random() * maxNumber) + 1);
   x = x - 1;
-  /*if ((maxNumber > 2) && (x === this.state.x)) {
-    getRandomNumber(maxNumber);
-  } else {
-    setRandomNum(x);
-  }*/
   return x;
 }
 
@@ -130,4 +108,4 @@ async function addFeed(sitename, siteurl, userid) {
   if (feedAdd !== undefined) {
     return feedAdd;
   }
-}
+}*/
