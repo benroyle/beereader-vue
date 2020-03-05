@@ -1,7 +1,7 @@
 <template>
 	<div class="contentRow">
-		<Navbar v-bind:feedList='feedList'/>
-		<Content v-bind:feed='feed'/>
+		<Navbar v-bind:currentFeeds='currentFeeds'/>
+		<Content v-bind:currentFeed='currentFeed'/>
 	</div>
 </template>
 
@@ -16,20 +16,19 @@
 			Content
 		},
     computed: {
-      feedList() {
-        return this.$store.state.feeds.feedList;
+      currentFeeds() {
+        return this.$store.state.feeds.currentFeeds;
       },
-      feed() {
-      	return this.$store.state.feeds.feedList;
+      currentFeed() {
+      	return this.$store.state.feeds.currentFeed;
       }
     },
-		mounted() {
+		created() {
       if (this.$store.state.auth.status.loggedIn) {
         this.$store.dispatch('feeds/getFeedsForUser', this.$store.state.auth.user.id)
         .then(
-          response => {
-            this.feedList = response;
-            this.feed = response[0];
+          () => {
+          	console.log("gotFeeds");
           },
           error => {
             this.message =

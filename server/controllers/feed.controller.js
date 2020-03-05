@@ -9,12 +9,14 @@ exports.getFeedsForUser = (req, res) => {
   Feed.findAll({
     attributes: ['id', 'sitename', 'siteurl'],
     where: {
-      id: {
+      userid: {
         [Op.eq]: userid
       }
-    }
+    },
+    order: [["sitename", "ASC"]]
   })
   .then(feeds => {
+    console.log(feeds);
     res.send(feeds);
   });
 };

@@ -68,6 +68,27 @@ function initial() {
     siteurl: "http://www.eurogamer.net/rss/eurogamer_frontpage_feed.rss",
     userid: 1
   });
+
+  Feed.create({
+    id: 2,
+    sitename: "Rock Paper Shotgun",
+    siteurl: "https://www.rockpapershotgun.com/feed/",
+    userid: 2
+  });
+
+  Feed.create({
+    id: 3,
+    sitename: "Eurogamer 2",
+    siteurl: "http://www.eurogamer.net/rss/eurogamer_frontpage_feed.rss",
+    userid: 1
+  });
+
+  Feed.create({
+    id: 4,
+    sitename: "Eurogamer 3",
+    siteurl: "http://www.eurogamer.net/rss/eurogamer_frontpage_feed.rss",
+    userid: 1
+  });
 }
 
 function showError(err) {

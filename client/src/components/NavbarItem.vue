@@ -1,6 +1,6 @@
 <template>
 	<div class="buttonDiv">
-		<button class="feed">{{feed.sitename}}</button>
+		<button class="feed" v-bind:class="{active: isActive}">{{feed.sitename}}</button>
 	</div>
 </template>
 
@@ -8,8 +8,14 @@
 	export default {
 		name: 'NavbarItem',
 		props: ['feed'],
-		mounted() {
-			console.log(this.$props.feed);
+		computed: {
+			isActive() {
+				if (this.$props.feed.id === this.$store.state.feeds.currentFeed.id) {
+					return true;
+				} else {
+					return false;
+				}
+			}
 		}
 	}
 </script>

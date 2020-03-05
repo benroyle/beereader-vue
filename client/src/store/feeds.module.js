@@ -1,7 +1,13 @@
 import FeedService from '../services/feed.service';
 
+const initialState = {
+  currentFeeds: {},
+  currentFeed: {}
+};
+
 const feeds = {
   namespaced: true,
+  state: initialState,
   actions: {
     getFeedsForUser({ commit }, userid) {
       return FeedService.getFeedsForUser(userid).then(
@@ -30,16 +36,17 @@ const feeds = {
   },
   mutations: {
     getFeedsSuccess(state, feeds) {
-      state.feedList = feeds;
+      state.currentFeeds = feeds;
+      state.currentFeed = feeds[0];
     },
     getFeedsFailure(state) {
-      state.feedList = null;
+      state.currentFeeds = null;
     },
     addFeedSuccess(state) {
-      state.feedList = feeds;
+      state.currentFeeds = feeds;
     },
     addFeedFailure(state) {
-      state.feedList = null;
+      state.currentFeeds = null;
     }
   }
 };
