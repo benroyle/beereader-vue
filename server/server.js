@@ -52,20 +52,10 @@ function initial() {
     name: "admin"
   });
 
-  UserRole.create({
-    roleId: 1,
-    userId: 1
-  });
-
-  UserRole.create({
-    roleId: 2,
-    userId: 2
-  });
-
   Feed.create({
     id: 1,
     sitename: "Eurogamer",
-    siteurl: "http://www.eurogamer.net/rss/eurogamer_frontpage_feed.rss",
+    siteurl: "https://www.eurogamer.net/?format=rss&type=news",
     userid: 1
   });
 
@@ -79,15 +69,25 @@ function initial() {
   Feed.create({
     id: 3,
     sitename: "Eurogamer 2",
-    siteurl: "http://www.eurogamer.net/rss/eurogamer_frontpage_feed.rss",
+    siteurl: "https://www.eurogamer.net/?format=rss&type=news",
     userid: 1
   });
 
   Feed.create({
     id: 4,
     sitename: "Eurogamer 3",
-    siteurl: "http://www.eurogamer.net/rss/eurogamer_frontpage_feed.rss",
+    siteurl: "https://www.eurogamer.net/?format=rss&type=news",
     userid: 1
+  });
+
+  UserRole.create({
+    roleId: 1,
+    userId: 1
+  });
+
+  UserRole.create({
+    roleId: 2,
+    userId: 2
   });
 }
 

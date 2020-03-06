@@ -1,10 +1,11 @@
 const db = require("../models");
+const axios = require('axios');
+const x2js = require('x2js');
 const Feed = db.feed;
 
 const Op = db.Sequelize.Op;
 
 exports.getFeedsForUser = (req, res) => {
-  console.log(req.body);
   const userid = req.body.userid;
   Feed.findAll({
     attributes: ['id', 'sitename', 'siteurl'],
@@ -16,8 +17,26 @@ exports.getFeedsForUser = (req, res) => {
     order: [["sitename", "ASC"]]
   })
   .then(feeds => {
-    console.log(feeds);
     res.send(feeds);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+};
+
+exports.getFeedItems = (req, res) => {
+  const feedurl = req.body.feedurl;
+  axios.get(feedurl)
+  .then(items => {
+    const newX2js = new x2js();
+    items = newX2js.xml2js(items.data);
+    return items;
+  })
+  .then(items => {
+    res.send(items);
+  })
+  .catch(error => {
+    console.log(error);
   });
 };
 

@@ -15,10 +15,11 @@
 		components: {
 			NavbarItem
 		},
-		props: [
-			"currentFeeds",
-			"currentFeed"
-		],
+		computed: {
+			currentFeeds() {
+				return this.$store.state.feeds.currentFeeds;
+			}
+		},
 		methods: {
 			mapFeedList(feeds) {
 	      return feeds.map(feed => ({...feed, id: feed.id}))

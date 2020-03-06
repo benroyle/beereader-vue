@@ -2,7 +2,8 @@ import FeedService from '../services/feed.service';
 
 const initialState = {
   currentFeeds: {},
-  currentFeed: {}
+  currentFeed: {},
+  currentFeedItems: {}
 };
 
 const feeds = {
@@ -21,14 +22,18 @@ const feeds = {
         }
       );
     },
-    addFeed({ commit }, userid) {
-      return FeedService.addFeed(userid).then(
-        feeds => {
-          commit('addFeedSuccess', feeds);
-          return Promise.resolve(feeds);
+    setCurrentFeed({ commit }, feedid) {
+      commit('setCurrentFeed', feedid);
+      return Promise.resolve(feedid);
+    },
+    getFeedItems({ commit }, feedurl) {
+      return FeedService.getFeedItems(feedurl).then(
+        items => {
+          commit('getFeedItemsSuccess', items);
+          return Promise.resolve(items);
         },
         error => {
-          commit('addFeedFailure');
+          commit('getFeedItemsFailure');
           return Promise.reject(error);
         }
       );
@@ -42,11 +47,18 @@ const feeds = {
     getFeedsFailure(state) {
       state.currentFeeds = null;
     },
-    addFeedSuccess(state) {
-      state.currentFeeds = feeds;
+    setCurrentFeed(state, feedid) {
+      for (let i = 0; i < state.currentFeeds.length; i++) {
+        if (state.currentFeeds[i].id === feedid) {
+          state.currentFeed = state.currentFeeds[i];
+        }
+      }
     },
-    addFeedFailure(state) {
-      state.currentFeeds = null;
+    getFeedItemsSuccess(state, items) {
+      state.currentFeedItems = items;
+    },
+    getFeedItemsFailure(state) {
+      state.currentFeedItems = null;
     }
   }
 };

@@ -11,6 +11,35 @@ class FeedService {
       return response.data;
     });
   }
+  async getFeedItems(feedurl) {
+    return axios.post(API_URL + 'getFeedItems', {
+      feedurl: feedurl
+    })
+    .then((response) => {
+      response = response.data;
+      let feedItemsArray = [];
+      if (response.rss) {
+        if (Array.isArray(response.rss.channel.item)) {
+          feedItemsArray = response.rss.channel.item;
+        }
+      }
+      if (response.feed) {
+        if (Array.isArray(response.feed.entry)) {
+          feedItemsArray = response.feed.entry;
+        }
+      }
+      if (response.html) {
+        let error = {};
+        error.message = "The URL has returned HTML, not a valid feed."
+        return error;
+      }
+      if (feedItemsArray.length > 10) {
+        const excess = (feedItemsArray.length - 10);
+        feedItemsArray.splice(10, excess);
+      }
+      return feedItemsArray;
+    });
+  }
 };
 
 export default new FeedService();
