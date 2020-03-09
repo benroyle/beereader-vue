@@ -31,7 +31,7 @@
         </div>
       </nav>
     </div>
-    <router-view v-bind:feedList='feedList' v-bind:feed='feed'></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -63,8 +63,7 @@
           return this.currentUser.roles.includes('ROLE_ADMIN');
         }
         return false;
-      },
-
+      }
     }
   }
 </script>

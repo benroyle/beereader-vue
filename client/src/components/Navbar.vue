@@ -1,8 +1,8 @@
 <template>
 	<div class="navbar">
 	  <div class="navbarHeader">Feeds</div>
-	  <div class="navbarContent" v-if="feedList.length > 0">
-	  	<NavbarItem :feed="feed" v-for="feed in mapFeedList(feedList)" :key="feed.id"></NavbarItem>
+	  <div class="navbarContent" v-if="currentFeeds.length > 0">
+	  	<NavbarItem v-bind:feed="feed" v-for="feed in mapFeedList(currentFeeds)" v-bind:key="feed.id"></NavbarItem>
 	  </div>
 	</div>
 </template>
@@ -15,17 +15,15 @@
 		components: {
 			NavbarItem
 		},
-		props: ['feedList', 'isAdmin'],
-		methods: {
-			mapFeedList(feedList) {
-	      return feedList.map(feed => ({...feed, id: feed.id, isActive: this.isFeedActive(feed)}))
-	    },
-	    isFeedActive(feed) {
-	      return !!feed && feed.id !== undefined && feed.id === this.activeFeedId
-	    }
+		computed: {
+			currentFeeds() {
+				return this.$store.state.feeds.currentFeeds;
+			}
 		},
-		mounted() {
-			console.log(this.$props.feedList);
+		methods: {
+			mapFeedList(feeds) {
+	      return feeds.map(feed => ({...feed, id: feed.id}))
+	    }
 		}
 	}
 </script>

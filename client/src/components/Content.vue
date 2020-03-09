@@ -1,20 +1,37 @@
 <template>
 	<div class="contentDiv">
-		<div class="contentHeader">
-			feed.sitename
+		<div class="contentItem" v-if="currentFeedItems.length > 0">
+			<ContentItem v-bind:item="item" v-for="item in mapFeedItems(currentFeedItems)" v-bind:key="item.id"></ContentItem>
 		</div>
-		this.renderFeed()
-		this.renderErrorMsg()
+		<div class="contentItem" v-if="currentFeedItems.length === 0">
+			<p>Loading...</p>
+		</div>
 	</div>
 </template>
 
 <script>
+	import ContentItem from './ContentItem.vue'
+
 	export default {
 		name: 'Content',
-		data() {
-      return {
-        username: 'Bozzley'
-      }
-    }
+		components: {
+			ContentItem
+		},
+		computed: {
+			currentFeedItems() {
+				return this.$store.state.feeds.currentFeedItems;
+			}
+		},
+		methods: {
+			mapFeedItems(items) {
+				console.log(items);
+				if (items.length > 0) {
+					return items.map((item, index) => ({...item, id: index}));
+				}
+			},
+			displayCurrentFeedItems() {
+				return this.$store.state.feeds.currentFeedItems;
+			}
+		}
 	}
 </script>

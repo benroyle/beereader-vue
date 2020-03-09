@@ -52,6 +52,34 @@ function initial() {
     name: "admin"
   });
 
+  Feed.create({
+    id: 1,
+    sitename: "Eurogamer",
+    siteurl: "https://www.eurogamer.net/?format=rss&type=news",
+    userid: 1
+  });
+
+  Feed.create({
+    id: 2,
+    sitename: "Rock Paper Shotgun",
+    siteurl: "https://www.rockpapershotgun.com/feed/",
+    userid: 2
+  });
+
+  Feed.create({
+    id: 3,
+    sitename: "Eurogamer 2",
+    siteurl: "https://www.eurogamer.net/?format=rss&type=news",
+    userid: 1
+  });
+
+  Feed.create({
+    id: 4,
+    sitename: "Eurogamer 3",
+    siteurl: "https://www.eurogamer.net/?format=rss&type=news",
+    userid: 1
+  });
+
   UserRole.create({
     roleId: 1,
     userId: 1
@@ -60,13 +88,6 @@ function initial() {
   UserRole.create({
     roleId: 2,
     userId: 2
-  });
-
-  Feed.create({
-    id: 1,
-    sitename: "Eurogamer",
-    siteurl: "http://www.eurogamer.net/rss/eurogamer_frontpage_feed.rss",
-    userid: 1
   });
 }
 
@@ -77,7 +98,7 @@ function showError(err) {
 
 // routes
 require('./routes/auth.routes')(app);
-require('./routes/user.routes')(app);
+require('./routes/feed.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;

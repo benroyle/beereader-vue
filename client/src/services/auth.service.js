@@ -4,17 +4,16 @@ const API_URL = 'http://localhost:8081/beereader-vue/';
 
 class AuthService {
   login(user) {
-    return axios
-      .post(API_URL + 'checkAuth', {
-        username: user.username,
-        password: user.password
-      })
-      .then(response => {
-        if (response.data.accessToken) {
-          localStorage.setItem('user', JSON.stringify(response.data));
-        }
-        return response.data;
-      });
+    return axios.post(API_URL + 'checkAuth', {
+      username: user.username,
+      password: user.password
+    })
+    .then(response => {
+      if (response.data.accessToken) {
+        localStorage.setItem('user', JSON.stringify(response.data));
+      }
+      return response.data;
+    });
   }
 
   logout() {
