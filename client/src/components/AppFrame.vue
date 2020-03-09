@@ -17,7 +17,6 @@
 		},
     computed: {
       currentFeedItems() {
-        console.log(this.$store.state.feeds.currentFeed);
         let items = {};
         if (this.$store.state.feeds.currentFeed.siteurl) {
           items =  this.getFeedItems(this.$store.state.feeds.currentFeed.siteurl);

@@ -24,7 +24,6 @@
 		},
 		methods: {
 			mapFeedItems(items) {
-				console.log(items);
 				if (items.length > 0) {
 					return items.map((item, index) => ({...item, id: index}));
 				}

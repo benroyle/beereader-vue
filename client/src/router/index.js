@@ -2,7 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import AppFrame from '@/components/AppFrame'
-import MyDetails from '@/components/MyDetails'
+import MyDetails from '@/components/myDetails/MyDetails'
+import AddFeed from '@/components/myDetails/AddFeed'
+import DeleteAllFeeds from '@/components/myDetails/DeleteAllFeeds'
+import DeleteFeed from '@/components/myDetails/DeleteFeed'
+import EditFeed from '@/components/myDetails/EditFeed'
+import ImportOPML from '@/components/myDetails/ImportOPML'
 import Register from '@/components/Register'
 import Logout from '@/components/Logout'
 import PageNotFound from '@/components/PageNotFound'
@@ -30,7 +35,32 @@ export default new Router({
 		{
 			path: '/user',
 			name: 'MyDetails',
-			component: MyDetails
+			component: MyDetails,
+		},
+		{
+			path: '/user/addFeed',
+			name: 'AddFeed',
+			component: AddFeed
+		},
+		{
+			path: '/user/editFeed/:id',
+			name: 'EditFeed',
+			component: EditFeed
+		},
+		{
+			path: '/user/deleteAllFeeds',
+			name: 'DeleteAllFeeds',
+			component: DeleteAllFeeds
+		},
+		{
+			path: '/user/deleteFeed/:id',
+			name: 'DeleteFeed',
+			component: DeleteFeed
+		},
+		{
+			path: '/user/importOPML',
+			name: 'ImportOPML',
+			component: ImportOPML
 		},
 		{
 			path: '/logout',
