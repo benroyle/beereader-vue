@@ -1,6 +1,6 @@
 <template>
   <div class="contentRow">
-    <div class="formContainer">
+    <div class="modalDiv">
       <h2>Add Feed</h2>
       <form v-on:submit="handleSubmit">
         <div class="left">
@@ -40,7 +40,8 @@
     data() {
       return {
         sitename: '',
-        suteurl: ''
+        siteurl: '',
+        errorMsg: ''
       }
     },
     computed: {
@@ -49,6 +50,10 @@
       }
     },
     methods: {
+      handleSubmit(event) {
+        event.preventDefault();
+        console.log(sitename.value);
+      },
       addFeed(userid) {
         this.$store.dispatch('feeds/addFeed', sitename, siteurl, currentUser.id)
         .then(
@@ -63,12 +68,13 @@
             console.log(this.message);
           }
         );
+      },
+      goBack() {
+        this.$router.push("/user");
       }
     },
     mounted() {
-      if (this.$store.state.auth.status.loggedIn) {
-        this.getFeeds(this.$store.state.auth.user.id);
-      } else {
+      if (!this.$store.state.auth.status.loggedIn) {
         this.$router.push('/');
       }
     }

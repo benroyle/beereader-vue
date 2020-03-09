@@ -33,7 +33,6 @@
 </template>
 
 <script>
-
   export default {
     name: 'MyDetails',
     computed: {
@@ -70,7 +69,7 @@
       }
     },
     mounted() {
-      if (this.$store.state.auth.status.loggedIn) {
+      if (!this.$store.state.auth.status.loggedIn) {
         this.getFeeds(this.$store.state.auth.user.id);
       } else {
         this.$router.push('/');
