@@ -1,9 +1,9 @@
 import FeedService from '../services/feed.service';
 
 const initialState = {
-  currentFeeds: {},
+  currentFeeds: [],
   currentFeed: {},
-  currentFeedItems: {}
+  currentFeedItems: []
 };
 
 const feeds = {

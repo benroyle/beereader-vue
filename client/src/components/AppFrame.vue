@@ -1,7 +1,7 @@
 <template>
 	<div class="contentRow">
-		<Navbar v-bind:currentFeeds='currentFeeds'/>
-		<Content v-bind:currentFeedItems='currentFeedItems'/>
+		<Navbar/>
+		<Content v-bind:currentFeedItems="currentFeedItems"/>
 	</div>
 </template>
 
@@ -16,14 +16,13 @@
 			Content
 		},
     computed: {
-      currentFeeds() {
-        return this.$store.state.feeds.currentFeeds;
-      },
       currentFeedItems() {
-        if (this.$store.state.feeds.currentFeed) {
-          this.getFeedItems(this.$store.state.feeds.currentFeed.siteurl);
+        console.log(this.$store.state.feeds.currentFeed);
+        let items = {};
+        if (this.$store.state.feeds.currentFeed.siteurl) {
+          items =  this.getFeedItems(this.$store.state.feeds.currentFeed.siteurl);
         }
-        return this.$store.state.feeds.currentFeedItems;
+        return items;
       }
     },
     methods: {
@@ -45,8 +44,10 @@
       getFeedItems(siteurl) {
         this.$store.dispatch('feeds/getFeedItems', siteurl)
         .then(
-          () => {
+          response => {
+            console.log(response);
             console.log("gotFeedItems");
+            return response;
           },
           error => {
             this.message =

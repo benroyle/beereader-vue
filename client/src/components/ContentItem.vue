@@ -1,13 +1,16 @@
 <template>
 	<div class="item closed">
-		<div class="title" v-on:click="openItem" v-html="this.$props.item.title">
+		<div class="title" v-on:click="openItem">
+			{{item.title}}
 		</div>
-		<div class="date" v-if="this.$props.item.date" v-html="this.$props.item.date">
+		<div class="date" v-if="item.date">
+			{{item.date}}
 		</div>
-		<div class="content" v-html="this.$props.item.content">
+		<div class="content">
+			{{item.content}}
 		</div>
-		<div class="link" v-if="this.$props.item.link">
-			Read more: <a :href="this.$props.item.link" target="_blank" rel="noopener noreferrer">props.item.link</a>
+		<div class="link" v-if="item.link">
+			Read more: <a :href="item.link" target="_blank" rel="noopener noreferrer">item.link</a>
 		</div>
 	</div>
 </template>
