@@ -1,80 +1,117 @@
 <template>
   <div class="contentRow">
-    <div class="modalDiv">
+    <div class="modalDiv" v-if="!successful">
       <h2>Add Feed</h2>
       <form v-on:submit="handleSubmit">
         <div class="left">
-          Site name:
+          <label for="sitename">Feed name</label>
         </div>
         <div class="right">
-          <input type="text" name="sitename" id="sitename" placeholder="site name" v-model="sitename" />
+          <input type="text" name="sitename" placeholder="site name" v-model="feed.sitename" />
         </div>
         <div class="left">
-          Feed URL:
+          <label for="siteurl">Feed URL</label>
         </div>
         <div class="right">
-          <input type="text" name="siteurl" id="siteurl" placeholder="feed url" v-model="siteurl" />
+          <input type="text" name="siteurl" placeholder="feed url" v-model="feed.siteurl" />
         </div>
         <div class="left">
           &nbsp;
         </div>
         <div class="right">
-          <button type="submit" class="submitButton">Save feed</button>
+          <button type="submit" class="submitButton" :disabled="loading">Save feed</button>
+          <span v-show="loading" class="errorMsg">LOADING!!!!!</span>
           <button type="reset" class="cancelButton" v-on:click="goBack">Cancel</button>
         </div>
         <div class="left">
           &nbsp;
         </div>
         <div class="right errorMsg">
-          {{errorMsg}}
+          {{ message }}
         </div>
       </form>
+    </div>
+    <div class="modalDiv" v-if="successful">
+      <h2>Feed added</h2>
+      <p>{{ feed.sitename }} was added successfully. Please <a href="/app">click here </a> to see your feeds.</p>
     </div>
   </div>
 </template>
 
 <script>
+  import Feed from '../../models/Feed';
 
   export default {
     name: 'AddFeed',
     data() {
       return {
-        sitename: '',
-        siteurl: '',
-        errorMsg: ''
+        feed: new Feed ('', '', this.$store.state.auth.user.id),
+        loading: false,
+        successful: false,
+        message: ''
       }
     },
     computed: {
-      currentUser() {
-        return this.$store.state.auth.user;
+      loggedIn() {
+        return this.$store.state.auth.status.loggedIn;
       }
     },
     methods: {
+      validate(sitename, siteurl) {
+        let errorMsg = '';
+        if ((sitename === undefined) || (sitename === '')) {
+          errorMsg += "Site Name field is empty. ";
+        }
+        if ((siteurl === undefined) || (siteurl === '')) {
+          errorMsg += "Site URL field is empty. ";
+        }
+        if (errorMsg !== '') {
+          errorMsg += "Please complete the form and try again.";
+          this.validationFailed(errorMsg);
+          return false;
+        } else {
+          return true;
+        }
+      },
       handleSubmit(event) {
         event.preventDefault();
-        console.log(sitename.value);
-      },
-      addFeed(userid) {
-        this.$store.dispatch('feeds/addFeed', sitename, siteurl, currentUser.id)
-        .then(
-          () => {
-            console.log("feedAdded");
-          },
-          error => {
-            this.message =
-              (error.response && error.response.data) ||
-              error.message ||
-              error.toString();
-            console.log(this.message);
-          }
-        );
+        this.message = '';
+        this.loading = true;
+        if (this.validate(this.feed.sitename, this.feed.siteurl) === true) {
+          this.$store.dispatch('feeds/addFeed', this.feed)
+          .then(
+            data => {
+              console.log(data);
+              this.loading = false;
+              this.successful = true;
+              this.message = data.message;
+            },
+            error => {
+              console.log(error);
+              this.loading = false;
+              let errorMsg =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+              this.validationFailed(errorMsg);
+            }
+          );
+        }
       },
       goBack() {
         this.$router.push("/user");
+      },
+      validationFailed(text) {
+        if (text.message) {
+          this.message = text.message;
+        } else {
+          this.message = text;
+        }
+        this.successful = false;
       }
     },
     mounted() {
-      if (!this.$store.state.auth.status.loggedIn) {
+      if (!this.loggedIn) {
         this.$router.push('/');
       }
     }

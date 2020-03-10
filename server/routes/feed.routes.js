@@ -16,11 +16,19 @@ module.exports = function(app) {
 
   app.post("/beereader-vue/getFeedItems", controller.getFeedItems);
 
-  app.post("/beereader-vue/editFeed", controller.editFeed);
+  app.post("/beereader-vue/addFeed",
+  [
+    feeds.checkDuplicateFeed
+  ],
+  controller.addFeed);
+
+  app.post("/beereader-vue/editFeed",
+  [
+    feeds.checkDuplicateFeed
+  ],
+  controller.editFeed);
   
   app.post("/beereader-vue/deleteFeed", controller.deleteFeed);
   
   app.post("/beereader-vue/deleteAllFeeds", controller.deleteAllFeeds);
-  
-  app.post("/beereader-vue/addFeed", controller.addFeed);
 };

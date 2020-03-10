@@ -37,6 +37,18 @@ const feeds = {
           return Promise.reject(error);
         }
       );
+    },
+    addFeed({ commit }, feed) {
+      return FeedService.addFeed(feed).then(
+        feeds => {
+          commit('addFeedSuccess', feeds);
+          return Promise.resolve(feeds);
+        },
+        error => {
+          commit('addFeedFailure');
+          return Promise.reject(error);
+        }
+      );
     }
   },
   mutations: {
@@ -59,6 +71,12 @@ const feeds = {
     },
     getFeedItemsFailure(state) {
       state.currentFeedItems = null;
+    },
+    addFeedSuccess(state, feeds) {
+      state.currentFeeds = feeds;
+    },
+    addFeedFailure(state) {
+      state.currentFeeds = null;
     }
   }
 };

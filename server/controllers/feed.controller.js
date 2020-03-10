@@ -40,6 +40,20 @@ exports.getFeedItems = (req, res) => {
   });
 };
 
+exports.addFeed = (req, res) => {
+  Feed.create({
+    sitename: req.body.sitename,
+    siteurl: req.body.siteurl,
+    userid: req.body.userid
+  })
+  .then(feeds => {
+    res.send(feeds);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+};
+
 exports.editFeed = (req, res) => {
   const sitename = connection.escape(req.body.sitename);
   const siteurl = connection.escape(req.body.siteurl);
@@ -99,23 +113,4 @@ exports.deleteAllFeeds = (req, res) => {
   });
 };
 
-exports.addFeed = (req, res) => {
-  const sitename = connection.escape(req.body.sitename);
-  const siteurl = connection.escape(req.body.siteurl);
-  const userid = connection.escape(req.body.userid);
-  const sql = 'INSERT INTO feeds (sitename, siteurl, userid) VALUES (' + sitename + ', ' + siteurl + ', ' + userid + ');';
-  connection.getConnection(function (err, connection) {
-    connection.query(sql, function(err, rows, fields) {
-      if (!err) {
-        rows = res.json(rows);
-        if (rows.length > 0) {
-          res.send(rows);
-        }
-      }
-      else {
-        showError(err);
-      }
-      connection.release();
-    });
-  });
-};
+

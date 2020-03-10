@@ -42,6 +42,9 @@
       }
     },
     computed: {
+      loggedIn() {
+        return this.$store.state.auth.status.loggedIn;
+      },
       currentUser() {
         return this.$store.state.auth.user;
       },
@@ -76,7 +79,7 @@
       }
     },
     mounted() {
-      if (!this.$store.state.auth.status.loggedIn) {
+      if (this.loggedIn) {
         this.getFeeds(this.$store.state.auth.user.id);
       } else {
         this.$router.push('/');

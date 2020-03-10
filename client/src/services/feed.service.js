@@ -40,6 +40,16 @@ class FeedService {
       return feedItemsArray;
     });
   }
+  addFeed(feed) {
+    return axios.post(API_URL + 'addFeed', {
+      sitename: feed.sitename,
+      siteurl: feed.siteurl,
+      userid: feed.userid
+    })
+    .then(response => {
+      return response.data;
+    });
+  }
 };
 
 export default new FeedService();
