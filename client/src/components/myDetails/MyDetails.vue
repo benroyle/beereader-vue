@@ -16,7 +16,8 @@
           Feed:
         </div>
         <div class="right">
-          <select name="feedSelecter" id="feedSelecter">
+          <select name="feedSelecter" id="feedSelecter" v-model="selected">
+            <option disabled value="">Please select one</option>
             <option v-for="(feed,index) in currentFeeds" :key="index" :value="index">{{feed.sitename}}</option>
           </select>
         </div>
@@ -35,6 +36,11 @@
 <script>
   export default {
     name: 'MyDetails',
+    data() {
+      return {
+        selected: ''
+      }
+    },
     computed: {
       currentUser() {
         return this.$store.state.auth.user;
@@ -60,9 +66,10 @@
         );
       },
       buttonClicked(action) {
-        const feedId = document.querySelector("select#feedSelecter").value;
         if ((action === "editFeed") || (action === "deleteFeed")) {
-          this.$router.push("/user/" + action + "/" + feedId);
+          if (this.selected !== "") {
+            this.$router.push("/user/" + action + "/" + this.selected);
+          }
         } else {
           this.$router.push("/user/" + action);
         }
