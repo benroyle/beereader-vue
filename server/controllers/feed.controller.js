@@ -6,12 +6,11 @@ const Feed = db.feed;
 const Op = db.Sequelize.Op;
 
 exports.getFeedsForUser = (req, res) => {
-  const userid = req.body.userid;
   Feed.findAll({
     attributes: ['id', 'sitename', 'siteurl'],
     where: {
       userid: {
-        [Op.eq]: userid
+        [Op.eq]: req.body.userid
       }
     },
     order: [["sitename", "ASC"]]
@@ -25,8 +24,7 @@ exports.getFeedsForUser = (req, res) => {
 };
 
 exports.getFeedItems = (req, res) => {
-  const feedurl = req.body.feedurl;
-  axios.get(feedurl)
+  axios.get(req.body.feedurl)
   .then(items => {
     const newX2js = new x2js();
     items = newX2js.xml2js(items.data);
@@ -47,7 +45,24 @@ exports.addFeed = (req, res) => {
     userid: req.body.userid
   })
   .then(feeds => {
-    res.send(feeds);
+    res.send({message: feeds.sitename + " was added successfully!"});
+  })
+  .catch(error => {
+    console.log(error);
+  });
+};
+
+exports.deleteAllFeeds = (req, res) => {
+  Feed.destroy({
+    where: {
+      userid: {
+        [Op.eq]: req.body.userid
+      }
+    }
+  })
+  .then(data => {
+    let response = {};
+    res.send({message: data + " feeds were deleted successfully."});
   })
   .catch(error => {
     console.log(error);
@@ -76,8 +91,10 @@ exports.editFeed = (req, res) => {
 };
 
 exports.deleteFeed = (req, res) => {
+  const sitename = connection.escape(req.body.sitename);
+  const siteurl = connection.escape(req.body.siteurl);
   const id = connection.escape(req.body.id);
-  const sql = 'DELETE FROM feeds WHERE (id = ' + id + ');';
+  const sql = 'UPDATE feeds SET sitename = ' + sitename + ', siteurl = ' + siteurl + ' WHERE (id = ' + id + ')';
   connection.getConnection(function (err, connection) {
     connection.query(sql, function(err, rows, fields) {
       if (!err) {
@@ -93,24 +110,3 @@ exports.deleteFeed = (req, res) => {
     });
   });
 };
-
-exports.deleteAllFeeds = (req, res) => {
-  const userid = connection.escape(req.body.userid);
-  const sql = 'DELETE FROM feeds WHERE (userid = ' + userid + ');';
-  connection.getConnection(function (err, connection) {
-    connection.query(sql, function(err, rows, fields) {
-      if (!err) {
-        rows = res.json(rows);
-        if (rows.length > 0) {
-          res.send(rows);
-        }
-      }
-      else {
-        showError(err);
-      }
-      connection.release();
-    });
-  });
-};
-
-

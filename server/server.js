@@ -68,26 +68,26 @@ function initial() {
 
   Feed.create({
     id: 3,
-    sitename: "Eurogamer 2",
-    siteurl: "https://www.eurogamer.net/?format=rss&type=news",
+    sitename: "Rock Paper Shotgun",
+    siteurl: "https://www.rockpapershotgun.com/feed/",
     userid: 1
   });
 
   Feed.create({
     id: 4,
-    sitename: "Eurogamer 3",
-    siteurl: "https://www.eurogamer.net/?format=rss&type=news",
+    sitename: "BBC News Europe",
+    siteurl: "http://feeds.bbci.co.uk/news/world/europe/rss.xml",
     userid: 1
   });
 
   UserRole.create({
-    roleId: 1,
-    userId: 1
+    userId: 1,
+    roleId: 1
   });
 
   UserRole.create({
-    roleId: 2,
-    userId: 2
+    userId: 2,
+    roleId: 2
   });
 }
 

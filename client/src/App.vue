@@ -20,14 +20,14 @@
       </div>
       <nav>
         <div class="links" v-if="!isLoggedIn">
-          <a href="/">Login</a>
-          <a href="/register">Register</a>
+          <router-link to="/">Login</router-link>
+          <router-link to="/register">Register</router-link>
         </div>
         <div class="links" v-if="isLoggedIn">
-          <a href="/" v-if="isLoggedIn">Home</a>
-          <a href="/admin" v-if="isAdmin">Admin</a>
-          <a href="/user" v-if="isLoggedIn">My Details</a>
-          <a href="/logout" v-if="isLoggedIn">Logout</a>
+          <router-link to="/" v-if="isLoggedIn">Home</router-link>
+          <router-link to="/admin" v-if="isAdmin">Admin</router-link>
+          <router-link to="/user" v-if="isLoggedIn">My Details</router-link>
+          <router-link to="/logout" v-if="isLoggedIn">Logout</router-link>
         </div>
       </nav>
     </div>
@@ -37,20 +37,9 @@
 
 <script>
   //import { adminService } from './services/admin.service.js'
-  //import { feedService } from './services/feed.service.js'
 
   export default {
     name: 'App',
-    data() {
-      return {
-        feedList: {
-          type: Array
-        },
-        feed: {
-          type: String
-        }
-      }
-    },
     computed: {
       currentUser() {
         return this.$store.state.auth.user;
@@ -61,8 +50,9 @@
       isAdmin() {
         if (this.currentUser && this.currentUser.roles) {
           return this.currentUser.roles.includes('ROLE_ADMIN');
+        } else {
+          return false;
         }
-        return false;
       }
     }
   }

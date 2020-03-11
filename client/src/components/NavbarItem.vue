@@ -1,6 +1,6 @@
 <template>
 	<div class="buttonDiv">
-		<button class="feed" v-bind:class="{active: isActive}" v-on:click="setCurrentFeed">{{feed.sitename}}</button>
+		<button class="feed" v-bind:class="{active: isActive}" v-on:click="setActiveFeed">{{feed.sitename}}</button>
 	</div>
 </template>
 
@@ -10,7 +10,7 @@
 		props: ['feed'],
 		computed: {
 			isActive() {
-				if (this.$props.feed.id === this.$store.state.feeds.currentFeed.id) {
+				if (this.$props.feed.id === this.$store.state.feeds.activeFeed.id) {
 					return true;
 				} else {
 					return false;
@@ -18,8 +18,8 @@
 			}
 		},
 		methods: {
-			setCurrentFeed() {
-				this.$store.dispatch('feeds/setCurrentFeed', this.$props.feed.id)
+			setActiveFeed() {
+				this.$store.dispatch('feeds/setActiveFeed', this.$props.feed.id)
         .then(
           response => {
           	console.log("current feedid is " + response);

@@ -32,13 +32,14 @@
     </div>
     <div class="modalDiv" v-if="successful">
       <h2>Registration complete</h2>
-      <p>{{ user.username }} was registered successfully. Please <a href="/app">click here </a> to go to the app.</p>
+      <p>{{ message }}</p>
+      <p>Please <router-link to="/">click here</router-link> to login.</p>
     </div>
   </div>
 </template>
 
 <script>
-import User from '../models/User';
+import User from '../models/User'
 
 export default {
   name: 'Register',
@@ -77,6 +78,10 @@ export default {
         return true;
       }
     },
+    validationFailed(text) {
+      this.message = text.message;
+      this.successful = false;
+    },
     handleSubmit(event) {
       event.preventDefault();
       this.message = '';
@@ -99,10 +104,6 @@ export default {
           }
         );
       }
-    },
-    validationFailed(text) {
-      this.message = text.message;
-      this.successful = false;
     }
   }
 };

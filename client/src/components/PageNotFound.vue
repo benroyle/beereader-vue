@@ -1,8 +1,6 @@
 <template>
-	<div class="contentRow">
-    <div class="modalDiv">
-			<p>Something went wrong</p>
-		</div>
+  <div class="modalDiv">
+		<p>Something went wrong</p>
 	</div>
 </template>
 

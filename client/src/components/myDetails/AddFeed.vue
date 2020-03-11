@@ -33,13 +33,14 @@
     </div>
     <div class="modalDiv" v-if="successful">
       <h2>Feed added</h2>
-      <p>{{ feed.sitename }} was added successfully. Please <a href="/app">click here </a> to see your feeds.</p>
+      <p>{{ message }}</p>
+      <p>Please <router-link to="/app">click here</router-link> to return to the app.</p>
     </div>
   </div>
 </template>
 
 <script>
-  import Feed from '../../models/Feed';
+  import Feed from '../../models/Feed'
 
   export default {
     name: 'AddFeed',
@@ -54,6 +55,9 @@
     computed: {
       loggedIn() {
         return this.$store.state.auth.status.loggedIn;
+      },
+      currentFeeds() {
+        return this.$store.state.feeds.currentFeeds;
       }
     },
     methods: {
@@ -73,6 +77,14 @@
           return true;
         }
       },
+      validationFailed(text) {
+        if (text.message) {
+          this.message = text.message;
+        } else {
+          this.message = text;
+        }
+        this.successful = false;
+      },
       handleSubmit(event) {
         event.preventDefault();
         this.message = '';
@@ -81,7 +93,6 @@
           this.$store.dispatch('feeds/addFeed', this.feed)
           .then(
             data => {
-              console.log(data);
               this.loading = false;
               this.successful = true;
               this.message = data.message;
@@ -100,14 +111,6 @@
       },
       goBack() {
         this.$router.push("/user");
-      },
-      validationFailed(text) {
-        if (text.message) {
-          this.message = text.message;
-        } else {
-          this.message = text;
-        }
-        this.successful = false;
       }
     },
     mounted() {

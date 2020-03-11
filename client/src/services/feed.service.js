@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const API_URL = 'http://localhost:8081/beereader-vue/';
 
@@ -11,7 +11,7 @@ class FeedService {
       return response.data;
     });
   }
-  async getFeedItems(feedurl) {
+  getFeedItems(feedurl) {
     return axios.post(API_URL + 'getFeedItems', {
       feedurl: feedurl
     })
@@ -45,6 +45,14 @@ class FeedService {
       sitename: feed.sitename,
       siteurl: feed.siteurl,
       userid: feed.userid
+    })
+    .then(response => {
+      return response.data;
+    });
+  }
+  deleteAllFeeds(userid) {
+    return axios.post(API_URL + 'deleteAllFeeds', {
+      userid: userid
     })
     .then(response => {
       return response.data;

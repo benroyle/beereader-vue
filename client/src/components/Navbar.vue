@@ -1,7 +1,7 @@
 <template>
-	<div class="navbar">
+	<div class="navbar" v-if="currentFeeds.length > 0">
 	  <div class="navbarHeader">Feeds</div>
-	  <div class="navbarContent" v-if="currentFeeds.length > 0">
+	  <div class="navbarContent">
 	  	<NavbarItem v-bind:feed="feed" v-for="feed in mapFeedList(currentFeeds)" v-bind:key="feed.id"></NavbarItem>
 	  </div>
 	</div>
@@ -22,7 +22,7 @@
 		},
 		methods: {
 			mapFeedList(feeds) {
-	      return feeds.map(feed => ({...feed, id: feed.id}))
+	      return feeds.map(feed => ({...feed}))
 	    }
 		}
 	}

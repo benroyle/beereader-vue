@@ -1,14 +1,16 @@
-import FeedService from '../services/feed.service';
+import FeedService from '../services/feed.service'
 
-const initialState = {
-  currentFeeds: [],
-  currentFeed: {},
-  currentFeedItems: []
+const initialState = () => {
+  return {
+    currentFeeds: [],
+    activeFeed: {},
+    currentFeedItems: []
+  }
 };
 
 const feeds = {
   namespaced: true,
-  state: initialState,
+  state: initialState(),
   actions: {
     getFeedsForUser({ commit }, userid) {
       return FeedService.getFeedsForUser(userid).then(
@@ -22,8 +24,11 @@ const feeds = {
         }
       );
     },
-    setCurrentFeed({ commit }, feedid) {
-      commit('setCurrentFeed', feedid);
+    logout({ commit }) {
+      commit('resetState')
+    },
+    setActiveFeed({ commit }, feedid) {
+      commit('setActiveFeed', feedid);
       return Promise.resolve(feedid);
     },
     getFeedItems({ commit }, feedurl) {
@@ -49,20 +54,37 @@ const feeds = {
           return Promise.reject(error);
         }
       );
+    },
+    deleteAllFeeds({ commit }, userid) {
+      return FeedService.deleteAllFeeds(userid).then(
+        feeds => {
+          commit('deleteAllFeedsSuccess', feeds);
+          return Promise.resolve(feeds);
+        },
+        error => {
+          commit('deleteAllFeedsFailure');
+          return Promise.reject(error);
+        }
+      );
     }
   },
   mutations: {
     getFeedsSuccess(state, feeds) {
       state.currentFeeds = feeds;
-      state.currentFeed = feeds[0];
+      state.activeFeed = feeds[0];
+    },
+    resetState(state) {
+      // Merge rather than replace so we don't lose observers
+      // https://github.com/vuejs/vuex/issues/1118
+      Object.assign(state, initialState())
     },
     getFeedsFailure(state) {
       state.currentFeeds = null;
     },
-    setCurrentFeed(state, feedid) {
+    setActiveFeed(state, feedid) {
       for (let i = 0; i < state.currentFeeds.length; i++) {
         if (state.currentFeeds[i].id === feedid) {
-          state.currentFeed = state.currentFeeds[i];
+          state.activeFeed = state.currentFeeds[i];
         }
       }
     },
@@ -76,6 +98,12 @@ const feeds = {
       state.currentFeeds = feeds;
     },
     addFeedFailure(state) {
+      state.currentFeeds = null;
+    },
+    deleteAllFeedsSuccess(state, feeds) {
+      state.currentFeeds = feeds;
+    },
+    deleteAllFeedsFailure(state) {
       state.currentFeeds = null;
     }
   }

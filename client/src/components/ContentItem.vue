@@ -21,7 +21,7 @@
 		props: ['item'],
 		computed: {
 			isActive() {
-				if (this.$props.item.id === this.$store.state.feeds.currentFeed.id) {
+				if (this.$props.item.id === this.$store.state.feeds.activeFeed.id) {
 					return true;
 				} else {
 					return false;
@@ -29,8 +29,8 @@
 			}
 		},
 		methods: {
-			setCurrentFeed() {
-				this.$store.dispatch('feeds/setCurrentFeed', this.$props.item.id)
+			setActiveFeed() {
+				this.$store.dispatch('feeds/setActiveFeed', this.$props.item.id)
         .then(
           response => {
           	console.log("current feedid is " + response);
