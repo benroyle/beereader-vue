@@ -26,10 +26,12 @@
     },
     methods: {
       getFeeds(userid) {
+        this.$store.dispatch('loader/begin');
         this.$store.dispatch('feeds/getFeedsForUser', userid)
         .then(
           () => {
             //console.log("gotFeeds");
+            this.$store.dispatch('loader/end');
           },
           error => {
             this.message =

@@ -80,16 +80,14 @@ form button:last-of-type { margin-right: 0px; }
 .adminAction { width: 15%; float: left; clear: right; }
 
 /* --- Loader --- */
-.loaderWrapper { display: block; position: absolute; width: 50%; min-height: 30%; top: 25%; left: 25%; background-color: #7ec0ee; padding: 15px;
-}
+.loaderWrapper { display: block; position: absolute; width: 160px; height: 160px; top: calc(50% - 150px); left: calc(50% - 40px); background-color: #7ec0ee; border-radius: 50%; border: solid 3px #292929; }
 .lds-roller {
   width: 80px;
   height: 80px;
-	padding: 20px;
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -50px 0 0 -50px;
+  margin: -40px 0 0 -40px;
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

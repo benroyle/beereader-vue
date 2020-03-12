@@ -58,6 +58,17 @@ class FeedService {
       return response.data;
     });
   }
+  editFeed(feed) {
+    return axios.post(API_URL + 'editFeed', {
+      sitename: feed.sitename,
+      siteurl: feed.siteurl,
+      id: feed.id,
+      userid: feed.userid
+    })
+    .then(response => {
+      return response.data;
+    });
+  }
 };
 
 export default new FeedService();

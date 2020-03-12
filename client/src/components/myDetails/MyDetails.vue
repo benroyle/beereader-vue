@@ -11,14 +11,14 @@
       <p><button v-on:click="buttonClicked('addFeed')">Add feed</button></p>
       <p><button v-on:click="buttonClicked('deleteAllFeeds')">Delete all feeds</button></p>
       <p><button v-on:click="buttonClicked('importOPML')">Import OPML</button></p>
-      <form v-if="currentFeeds.length > 0" v-on:submit.prevent>
+      <form v-if="currentFeeds.length > 0" v-on:submit="handleSubmit">
         <div class="left">
           Feed:
         </div>
         <div class="right">
           <select name="feedSelecter" id="feedSelecter" v-model="selected">
             <option disabled value="">Please select one</option>
-            <option v-for="(feed,index) in currentFeeds" :key="index" :value="index">{{feed.sitename}}</option>
+            <option v-for="(feed,index) in currentFeeds" :key="index" :value="feed.id">{{feed.sitename}}</option>
           </select>
         </div>
         <div class="left">
@@ -76,6 +76,9 @@
         } else {
           this.$router.push("/user/" + action);
         }
+      },
+      handleSubmit(event) {
+        event.preventDefault();
       }
     },
     mounted() {

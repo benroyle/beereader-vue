@@ -46,7 +46,7 @@
     name: 'AddFeed',
     data() {
       return {
-        feed: new Feed ('', '', this.$store.state.auth.user.id),
+        feed: new Feed('', '', this.$store.state.auth.user.id),
         loading: false,
         successful: false,
         message: ''

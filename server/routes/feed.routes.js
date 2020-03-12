@@ -18,13 +18,14 @@ module.exports = function(app) {
 
   app.post("/beereader-vue/addFeed",
   [
-    verifyFeeds.checkDuplicateFeed
+    verifyFeeds.checkDuplicateFeedName,
+    verifyFeeds.checkDuplicateFeedURL
   ],
   controller.addFeed);
 
   app.post("/beereader-vue/editFeed",
   [
-    verifyFeeds.checkDuplicateFeed
+    verifyFeeds.checkDuplicateFeedName
   ],
   controller.editFeed);
   

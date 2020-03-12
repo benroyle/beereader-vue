@@ -66,7 +66,19 @@ const feeds = {
           return Promise.reject(error);
         }
       );
-    }
+    },
+    editFeed({ commit }, feed) {
+      return FeedService.editFeed(feed).then(
+        feeds => {
+          commit('editFeedSuccess', feeds);
+          return Promise.resolve(feeds);
+        },
+        error => {
+          commit('editFeedFailure');
+          return Promise.reject(error);
+        }
+      );
+    },
   },
   mutations: {
     getFeedsSuccess(state, feeds) {
@@ -104,6 +116,12 @@ const feeds = {
       state.currentFeeds = feeds;
     },
     deleteAllFeedsFailure(state) {
+      state.currentFeeds = null;
+    },
+    editFeedSuccess(state, feeds) {
+      state.currentFeeds = feeds;
+    },
+    editFeedFailure(state) {
       state.currentFeeds = null;
     }
   }
