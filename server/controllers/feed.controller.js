@@ -19,7 +19,7 @@ exports.getFeedsForUser = (req, res) => {
     res.send(feeds);
   })
   .catch(err => {
-    res.status(500).send({ message: err.message });
+    res.status(500).send({message: err.message});
     return;
   });
 };
@@ -29,11 +29,14 @@ exports.getFeedItems = (req, res) => {
   .then(items => {
     const newX2js = new x2js();
     items = newX2js.xml2js(items.data);
-    res.send(items);
+    return items;
+  })
+  .then(data => {
+    res.send(data);
     return;
   })
   .catch(err => {
-    res.status(500).send({ message: err.message });
+    res.status(500).send({message: err.message});
     return;
   });
 };
@@ -50,7 +53,7 @@ exports.addFeed = (req, res) => {
     return;
   })
   .catch(err => {
-    res.status(500).send({ message: err.message });
+    res.status(500).send({message: err.message});
     return;
   });
 };
@@ -75,7 +78,7 @@ exports.deleteAllFeeds = (req, res) => {
     return;
   })
   .catch(err => {
-    res.status(500).send({ message: err.message });
+    res.status(500).send({message: err.message});
     return;
   });
 };
@@ -98,7 +101,7 @@ exports.editFeed = (req, res) => {
     return;
   })
   .catch(err => {
-    res.status(500).send({ message: err.message });
+    res.status(500).send({message: err.message});
     return;
   });
 };
@@ -127,7 +130,7 @@ exports.deleteFeed = (req, res) => {
     return;
   })
   .catch(err => {
-    res.status(500).send({ message: err.message });
+    res.status(500).send({message: err.message});
     return;
   });
 };

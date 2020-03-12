@@ -2,6 +2,7 @@
   <div class="contentRow">
     <div class="modalDiv" v-if="!successful">
       <h2>Add Feed</h2>
+      <p>As of now, this supports RSS and XML feeds. Support for Atom and RDF feeds to be added at a later date.</p>
       <form v-on:submit="handleSubmit">
         <div class="left">
           <label for="sitename">Feed name</label>
