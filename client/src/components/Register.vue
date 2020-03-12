@@ -1,46 +1,45 @@
 <template>
   <div class="contentRow">
-    <div class="modalDiv">
+    <div class="modalDiv" v-if="!successful">
       <h1>Register</h1>
-      <form v-on:submit="handleRegister">
-        <div v-if="!successful">
-          <div class="left">
-            <label for="username">Username</label>
-          </div>
-          <div class="right">
-            <input type="text" name="username" placeholder="username" v-model="user.username" />
-          </div>
-          <div class="left">
-            <label for="password">Password</label>
-          </div>
-          <div class="right">
-            <input type="password" name="password" placeholder="password" v-model="user.password" />
-          </div>
-          <div class="left">
-            &nbsp;
-          </div>
-          <div class="right">
-            <button type="submit" :disabled="loading">Sign Up</button>
-            <span v-show="loading" class="errorMsg">LOADING!!!!!</span>
-          </div>
-          <div class="left">
-            &nbsp;
-          </div>
-          <div class="right errorMsg">
-            {{ message }}
-          </div>
+      <form v-on:submit="handleSubmit">
+        <div class="left">
+          <label for="username">Username</label>
         </div>
-        <div v-if="successful">
-          <h2>Registration complete</h2>
-          <p>{{ user.username }} was registered successfully. Please <a href="/app">click here </a> to go to the app.</p>
+        <div class="right">
+          <input type="text" name="username" placeholder="username" v-model="user.username" />
+        </div>
+        <div class="left">
+          <label for="password">Password</label>
+        </div>
+        <div class="right">
+          <input type="password" name="password" placeholder="password" v-model="user.password" />
+        </div>
+        <div class="left">
+          &nbsp;
+        </div>
+        <div class="right">
+          <button type="submit" :disabled="loading">Sign Up</button>
+          <span v-show="loading" class="errorMsg">LOADING!!!!!</span>
+        </div>
+        <div class="left">
+          &nbsp;
+        </div>
+        <div class="right errorMsg">
+          {{ message }}
         </div>
       </form>
+    </div>
+    <div class="modalDiv" v-if="successful">
+      <h2>Registration complete</h2>
+      <p>{{ message }}</p>
+      <p>Please <router-link to="/">click here</router-link> to login.</p>
     </div>
   </div>
 </template>
 
 <script>
-import User from '../models/User';
+import User from '../models/User'
 
 export default {
   name: 'Register',
@@ -50,7 +49,7 @@ export default {
       loading: false,
       successful: false,
       message: ''
-    };
+    }
   },
   computed: {
     loggedIn() {
@@ -73,19 +72,21 @@ export default {
       }
       if (errorMsg !== '') {
         errorMsg += "Please complete the form and try again.";
-        this.loginFailed(errorMsg);
+        this.processErrorMsg(errorMsg);
         return false;
       } else {
         return true;
       }
     },
-    handleRegister(event) {
+    processErrorMsg(text) {
+      this.message = text.message;
+      this.successful = false;
+    },
+    handleSubmit(event) {
       event.preventDefault();
       this.message = '';
       this.loading = true;
-      console.log(this.username);
-      console.log(this.password);
-      if (validate(this.username, this.password) === true) {
+      if (this.validate(this.user.username, this.user.password) === true) {
         this.$store.dispatch('auth/register', this.user)
         .then(
           data => {
@@ -95,18 +96,14 @@ export default {
           },
           error => {
             this.loading = false;
-            this.message =
+            let errorMsg =
               (error.response && error.response.data) ||
               error.message ||
               error.toString();
-            this.loginFailed(this.message);
+            this.processErrorMsg(errorMsg);
           }
         );
       }
-    },
-    loginFailed(text) {
-      this.message = text.message;
-      this.successful = false;
     }
   }
 };

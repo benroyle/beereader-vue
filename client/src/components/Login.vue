@@ -2,7 +2,7 @@
   <div class="contentRow">
     <div class="modalDiv">
       <h1>Login</h1>
-      <form v-on:submit="handleLogin">
+      <form v-on:submit="handleSubmit">
         <div v-if="!successful">
           <div class="left">
             <label for="username">Username:</label>
@@ -21,7 +21,6 @@
           </div>
           <div class="right">
             <button type="submit" :disabled="loading">Log in</button>
-            <span v-show="loading" class="errorMsg">LOADING!!!!!</span>
           </div>
           <div class="left">
             &nbsp;
@@ -36,7 +35,7 @@
 </template>
 
 <script>
-  import User from '../models/User';
+  import User from '../models/User'
 
   export default {
     name: 'Login',
@@ -59,7 +58,25 @@
       }
     },
     methods: {
-      handleLogin: async function(event) {
+      validationSuccessful(response) {
+        if (!req.data.token) {
+          this.processErrorMsg({message:"Invalid token. Please try again."});
+          return;
+        }
+        if ((response.data.length === 0) || (response === false)) {
+          this.processErrorMsg({message:"Username and /or password fields are incorrect. Please try again."});
+          return;
+        }
+        localStorage.token = req.data.token;
+        this.error = false;
+        this.$router.replace(this.$route.query.redirect || '/app');
+      },
+      processErrorMsg(text) {
+        this.message = text.message;
+        this.successful = false;
+        delete localStorage.token;
+      },
+      handleSubmit(event) {
         event.preventDefault();
         this.message = '';
         this.loading = true;
@@ -76,39 +93,21 @@
                 (error.response && error.response.data) ||
                 error.message ||
                 error.toString();
-              this.loginFailed(this.message);
+              this.processErrorMsg(this.message);
             }
           );
         } else {
           if ((this.username === '') && (this.password === '')) {
-            this.loginFailed({message:"Username and password fields are empty. Please complete the form and try again."});
+            this.processErrorMsg({message:"Username and password fields are empty. Please complete the form and try again."});
           } else {
             if (this.username === '') {
-              this.loginFailed({message:"Username field is empty. Please complete the form and try again."});
+              this.processErrorMsg({message:"Username field is empty. Please complete the form and try again."});
             } else {
-              this.loginFailed({message:"Password field is empty. Please complete the form and try again."});
+              this.processErrorMsg({message:"Password field is empty. Please complete the form and try again."});
             }
           }
         }
       },
-      loginSuccessful(response) {
-        if (!req.data.token) {
-          this.loginFailed({message:"Invalid token. Please try again."});
-          return;
-        }
-        if ((response.data.length === 0) || (response === false)) {
-          this.loginFailed({message:"Username and /or password fields are incorrect. Please try again."});
-          return;
-        }
-        localStorage.token = req.data.token;
-        this.error = false;
-        this.$router.replace(this.$route.query.redirect || '/app');
-      },
-      loginFailed(text) {
-        this.message = text.message;
-        this.successful = false;
-        delete localStorage.token;
-      }
     }
   }
 </script>

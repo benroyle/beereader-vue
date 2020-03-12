@@ -1,7 +1,7 @@
 /* --- general --- */
-body { background-color: #7ec0ee; font-size: 16px; font-weight: 400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; background-image: url('grass.png'); background-repeat: repeat-x; background-attachment: scroll; background-position: bottom; margin: 0; }
-.App { height: 100vh; }
-.modalDiv { display: block; position: absolute; width: 50%; min-height: 30%; top: 25%; left: 25%; background-color: white; border: 1px solid #292929; padding: 15px;
+body { background-color: #7ec0ee; font-size: 16px; font-weight: 400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; margin: 0; }
+.app { height: 100vh; }
+.modalDiv { display: inline-block; position: relative; width: 50%; min-height: 30%; margin-top: 100px; left: 25%; background-color: white; border: 1px solid #292929; padding: 15px;
 }
 .formContainer { display: inline-block; position: relative; width: calc(100% - 30px); background-color: white; border: 1px solid #292929; padding: 15px; }
 .left { width: 40%; float: left; clear: right; margin-bottom: 10px; }
@@ -31,7 +31,7 @@ form button:last-of-type { margin-right: 0px; }
 .headerRow nav .links .active { background-color: #292929; color: #ffca31; }
 
 /* --- contentRow --- */
-.contentRow { width: calc(100% - 30px); min-height: calc(100vh - 154px); float: left; clear: right; padding: 0 15px 64px 15px; }
+.contentRow { width: calc(100% - 30px); min-height: calc(100vh - 154px); float: left; clear: right; padding: 0 15px 64px 15px;  background-image: url('grass.png'); background-repeat: repeat-x; background-attachment: scroll; background-position: bottom; }
 .contentRow .navbar { width: 250px; min-height: calc(100vh - 154px); float: left; clear: right; margin-right: 15px; }
 .contentRow .navbar .navbarHeader { background-color: #292929; color: white; border: 1px solid #292929; padding: 0 15px; }
 .contentRow .navbar .navbarContent { overflow-x: hidden; overflow-y: auto; }
@@ -78,3 +78,92 @@ form button:last-of-type { margin-right: 0px; }
 /* --- Admin --- */
 .adminName { width: 55%; float: left; clear: right; }
 .adminAction { width: 15%; float: left; clear: right; }
+
+/* --- Loader --- */
+.loaderWrapper { display: block; position: absolute; width: 160px; height: 160px; top: calc(50% - 150px); left: calc(50% - 40px); background-color: #7ec0ee; border-radius: 50%; border: solid 3px #292929; }
+.lds-roller {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -40px 0 0 -40px;
+}
+.lds-roller div {
+  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+.lds-roller div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffca31;
+  margin: -4px 0 0 -4px;
+}
+.lds-roller div:nth-child(1) {
+  animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+  top: 63px;
+  left: 63px;
+}
+.lds-roller div:nth-child(2) {
+  animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+  top: 68px;
+  left: 56px;
+}
+.lds-roller div:nth-child(3) {
+  animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+  top: 71px;
+  left: 48px;
+}
+.lds-roller div:nth-child(4) {
+  animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+.lds-roller div:nth-child(5) {
+  animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+  top: 71px;
+  left: 32px;
+}
+.lds-roller div:nth-child(6) {
+  animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+  top: 68px;
+  left: 24px;
+}
+.lds-roller div:nth-child(7) {
+  animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+  top: 63px;
+  left: 17px;
+}
+.lds-roller div:nth-child(8) {
+  animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+  top: 56px;
+  left: 12px;
+}
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

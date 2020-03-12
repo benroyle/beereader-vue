@@ -15,6 +15,7 @@
     },
     methods: {
     	logout() {
+        this.$store.dispatch('feeds/logout');
         this.$store.dispatch('auth/logout');
       }
     }

@@ -1,8 +1,8 @@
 <template>
-	<div class="contentRow">
-		<Navbar/>
-		<Content v-bind:currentFeedItems="currentFeedItems"/>
-	</div>
+  <div class="contentRow appFrame">
+  	<Navbar/>
+  	<Content v-bind:currentFeedItems="currentFeedItems"/>
+  </div>
 </template>
 
 <script>
@@ -17,20 +17,21 @@
 		},
     computed: {
       currentFeedItems() {
-        console.log(this.$store.state.feeds.currentFeed);
-        let items = {};
-        if (this.$store.state.feeds.currentFeed.siteurl) {
-          items =  this.getFeedItems(this.$store.state.feeds.currentFeed.siteurl);
+        let items = [];
+        if ((this.$store.state.feeds.activeFeed) && (this.$store.state.feeds.activeFeed.siteurl)) {
+          items =  this.getFeedItems(this.$store.state.feeds.activeFeed.siteurl);
         }
         return items;
       }
     },
     methods: {
       getFeeds(userid) {
+        this.$store.dispatch('loader/begin');
         this.$store.dispatch('feeds/getFeedsForUser', userid)
         .then(
           () => {
-            console.log("gotFeeds");
+            //console.log("gotFeeds");
+            this.$store.dispatch('loader/end');
           },
           error => {
             this.message =
@@ -42,11 +43,12 @@
         );
       },
       getFeedItems(siteurl) {
+        this.$store.dispatch('loader/begin');
         this.$store.dispatch('feeds/getFeedItems', siteurl)
         .then(
           response => {
-            console.log(response);
-            console.log("gotFeedItems");
+            //console.log("gotFeedItems");
+            this.$store.dispatch('loader/end');
             return response;
           },
           error => {

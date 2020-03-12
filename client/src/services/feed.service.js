@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const API_URL = 'http://localhost:8081/beereader-vue/';
 
@@ -11,7 +11,7 @@ class FeedService {
       return response.data;
     });
   }
-  async getFeedItems(feedurl) {
+  getFeedItems(feedurl) {
     return axios.post(API_URL + 'getFeedItems', {
       feedurl: feedurl
     })
@@ -38,6 +38,46 @@ class FeedService {
         feedItemsArray.splice(10, excess);
       }
       return feedItemsArray;
+    });
+  }
+  addFeed(feed) {
+    return axios.post(API_URL + 'addFeed', {
+      sitename: feed.sitename,
+      siteurl: feed.siteurl,
+      userid: feed.userid
+    })
+    .then(response => {
+      return response.data;
+    });
+  }
+  deleteAllFeeds(userid) {
+    return axios.post(API_URL + 'deleteAllFeeds', {
+      userid: userid
+    })
+    .then(response => {
+      return response.data;
+    });
+  }
+  editFeed(feed) {
+    return axios.post(API_URL + 'editFeed', {
+      sitename: feed.sitename,
+      siteurl: feed.siteurl,
+      id: feed.id,
+      userid: feed.userid
+    })
+    .then(response => {
+      return response.data;
+    });
+  }
+  deleteFeed(feed) {
+    return axios.post(API_URL + 'deleteFeed', {
+      sitename: feed.sitename,
+      siteurl: feed.siteurl,
+      id: feed.id,
+      userid: feed.userid
+    })
+    .then(response => {
+      return response.data;
     });
   }
 };
