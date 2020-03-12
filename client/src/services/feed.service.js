@@ -69,6 +69,17 @@ class FeedService {
       return response.data;
     });
   }
+  deleteFeed(feed) {
+    return axios.post(API_URL + 'deleteFeed', {
+      sitename: feed.sitename,
+      siteurl: feed.siteurl,
+      id: feed.id,
+      userid: feed.userid
+    })
+    .then(response => {
+      return response.data;
+    });
+  }
 };
 
 export default new FeedService();

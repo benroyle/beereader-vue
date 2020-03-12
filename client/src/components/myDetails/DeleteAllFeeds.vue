@@ -66,7 +66,7 @@
               (error.response && error.response.data) ||
               error.message ||
               error.toString();
-            this.validationFailed(errorMsg);
+            this.processErrorMsg(errorMsg);
           }
         );
       },

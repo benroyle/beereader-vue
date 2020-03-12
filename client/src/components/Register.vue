@@ -72,13 +72,13 @@ export default {
       }
       if (errorMsg !== '') {
         errorMsg += "Please complete the form and try again.";
-        this.validationFailed(errorMsg);
+        this.processErrorMsg(errorMsg);
         return false;
       } else {
         return true;
       }
     },
-    validationFailed(text) {
+    processErrorMsg(text) {
       this.message = text.message;
       this.successful = false;
     },
@@ -100,7 +100,7 @@ export default {
               (error.response && error.response.data) ||
               error.message ||
               error.toString();
-            this.validationFailed(errorMsg);
+            this.processErrorMsg(errorMsg);
           }
         );
       }

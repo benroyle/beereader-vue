@@ -60,18 +60,18 @@
     methods: {
       validationSuccessful(response) {
         if (!req.data.token) {
-          this.validationFailed({message:"Invalid token. Please try again."});
+          this.processErrorMsg({message:"Invalid token. Please try again."});
           return;
         }
         if ((response.data.length === 0) || (response === false)) {
-          this.validationFailed({message:"Username and /or password fields are incorrect. Please try again."});
+          this.processErrorMsg({message:"Username and /or password fields are incorrect. Please try again."});
           return;
         }
         localStorage.token = req.data.token;
         this.error = false;
         this.$router.replace(this.$route.query.redirect || '/app');
       },
-      validationFailed(text) {
+      processErrorMsg(text) {
         this.message = text.message;
         this.successful = false;
         delete localStorage.token;
@@ -93,17 +93,17 @@
                 (error.response && error.response.data) ||
                 error.message ||
                 error.toString();
-              this.validationFailed(this.message);
+              this.processErrorMsg(this.message);
             }
           );
         } else {
           if ((this.username === '') && (this.password === '')) {
-            this.validationFailed({message:"Username and password fields are empty. Please complete the form and try again."});
+            this.processErrorMsg({message:"Username and password fields are empty. Please complete the form and try again."});
           } else {
             if (this.username === '') {
-              this.validationFailed({message:"Username field is empty. Please complete the form and try again."});
+              this.processErrorMsg({message:"Username field is empty. Please complete the form and try again."});
             } else {
-              this.validationFailed({message:"Password field is empty. Please complete the form and try again."});
+              this.processErrorMsg({message:"Password field is empty. Please complete the form and try again."});
             }
           }
         }

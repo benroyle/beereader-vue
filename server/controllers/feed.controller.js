@@ -104,22 +104,30 @@ exports.editFeed = (req, res) => {
 };
 
 exports.deleteFeed = (req, res) => {
-  const sitename = connection.escape(req.body.sitename);
-  const siteurl = connection.escape(req.body.siteurl);
-  const id = connection.escape(req.body.id);
-  const sql = 'UPDATE feeds SET sitename = ' + sitename + ', siteurl = ' + siteurl + ' WHERE (id = ' + id + ')';
-  connection.getConnection(function (err, connection) {
-    connection.query(sql, function(err, rows, fields) {
-      if (!err) {
-        rows = res.json(rows);
-        if (rows.length > 0) {
-          res.send(rows);
-        }
+  Feed.destroy({
+    where: {
+      id: {
+        [Op.eq]: req.body.id
+      },
+      sitename: {
+        [Op.eq]: req.body.sitename
+      },
+      siteurl: {
+        [Op.eq]: req.body.siteurl
+      },
+      userid: {
+        [Op.eq]: req.body.userid
       }
-      else {
-        showError(err);
-      }
-      connection.release();
-    });
+    }
+  })
+  .then(data => {
+    console.log(data);
+    let message = {message: "The feed was deleted successfully!"};
+    res.send(message);
+    return;
+  })
+  .catch(err => {
+    res.status(500).send({ message: err.message });
+    return;
   });
 };

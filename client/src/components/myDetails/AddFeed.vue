@@ -71,13 +71,13 @@
         }
         if (errorMsg !== '') {
           errorMsg += "Please complete the form and try again.";
-          this.validationFailed(errorMsg);
+          this.processErrorMsg(errorMsg);
           return false;
         } else {
           return true;
         }
       },
-      validationFailed(text) {
+      processErrorMsg(text) {
         if (text.message) {
           this.message = text.message;
         } else {
@@ -104,7 +104,7 @@
                 (error.response && error.response.data) ||
                 error.message ||
                 error.toString();
-              this.validationFailed(errorMsg);
+              this.processErrorMsg(errorMsg);
             }
           );
         }

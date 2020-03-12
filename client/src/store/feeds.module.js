@@ -79,6 +79,18 @@ const feeds = {
         }
       );
     },
+    deleteFeed({ commit }, feed) {
+      return FeedService.deleteFeed(feed).then(
+        feeds => {
+          commit('deleteFeedSuccess', feeds);
+          return Promise.resolve(feeds);
+        },
+        error => {
+          commit('deleteFeedFailure');
+          return Promise.reject(error);
+        }
+      );
+    }
   },
   mutations: {
     getFeedsSuccess(state, feeds) {
@@ -122,6 +134,12 @@ const feeds = {
       state.currentFeeds = feeds;
     },
     editFeedFailure(state) {
+      state.currentFeeds = null;
+    },
+    deleteFeedSuccess(state, feeds) {
+      state.currentFeeds = feeds;
+    },
+    deleteFeedFailure(state) {
       state.currentFeeds = null;
     }
   }
