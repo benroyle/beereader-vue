@@ -3,10 +3,8 @@ const FEEDS = db.FEEDS;
 const Feed = db.feed;
 
 checkDuplicateFeed = (req, res, next) => {
-  // Username
   Feed.findOne({
     where: {
-      sitename: req.body.sitename,
       siteurl: req.body.siteurl,
       userid: req.body.userid
     }
@@ -14,16 +12,17 @@ checkDuplicateFeed = (req, res, next) => {
   .then(feed => {
     if (feed) {
       res.status(400).send({
-        message: "Failed! Feed already exists for this user!"
+        message: "Failed! " + feed.sitename + " already exists for this user!"
       });
       return;
+    } else {
+      next();
     }
   });
-  next();
 };
 
-const feeds = {
+const verifyFeeds = {
   checkDuplicateFeed: checkDuplicateFeed
 };
 
-module.exports = feeds;
+module.exports = verifyFeeds;

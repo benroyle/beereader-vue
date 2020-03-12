@@ -18,8 +18,9 @@ exports.getFeedsForUser = (req, res) => {
   .then(feeds => {
     res.send(feeds);
   })
-  .catch(error => {
-    console.log(error);
+  .catch(err => {
+    res.status(500).send({ message: err.message });
+    return;
   });
 };
 
@@ -28,13 +29,12 @@ exports.getFeedItems = (req, res) => {
   .then(items => {
     const newX2js = new x2js();
     items = newX2js.xml2js(items.data);
-    return items;
-  })
-  .then(items => {
     res.send(items);
+    return;
   })
-  .catch(error => {
-    console.log(error);
+  .catch(err => {
+    res.status(500).send({ message: err.message });
+    return;
   });
 };
 
@@ -45,10 +45,13 @@ exports.addFeed = (req, res) => {
     userid: req.body.userid
   })
   .then(feeds => {
-    res.send({message: feeds.sitename + " was added successfully!"});
+    let message = {message: feeds.sitename + " was added successfully!"};
+    res.send(message);
+    return;
   })
-  .catch(error => {
-    console.log(error);
+  .catch(err => {
+    res.status(500).send({ message: err.message });
+    return;
   });
 };
 
@@ -61,11 +64,19 @@ exports.deleteAllFeeds = (req, res) => {
     }
   })
   .then(data => {
-    let response = {};
-    res.send({message: data + " feeds were deleted successfully."});
+    let msgObj = {};
+    let msgString = '';
+    if (data === 1) {
+      msgString = data + " feed was deleted successfully.";
+    } else {
+      msgString = data + " feeds were deleted successfully.";
+    }
+    res.send({message: msgString});
+    return;
   })
-  .catch(error => {
-    console.log(error);
+  .catch(err => {
+    res.status(500).send({ message: err.message });
+    return;
   });
 };
 

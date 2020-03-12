@@ -1,7 +1,7 @@
 /* --- general --- */
-body { background-color: #7ec0ee; font-size: 16px; font-weight: 400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; background-image: url('grass.png'); background-repeat: repeat-x; background-attachment: scroll; background-position: bottom; margin: 0; }
-.App { height: 100vh; }
-.modalDiv { display: block; position: absolute; width: 50%; min-height: 30%; top: 25%; left: 25%; background-color: white; border: 1px solid #292929; padding: 15px;
+body { background-color: #7ec0ee; font-size: 16px; font-weight: 400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; margin: 0; }
+.app { height: 100vh; }
+.modalDiv { display: inline-block; position: relative; width: 50%; min-height: 30%; margin-top: 100px; left: 25%; background-color: white; border: 1px solid #292929; padding: 15px;
 }
 .formContainer { display: inline-block; position: relative; width: calc(100% - 30px); background-color: white; border: 1px solid #292929; padding: 15px; }
 .left { width: 40%; float: left; clear: right; margin-bottom: 10px; }
@@ -31,7 +31,7 @@ form button:last-of-type { margin-right: 0px; }
 .headerRow nav .links .active { background-color: #292929; color: #ffca31; }
 
 /* --- contentRow --- */
-.contentRow { width: calc(100% - 30px); min-height: calc(100vh - 154px); float: left; clear: right; padding: 0 15px 64px 15px; }
+.contentRow { width: calc(100% - 30px); min-height: calc(100vh - 154px); float: left; clear: right; padding: 0 15px 64px 15px;  background-image: url('grass.png'); background-repeat: repeat-x; background-attachment: scroll; background-position: bottom; }
 .contentRow .navbar { width: 250px; min-height: calc(100vh - 154px); float: left; clear: right; margin-right: 15px; }
 .contentRow .navbar .navbarHeader { background-color: #292929; color: white; border: 1px solid #292929; padding: 0 15px; }
 .contentRow .navbar .navbarContent { overflow-x: hidden; overflow-y: auto; }

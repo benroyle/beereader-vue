@@ -11,7 +11,7 @@
       <p><button v-on:click="buttonClicked('addFeed')">Add feed</button></p>
       <p><button v-on:click="buttonClicked('deleteAllFeeds')">Delete all feeds</button></p>
       <p><button v-on:click="buttonClicked('importOPML')">Import OPML</button></p>
-      <form v-on:submit.prevent>
+      <form v-if="currentFeeds.length > 0" v-on:submit.prevent>
         <div class="left">
           Feed:
         </div>

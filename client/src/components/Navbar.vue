@@ -1,5 +1,5 @@
 <template>
-	<div class="navbar" v-if="currentFeeds.length > 0">
+	<div class="navbar" v-if="currentFeeds && currentFeeds.length > 0">
 	  <div class="navbarHeader">Feeds</div>
 	  <div class="navbarContent">
 	  	<NavbarItem v-bind:feed="feed" v-for="feed in mapFeedList(currentFeeds)" v-bind:key="feed.id"></NavbarItem>
