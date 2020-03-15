@@ -19,7 +19,7 @@
       currentFeedItems() {
         let items = [];
         if ((this.$store.state.feeds.activeFeed) && (this.$store.state.feeds.activeFeed.siteurl)) {
-          items =  this.getFeedItems(this.$store.state.feeds.activeFeed.siteurl);
+          items = this.getFeedItems(this.$store.state.feeds.activeFeed.siteurl);
         }
         return items;
       }
@@ -32,11 +32,11 @@
             //console.log("gotFeeds");
           },
           error => {
-            this.message =
+            let message =
               (error.response && error.response.data) ||
               error.message ||
               error.toString();
-            console.log(this.message);
+            console.log(message);
           }
         );
       },
@@ -47,13 +47,16 @@
           response => {
             //console.log("gotFeedItems");
             this.$store.dispatch('loader/end');
+            return response;
           },
           error => {
-            this.message =
+            let message =
               (error.response && error.response.data) ||
               error.message ||
               error.toString();
-            console.log(this.message);
+            console.log(message);
+            this.$store.dispatch('loader/end');
+            return message;
           }
         );
       }

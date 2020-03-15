@@ -23,6 +23,11 @@ class FeedService {
           feedItemsArray = response.rss.channel.item;
         }
       }
+      if (response.RDF) {
+        if (Array.isArray(response.RDF.item)) {
+          feedItemsArray = response.RDF.item;
+        }
+      }
       if (response.feed) {
         if (Array.isArray(response.feed.entry)) {
           feedItemsArray = response.feed.entry;

@@ -22,7 +22,7 @@
 				this.$store.dispatch('feeds/setActiveFeed', this.$props.feed.id)
         .then(
           response => {
-          	console.log("current feedid is " + response);
+          	//console.log("current feedid is " + response);
           },
           error => {
             this.message =
