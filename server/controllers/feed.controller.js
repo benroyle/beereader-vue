@@ -5,7 +5,7 @@ const Feed = db.feed;
 
 const Op = db.Sequelize.Op;
 
-exports.getFeedsForUser = (req, res) => {
+exports.getFeeds = (req, res) => {
   Feed.findAll({
     attributes: ['id', 'sitename', 'siteurl'],
     where: {

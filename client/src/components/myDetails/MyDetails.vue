@@ -54,7 +54,7 @@
     },
     methods: {
       getFeeds(userid) {
-        this.$store.dispatch('feeds/getFeedsForUser', userid)
+        this.$store.dispatch('feeds/getFeeds', userid)
         .then(
           () => {
             console.log("gotFeeds");

@@ -13,8 +13,8 @@ const feeds = {
   namespaced: true,
   state: initialState(),
   actions: {
-    getFeedsForUser({ commit }, userid) {
-      return FeedService.getFeedsForUser(userid).then(
+    getFeeds({ commit }, userid) {
+      return FeedService.getFeeds(userid).then(
         feeds => {
           commit('getFeedsSuccess', feeds);
           return Promise.resolve(feeds);
@@ -24,17 +24,6 @@ const feeds = {
           return Promise.reject(error);
         }
       );
-    },
-    logout({ commit }) {
-      commit('resetState')
-    },
-    setActiveFeed({ commit }, feedid) {
-      commit('setActiveFeed', feedid);
-      return Promise.resolve(feedid);
-    },
-    setActiveFeedItem({ commit }, feeditemid) {
-      commit('setActiveFeedItem', feeditemid);
-      return Promise.resolve(feeditemid);
     },
     getFeedItems({ commit }, feedurl) {
       return FeedService.getFeedItems(feedurl).then(
@@ -47,6 +36,14 @@ const feeds = {
           return Promise.reject(error);
         }
       );
+    },
+    setActiveFeed({ commit }, feedid) {
+      commit('setActiveFeed', feedid);
+      return Promise.resolve(feedid);
+    },
+    setActiveFeedItem({ commit }, feeditemid) {
+      commit('setActiveFeedItem', feeditemid);
+      return Promise.resolve(feeditemid);
     },
     addFeed({ commit }, feed) {
       return FeedService.addFeed(feed).then(
@@ -95,17 +92,15 @@ const feeds = {
           return Promise.reject(error);
         }
       );
+    },
+    logout({ commit }) {
+      commit('resetState')
     }
   },
   mutations: {
     getFeedsSuccess(state, feeds) {
       state.currentFeeds = feeds;
       state.activeFeed = feeds[0];
-    },
-    resetState(state) {
-      // Merge rather than replace so we don't lose observers
-      // https://github.com/vuejs/vuex/issues/1118
-      Object.assign(state, initialState())
     },
     getFeedsFailure(state) {
       state.currentFeeds = null;
@@ -126,6 +121,7 @@ const feeds = {
     },
     getFeedItemsSuccess(state, items) {
       state.currentFeedItems = items;
+      state.activeFeedItem = items[0];
     },
     getFeedItemsFailure(state) {
       state.currentFeedItems = null;
@@ -153,6 +149,9 @@ const feeds = {
     },
     deleteFeedFailure(state) {
       state.currentFeeds = null;
+    },
+    resetState(state) {
+      Object.assign(state, initialState())
     }
   }
 };

@@ -3,8 +3,8 @@ import axios from 'axios'
 const API_URL = 'http://localhost:8081/beereader-vue/';
 
 class FeedService {
-  getFeedsForUser(userid) {
-    return axios.post(API_URL + 'getFeedsForUser', {
+  getFeeds(userid) {
+    return axios.post(API_URL + 'getFeeds', {
       userid: userid
     })
     .then(response => {
@@ -92,7 +92,7 @@ export default new FeedService();
 }
 
 async function getFeeds(id, random) {
-  await axios.post('http://localhost:8081/beereader-vue/getFeedsForUser/', { 'id': id }, config)
+  await axios.post('http://localhost:8081/beereader-vue/getFeeds/', { 'id': id }, config)
   .then((response) => (response.data))
   .then((feeds) => {
     if (feeds !== undefined) {
@@ -114,68 +114,4 @@ async function getFeeds(id, random) {
 
 function setRandom(value) {
   randomSubject.next(value);
-}
-
-function selectFeed(feed) {
-  feedSubject.next(feed);
-}
-
-async function editFeed(id, sitename, siteurl) {
-  const feedEdit = await axios.post('http://localhost:8081/beereader-vue/editFeed/', { 'id': id, 'sitename': sitename, 'siteurl': siteurl }, config)
-  .then((response) => (response.data))
-  .then((response) => {
-    if (response !== undefined) {
-      return response;
-    } else {
-      return false;
-    }
-  });
-  if (feedEdit !== undefined) {
-    return feedEdit;
-  }
-}
-
-async function deleteFeed(id) {
-  const feedDelete = await axios.post('http://localhost:8081/beereader-vue/deleteFeed/', { 'id': id }, config)
-  .then((response) => (response.data))
-  .then((response) => {
-    if (response !== undefined) {
-      return response;
-    } else {
-      return false;
-    }
-  });
-  if (feedDelete !== undefined) {
-    return feedDelete;
-  }
-}
-
-async function deleteAllFeeds(userid) {
-  const feedDeleteAll = await axios.post('http://localhost:8081/beereader-vue/deleteAllFeeds/', { 'userid': userid }, config)
-  .then((response) => (response.data))
-  .then((response) => {
-    if (response !== undefined) {
-      return response;
-    } else {
-      return false;
-    }
-  });
-  if (feedDeleteAll !== undefined) {
-    return feedDeleteAll;
-  }
-}
-
-async function addFeed(sitename, siteurl, userid) {
-  const feedAdd = await axios.post('http://localhost:8081/beereader-vue/addFeed/', { 'sitename': sitename, 'siteurl': siteurl, 'userid': userid }, config)
-  .then((response) => (response.data))
-  .then((response) => {
-    if (response !== undefined) {
-      return response;
-    } else {
-      return false;
-    }
-  });
-  if (feedAdd !== undefined) {
-    return feedAdd;
-  }
 }*/

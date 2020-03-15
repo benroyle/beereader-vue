@@ -6,14 +6,10 @@
 		<div class="date" v-if="item.pubDate">
 			{{item.pubDate}}
 		</div>
-		<div class="content" v-if="item.description">
-			{{item.description}}
-		</div>
-		<div class="content" v-if="item.content">
-			{{item.content}}
-		</div>
+		<div class="content" v-if="item.description" v-html="item.description"></div>
+		<div class="content" v-if="item.content" v-html="item.content"></div>
 		<div class="link" v-if="item.link">
-			Read more: <a :href="item.link" target="_blank" rel="noopener noreferrer">{{item.link}}</a>
+			Link to full article: <a :href="item.link" target="_blank" rel="noopener noreferrer">{{item.link}}</a>
 		</div>
 	</div>
 </template>
