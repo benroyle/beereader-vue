@@ -17,28 +17,19 @@
 				<p>Looks like the selected feed isn't returning any items. Click on another feed on the left to try another one, or <router-link to="/user/addFeed">click here</router-link> to add a feed.</p>
 			</div>
 		</div>
-		<div class="loaderWrapper" v-if="loading">
-			<div class="lds-roller">
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-		</div>
+		<Loading />
 	</div>
 </template>
 
 <script>
 	import ContentItem from './ContentItem.vue'
+	import Loading from './Loading.vue'
 
 	export default {
 		name: 'Content',
 		components: {
-			ContentItem
+			ContentItem,
+			Loading
 		},
 		computed: {
 			currentFeedItems() {
@@ -46,9 +37,6 @@
 			},
 			currentFeeds() {
 				return this.$store.state.feeds.currentFeeds;
-			},
-			loading() {
-				return this.$store.state.loader.loading;
 			}
 		},
 		methods: {

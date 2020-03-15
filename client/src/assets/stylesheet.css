@@ -58,17 +58,17 @@ form button:last-of-type { margin-right: 0px; }
 .contentRow .contentDiv { width: calc(100% - 265px); float: right; clear: right; }
 .contentRow .contentDiv .contentHeader { background-color: #292929; color: white; border: 1px solid #292929; padding: 0 15px; }
 .contentRow .contentDiv .item { width: calc(100% - 32px); display: block; float: left; clear: both; margin-bottom: 15px; padding: 0 15px; background-color: white; border: 1px solid #666; }
-.contentRow .contentDiv .item.opened .title, .contentRow .contentDiv .item.opened .date, .contentRow .contentDiv .item.opened .content { float: left; clear: both; }
+.contentRow .contentDiv .item.active * { display: inline-block; }
 .contentRow .contentDiv .item .title { display: block; width: calc(100% - 47px); min-height: 25px; cursor: pointer; padding: 10px 0; margin: 0; padding-right: 45px; }
-.contentRow .contentDiv .item.closed .title { background: url('open.png') no-repeat right center; }
-.contentRow .contentDiv .item.opened .title { background: url('close.png') no-repeat right center; font-weight: 700; }
+.contentRow .contentDiv .item .title { background: url('open.png') no-repeat right center; }
+.contentRow .contentDiv .item.active .title { background: url('close.png') no-repeat right center; font-weight: 700; }
 .contentRow .contentDiv .item .content * { max-width: 100%; }
 .contentRow .contentDiv .item .content img { height: auto; }
-.contentRow .contentDiv .item.opened { display: block; font-size: 16px; font-weight: 400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; padding-bottom: 15px; }
-.contentRow .contentDiv .item.opened .link { float: left; clear: both; margin-top: 15px; }
-.contentRow .contentDiv .item.opened .link a { word-break: break-all; }
-.contentRow .contentDiv .item.closed * { display: none; }
-.contentRow .contentDiv .item.closed .title { display: block; }
+.contentRow .contentDiv .item.active { display: block; font-size: 16px; font-weight: 400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; padding-bottom: 15px; }
+.contentRow .contentDiv .item.active .link { float: left; clear: both; margin-top: 15px; }
+.contentRow .contentDiv .item.active .link a { word-break: break-all; }
+.contentRow .contentDiv .item * { display: none; }
+.contentRow .contentDiv .item .title { display: block; }
 
 /* --- MyDetails --- */
 .myDetails { clear: both; }

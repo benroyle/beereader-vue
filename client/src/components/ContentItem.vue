@@ -1,16 +1,19 @@
 <template>
-	<div class="item closed">
-		<div class="title" v-on:click="openItem">
+	<div class="item" v-bind:class="{ active: isActive }">
+		<div class="title" v-on:click="setActiveFeedItem">
 			{{item.title}}
 		</div>
-		<div class="date" v-if="item.date">
-			{{item.date}}
+		<div class="date" v-if="item.pubDate">
+			{{item.pubDate}}
 		</div>
-		<div class="content">
+		<div class="content" v-if="item.description">
+			{{item.description}}
+		</div>
+		<div class="content" v-if="item.content">
 			{{item.content}}
 		</div>
 		<div class="link" v-if="item.link">
-			Read more: <a :href="item.link" target="_blank" rel="noopener noreferrer">item.link</a>
+			Read more: <a :href="item.link" target="_blank" rel="noopener noreferrer">{{item.link}}</a>
 		</div>
 	</div>
 </template>
@@ -21,7 +24,7 @@
 		props: ['item'],
 		computed: {
 			isActive() {
-				if (this.$props.item.id === this.$store.state.feeds.activeFeed.id) {
+				if (this.$props.item.id === this.$store.state.feeds.activeFeedItem.id) {
 					return true;
 				} else {
 					return false;
@@ -29,11 +32,13 @@
 			}
 		},
 		methods: {
-			setActiveFeed() {
-				this.$store.dispatch('feeds/setActiveFeed', this.$props.item.id)
+			setActiveFeedItem() {
+				console.log(this);
+				console.log(this.item);
+				this.$store.dispatch('feeds/setActiveFeedItem', this.$props.item.id)
         .then(
           response => {
-          	console.log("current feedid is " + response);
+          	//console.log("current feeditemid is " + response);
           },
           error => {
             this.message =
@@ -43,9 +48,6 @@
             console.log(this.message);
           }
         );
-			},
-			openItem() {
-				console.log(this);
 			}
 		}
 	}

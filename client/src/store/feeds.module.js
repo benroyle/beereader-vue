@@ -4,7 +4,8 @@ const initialState = () => {
   return {
     currentFeeds: [],
     activeFeed: {},
-    currentFeedItems: []
+    currentFeedItems: [],
+    activeFeedItem: {}
   }
 };
 
@@ -30,6 +31,10 @@ const feeds = {
     setActiveFeed({ commit }, feedid) {
       commit('setActiveFeed', feedid);
       return Promise.resolve(feedid);
+    },
+    setActiveFeedItem({ commit }, feeditemid) {
+      commit('setActiveFeedItem', feeditemid);
+      return Promise.resolve(feeditemid);
     },
     getFeedItems({ commit }, feedurl) {
       return FeedService.getFeedItems(feedurl).then(
@@ -109,6 +114,13 @@ const feeds = {
       for (let i = 0; i < state.currentFeeds.length; i++) {
         if (state.currentFeeds[i].id === feedid) {
           state.activeFeed = state.currentFeeds[i];
+        }
+      }
+    },
+    setActiveFeedItem(state, feeditemid) {
+      for (let i = 0; i < state.currentFeedItems.length; i++) {
+        if (state.currentFeedItems[i].id === feeditemid) {
+          state.activeFeedItem = state.currentFeedItems[i];
         }
       }
     },

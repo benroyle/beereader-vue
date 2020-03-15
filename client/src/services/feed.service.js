@@ -37,7 +37,8 @@ class FeedService {
         const excess = (feedItemsArray.length - 10);
         feedItemsArray.splice(10, excess);
       }
-      return feedItemsArray;
+      let newItemsArray = feedItemsArray.map((item, index) => ({...item, id: index}));
+      return newItemsArray;
     });
   }
   addFeed(feed) {
