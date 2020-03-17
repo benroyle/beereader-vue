@@ -2,12 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import AppFrame from '@/components/AppFrame'
-import MyDetails from '@/components/myDetails/MyDetails'
-import AddFeed from '@/components/myDetails/AddFeed'
-import DeleteAllFeeds from '@/components/myDetails/DeleteAllFeeds'
-import DeleteFeed from '@/components/myDetails/DeleteFeed'
-import EditFeed from '@/components/myDetails/EditFeed'
-import ImportOPML from '@/components/myDetails/ImportOPML'
+import Profile from '@/components/profile/Profile'
+import AddFeed from '@/components/profile/AddFeed'
+import DeleteAllFeeds from '@/components/profile/DeleteAllFeeds'
+import DeleteFeed from '@/components/profile/DeleteFeed'
+import EditFeed from '@/components/profile/EditFeed'
+import ImportOPML from '@/components/profile/ImportOPML'
 import Register from '@/components/Register'
 import Logout from '@/components/Logout'
 import PageNotFound from '@/components/PageNotFound'
@@ -33,32 +33,32 @@ export default new Router({
 			component: AppFrame
 		},
 		{
-			path: '/user',
-			name: 'MyDetails',
-			component: MyDetails,
+			path: '/profile',
+			name: 'Profile',
+			component: Profile,
 		},
 		{
-			path: '/user/addFeed',
+			path: '/profile/addFeed',
 			name: 'AddFeed',
 			component: AddFeed
 		},
 		{
-			path: '/user/editFeed/:id',
+			path: '/profile/editFeed/:id',
 			name: 'EditFeed',
 			component: EditFeed
 		},
 		{
-			path: '/user/deleteAllFeeds',
+			path: '/profile/deleteAllFeeds',
 			name: 'DeleteAllFeeds',
 			component: DeleteAllFeeds
 		},
 		{
-			path: '/user/deleteFeed/:id',
+			path: '/profile/deleteFeed/:id',
 			name: 'DeleteFeed',
 			component: DeleteFeed
 		},
 		{
-			path: '/user/importOPML',
+			path: '/profile/importOPML',
 			name: 'ImportOPML',
 			component: ImportOPML
 		},

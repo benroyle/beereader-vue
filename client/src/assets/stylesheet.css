@@ -16,23 +16,29 @@ form button:last-of-type { margin-right: 0px; }
 .contentErrorMsg { width: calc(100% - 32px); display: block; float: left; clear: both; margin-bottom: 10px; padding: 15px; background-color: white; border: 1px solid #666; color: red; font-size: 20px; font-weight: 400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; }
 
 /* --- headerRow --- */
-.headerRow { width: 100%; height: 90px; float: left; clear: right; }
-.headerRow .title { display: flex; justify-content: flex-start; align-items: center; width: 250px; height: 90px; padding-left: 15px; float: left; clear: right; }
+.headerRow { width: 100%; float: left; clear: right; }
+.headerRow .title { display: flex; justify-content: flex-start; align-items: center; width: 250px; min-height: 90px; padding-left: 15px; float: left; clear: right; }
 .headerRow .title .titleContainer { display: inline-block; width: 100%; height: 25px;box-sizing: border-box; border: 1px solid #292929; }
 .headerRow .title .titleContainer .titleFont { width: 10%; height: 100%; font-size: 18px; font-weight: 700; float: left; clear: right; display: flex; justify-content: center; align-items: center; }
 .headerRow .title .titleContainer .titleFont.black { background-color: #292929; color: #ffca31; }
 .headerRow .title .titleContainer .titleFont.yellow { background-color: #ffca31; color: #292929; }
-.headerRow .greeting { display: flex; justify-content: center; align-items: center; width: 200px; height: 90px; float: left; clear: right; }
+.headerRow .greeting { display: flex; justify-content: center; align-items: center; width: 200px; min-height: 90px; float: left; clear: right; }
 .headerRow .greeting .username { margin-left: 6px; font-weight: 700; }
 .headerRow nav { display: flex; justify-content: flex-end; align-items: center; width: calc(100% - 465px); height: 90px; float: left; clear: right; }
 .headerRow nav .links { float: right; clear: right; text-align: right; background-color: #ffca31; padding: 0 15px; border: 1px solid #292929; margin-right: 15px; }
 .headerRow nav .links a { margin-right: 20px; color: #292929; background-color: #ffca31; font-weight: 400; padding: 0 15px; }
 .headerRow nav .links a:last-of-type { margin-right: 0; }
 .headerRow nav .links .active { background-color: #292929; color: #ffca31; }
+@media only screen and (max-width: 700px) {
+  .headerRow .title { width: calc(100% - 30px); height: auto; min-height: 60px; float: left; clear: right; }
+  .headerRow .greeting { width: 100%; height: auto; min-height: 60px; float: left; clear: right; }
+  .headerRow nav { width: 100%; height: auto; min-height: 60px; float: left; clear: right; }
+  .headerRow nav .links { text-align: left; }
+}
 
 /* --- contentRow --- */
 .contentRow { width: calc(100% - 30px); min-height: calc(100vh - 154px); float: left; clear: right; padding: 0 15px 64px 15px;  background-image: url('grass.png'); background-repeat: repeat-x; background-attachment: scroll; background-position: bottom; }
-.contentRow .navbar { width: 250px; min-height: calc(100vh - 154px); float: left; clear: right; margin-right: 15px; }
+.contentRow .navbar { width: 20%; min-height: calc(100vh - 154px); float: left; clear: right; margin-right: 15px; }
 .contentRow .navbar .navbarHeader { background-color: #292929; color: white; border: 1px solid #292929; padding: 0 15px; }
 .contentRow .navbar .navbarContent { overflow-x: hidden; overflow-y: auto; }
 .contentRow .navbar .navbarContent::-webkit-scrollbar { height: 12px; width: 12px; }
@@ -55,7 +61,7 @@ form button:last-of-type { margin-right: 0px; }
 .contentRow .navbar .navbarContent .buttonDiv button { width: 100%; background: none; border: none; color: #292929; text-decoration: none; cursor: pointer; font-size: 16px; padding: 5px; }
 .contentRow .navbar .navbarContent .buttonDiv button:hover { text-decoration: underline; }
 .contentRow .navbar .navbarContent .buttonDiv button.active { background: #292929; color: #ffca31; }
-.contentRow .contentDiv { width: calc(100% - 265px); float: right; clear: right; }
+.contentRow .contentDiv { width: calc(80% - 15px); float: right; clear: right; }
 .contentRow .contentDiv .contentHeader { background-color: #292929; color: white; border: 1px solid #292929; padding: 0 15px; }
 .contentRow .contentDiv .item { width: calc(100% - 32px); display: block; float: left; clear: both; margin-bottom: 15px; padding: 0 15px; background-color: white; border: 1px solid #666; }
 .contentRow .contentDiv .item * { display: none; }
@@ -68,6 +74,19 @@ form button:last-of-type { margin-right: 0px; }
 .contentRow .contentDiv .item.active .link { margin-top: 15px; }
 .contentRow .contentDiv .item.active .link a { word-break: break-all; }
 .contentRow .contentDiv .item.active .date { margin-top: 15px; }
+@media only screen and (max-width: 1000px) {
+  .contentRow .navbar { width: 25%; }
+  .contentRow .contentDiv { width: calc(75% - 15px); }
+}
+@media only screen and (max-width: 800px) {
+  .contentRow .navbar { width: 250px; }
+  .contentRow .contentDiv { width: calc(100% - 265px); }
+}
+@media only screen and (max-width: 700px) {
+	.contentRow { min-height: auto; }
+  .contentRow .navbar { width: 100%; min-height: auto; float: left; clear: right; margin-bottom: 15px; }
+  .contentRow .contentDiv { width: 100%; min-height: auto; float: left; clear: right; }
+}
 
 /* --- MyDetails --- */
 .myDetails { clear: both; }

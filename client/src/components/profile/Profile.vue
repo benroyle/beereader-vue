@@ -35,7 +35,7 @@
 
 <script>
   export default {
-    name: 'MyDetails',
+    name: 'Profile',
     data() {
       return {
         selected: ''
@@ -71,10 +71,10 @@
       buttonClicked(action) {
         if ((action === "editFeed") || (action === "deleteFeed")) {
           if (this.selected !== "") {
-            this.$router.push("/user/" + action + "/" + this.selected);
+            this.$router.push("/profile/" + action + "/" + this.selected);
           }
         } else {
-          this.$router.push("/user/" + action);
+          this.$router.push("/profile/" + action);
         }
       },
       handleSubmit(event) {
