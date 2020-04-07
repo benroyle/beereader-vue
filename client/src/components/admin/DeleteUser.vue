@@ -1,7 +1,7 @@
 <template>
-  <div class="contentRow">
-    <div class="modalDiv" v-if="!successful">
-      <h2>Delete Feed</h2>
+  <div class="deleteUser">
+    <div v-if="!successful">
+      <h2>Delete User</h2>
       <form v-on:submit="handleSubmit">
         <div class="left">
           Site name:
@@ -10,7 +10,7 @@
           {{ sitename }}
         </div>
         <div class="left">
-          Feed URL:
+          User URL:
         </div>
         <div class="right">
           {{ siteurl }}
@@ -30,8 +30,8 @@
         </div>
       </form>
     </div>
-    <div class="modalDiv" v-if="successful">
-      <h2>Feed deleted</h2>
+    <div v-if="successful">
+      <h2>User deleted</h2>
       <p>{{ message }}</p>
       <p>Please <router-link to="/app">click here</router-link> to return to the app.</p>
     </div>
@@ -40,7 +40,7 @@
 
 <script>
   export default {
-    name: 'DeleteFeed',
+    name: 'DeleteUser',
     data() {
       return {
         sitename: '',
@@ -55,8 +55,8 @@
       loggedIn() {
         return this.$store.state.auth.status.loggedIn;
       },
-      currentFeeds() {
-        return this.$store.state.feeds.currentFeeds;
+      currentUsers() {
+        return this.$store.state.feeds.currentUsers;
       }
     },
     methods: {
@@ -78,7 +78,7 @@
           siteurl: this.siteurl,
           userid: this.$store.state.auth.user.id.toString()
         };
-        this.$store.dispatch('feeds/deleteFeed', feed)
+        this.$store.dispatch('feeds/deleteUser', feed)
         .then(
           data => {
             this.loading = false;
@@ -97,7 +97,7 @@
         );
       },
       goBack() {
-        this.$router.push("/user");
+        this.$router.push("/profile");
       }
     },
     mounted() {
@@ -105,7 +105,7 @@
         this.$router.push('/');
       } else {
         if (this.$route.params.id) {
-          let feeds = this.$store.state.feeds.currentFeeds;
+          let feeds = this.$store.state.feeds.currentUsers;
           for (let i = 0; i < feeds.length; i++) {
             if (feeds[i].id.toString() === this.$route.params.id) {
               this.sitename = feeds[i].sitename;

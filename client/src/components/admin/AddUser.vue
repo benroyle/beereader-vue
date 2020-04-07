@@ -1,25 +1,27 @@
 <template>
-  <div class="editFeed">
+  <div class="addUser">
     <div v-if="!successful">
-      <h2>Edit Feed</h2>
+      <h2>Add User</h2>
+      <p>As of now, this supports RSS and XML feeds. Support for Atom and RDF feeds to be added at a later date.</p>
       <form v-on:submit="handleSubmit">
         <div class="left">
-          Site name:
+          <label for="sitename">User name</label>
         </div>
         <div class="right">
-          <input type="text" name="sitename" id="sitename" placeholder="site name" v-model="sitename" />
+          <input type="text" name="sitename" placeholder="site name" v-model="feed.sitename" />
         </div>
         <div class="left">
-          Feed URL:
+          <label for="siteurl">User URL</label>
         </div>
         <div class="right">
-          <input type="text" name="siteurl" id="siteurl" placeholder="feed url" v-model="siteurl" />
+          <input type="text" name="siteurl" placeholder="feed url" v-model="feed.siteurl" />
         </div>
         <div class="left">
           &nbsp;
         </div>
         <div class="right">
-          <button type="submit" class="submitButton" :disabled="loading">Save changes</button>
+          <button type="submit" class="submitButton" :disabled="loading">Save feed</button>
+          <span v-show="loading" class="errorMsg">LOADING!!!!!</span>
           <button type="reset" class="cancelButton" v-on:click="goBack">Cancel</button>
         </div>
         <div class="left">
@@ -31,21 +33,21 @@
       </form>
     </div>
     <div v-if="successful">
-      <h2>Feed edited</h2>
+      <h2>User added</h2>
       <p>{{ message }}</p>
-      <p>Please <router-link to="/app">click here</router-link> to return to the app.</p>
+      <p>Please <router-link to="/app">click here</router-link> to return to the app, or <router-link to="/profile/importOPML">click here</router-link> to import an OPML file of feeds.</p>
     </div>
   </div>
 </template>
 
 <script>
+  import User from '../../models/User'
+
   export default {
-    name: 'EditFeed',
+    name: 'AddUser',
     data() {
       return {
-        sitename: '',
-        siteurl: '',
-        feedid: '', 
+        feed: new User('', '', this.$store.state.auth.user.id),
         loading: false,
         successful: false,
         message: ''
@@ -55,8 +57,8 @@
       loggedIn() {
         return this.$store.state.auth.status.loggedIn;
       },
-      currentFeeds() {
-        return this.$store.state.feeds.currentFeeds;
+      currentUsers() {
+        return this.$store.state.feeds.currentUsers;
       }
     },
     methods: {
@@ -88,14 +90,8 @@
         event.preventDefault();
         this.message = '';
         this.loading = true;
-        if (this.validate(this.sitename, this.siteurl) === true) {
-          let feed = {
-            id: this.feedid,
-            sitename: this.sitename,
-            siteurl: this.siteurl,
-            userid: this.$store.state.auth.user.id.toString()
-          };
-          this.$store.dispatch('feeds/editFeed', feed)
+        if (this.validate(this.feed.sitename, this.feed.siteurl) === true) {
+          this.$store.dispatch('feeds/addUser', this.feed)
           .then(
             data => {
               this.loading = false;
@@ -121,17 +117,6 @@
     mounted() {
       if (!this.loggedIn) {
         this.$router.push('/');
-      } else {
-        if (this.$route.params.id) {
-          let feeds = this.$store.state.feeds.currentFeeds;
-          for (let i = 0; i < feeds.length; i++) {
-            if (feeds[i].id.toString() === this.$route.params.id) {
-              this.sitename = feeds[i].sitename;
-              this.siteurl = feeds[i].siteurl;
-              this.feedid = this.$route.params.id;
-            }
-          }
-        }
       }
     }
   };

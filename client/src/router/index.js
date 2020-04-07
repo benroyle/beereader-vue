@@ -5,7 +5,6 @@ import AppFrame from '@/components/AppFrame'
 import Admin from '@/components/admin/Admin'
 import AdminHome from '@/components/admin/AdminHome'
 import AddUser from '@/components/admin/AddUser'
-import DeleteAllUsers from '@/components/admin/DeleteAllUsers'
 import DeleteUser from '@/components/admin/DeleteUser'
 import EditUser from '@/components/admin/EditUser'
 import Profile from '@/components/profile/Profile'
@@ -58,11 +57,6 @@ export default new Router({
 					path: 'editUser/:id',
 					name: 'EditUser',
 					component: EditUser
-				},
-				{
-					path: 'deleteAllUsers',
-					name: 'DeleteAllUsers',
-					component: DeleteAllUsers
 				},
 				{
 					path: 'deleteUser/:id',

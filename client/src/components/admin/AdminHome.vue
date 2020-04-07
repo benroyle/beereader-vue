@@ -1,31 +1,23 @@
 <template>
   <div class="profileHome">
-    <h2>{{currentUser.username}} Profile</h2>
-    <p><strong>Token:</strong> {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}</p>
-    <p><strong>Id:</strong> {{currentUser.id}}</p>
-    <p><strong>Authorities:</strong></p>
-    <ul>
-      <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
-    </ul>
-    <p><button v-on:click="buttonClicked('addFeed')">Add feed</button></p>
-    <p><button v-on:click="buttonClicked('deleteAllFeeds')">Delete all feeds</button></p>
-    <p><button v-on:click="buttonClicked('importOPML')">Import OPML</button></p>
-    <form v-if="currentFeeds.length > 0" v-on:submit="handleSubmit">
+    <h2>Admin Actions</h2>
+    <p><button v-on:click="buttonClicked('addUser')">Add user</button></p>
+    <form v-if="currentUsers.length > 0" v-on:submit="handleSubmit">
       <div class="left">
-        Feed:
+        User:
       </div>
       <div class="right">
-        <select name="feedSelecter" id="feedSelecter" v-model="selected">
+        <select name="userSelecter" id="userSelecter" v-model="selected">
           <option disabled value="">Please select one</option>
-          <option v-for="(feed,index) in currentFeeds" :key="index" :value="feed.id">{{feed.sitename}}</option>
+          <option v-for="(user,index) in currentUsers" :key="index" :value="user.id">{{user.sitename}}</option>
         </select>
       </div>
       <div class="left">
         &nbsp;
       </div>
       <div class="right">
-        <button v-on:click="buttonClicked('editFeed')">Edit feed</button>
-        <button v-on:click="buttonClicked('deleteFeed')">Delete feed</button>
+        <button v-on:click="buttonClicked('editUser')">Edit user</button>
+        <button v-on:click="buttonClicked('deleteUser')">Delete user</button>
       </div>
     </form>
   </div>
@@ -33,29 +25,36 @@
 
 <script>
   export default {
-    name: 'Profile',
+    name: 'AdminHome',
     data() {
       return {
         selected: ''
       }
     },
     computed: {
-      loggedIn() {
-        return this.$store.state.auth.status.loggedIn;
-      },
       currentUser() {
         return this.$store.state.auth.user;
       },
-      currentFeeds() {
-        return this.$store.state.feeds.currentFeeds;
+      currentUsers() {
+        return this.$store.state.users.currentUsers;
+      },
+      isLoggedIn() {
+        return this.$store.state.auth.status.loggedIn;
+      },
+      isAdmin() {
+        if (this.currentUser && this.currentUser.roles) {
+          return this.currentUser.roles.includes('ROLE_ADMIN');
+        } else {
+          return false;
+        }
       }
     },
     methods: {
-      getFeeds(userid) {
-        this.$store.dispatch('feeds/getFeeds', userid)
+      getUsers() {
+        this.$store.dispatch('admin/getUsers')
         .then(
           () => {
-            //console.log("gotFeeds");
+            console.log("gotUsers");
           },
           error => {
             this.message =
@@ -67,12 +66,12 @@
         );
       },
       buttonClicked(action) {
-        if ((action === "editFeed") || (action === "deleteFeed")) {
+        if ((action === "editUser") || (action === "deleteUser")) {
           if (this.selected !== "") {
-            this.$router.push("/profile/" + action + "/" + this.selected);
+            this.$router.push("/admin/" + action + "/" + this.selected);
           }
         } else {
-          this.$router.push("/profile/" + action);
+          this.$router.push("/admin/" + action);
         }
       },
       handleSubmit(event) {
@@ -80,8 +79,8 @@
       }
     },
     mounted() {
-      if (this.loggedIn) {
-        this.getFeeds(this.$store.state.auth.user.id);
+      if ((this.isLoggedIn) && (this.isAdmin)) {
+        this.getUsers();
       } else {
         this.$router.push('/');
       }
