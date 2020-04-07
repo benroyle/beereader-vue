@@ -1,6 +1,6 @@
 <template>
-  <div class="contentRow">
-    <div class="modalDiv" v-if="!successful">
+  <div class="importOPML">
+    <div v-if="!successful">
       <h2>Import OPML</h2>
       <form v-on:submit="handleSubmit">
         <div class="left">
@@ -21,7 +21,7 @@
         </div>
       </form>
     </div>
-    <div class="modalDiv" v-if="successful">
+    <div v-if="successful">
       <h2>Feeds added</h2>
       <div v-for="(message, index) in messages" v-bind:key="index"><p v-html="message"></p></div>
       <p>Please <router-link to="/app">click here</router-link> to return to the app.</p>
