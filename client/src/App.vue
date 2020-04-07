@@ -26,7 +26,7 @@
         <div class="links" v-if="isLoggedIn">
           <router-link to="/" v-if="isLoggedIn">Home</router-link>
           <router-link to="/admin" v-if="isAdmin">Admin</router-link>
-          <router-link to="/user" v-if="isLoggedIn">Profile</router-link>
+          <router-link to="/profile" v-if="isLoggedIn">Profile</router-link>
           <router-link to="/logout" v-if="isLoggedIn">Logout</router-link>
         </div>
       </nav>

@@ -35,7 +35,7 @@
     <div class="modalDiv" v-if="successful">
       <h2>Feed added</h2>
       <p>{{ message }}</p>
-      <p>Please <router-link to="/app">click here</router-link> to return to the app, or <router-link to="/user/importOPML">click here</router-link> to import an OPML file of feeds.</p>
+      <p>Please <router-link to="/app">click here</router-link> to return to the app, or <router-link to="/profile/importOPML">click here</router-link> to import an OPML file of feeds.</p>
     </div>
   </div>
 </template>
@@ -111,7 +111,7 @@
         }
       },
       goBack() {
-        this.$router.push("/user");
+        this.$router.push("/profile");
       }
     },
     mounted() {

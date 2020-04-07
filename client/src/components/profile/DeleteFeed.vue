@@ -97,7 +97,7 @@
         );
       },
       goBack() {
-        this.$router.push("/user");
+        this.$router.push("/profile");
       }
     },
     mounted() {

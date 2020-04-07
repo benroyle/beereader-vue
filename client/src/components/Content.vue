@@ -8,13 +8,13 @@
 		<div class="contentDiv" v-if="currentFeeds && currentFeeds.length === 0">
 			<div class="modalDiv">
 				<h2>No feeds found</h2>
-				<p>Looks like you've got no feeds set up. <router-link to="/user/addFeed">Click here</router-link> to add a feed.</p>
+				<p>Looks like you've got no feeds set up. <router-link to="/profile/addFeed">Click here</router-link> to add a feed.</p>
 			</div>
 		</div>
 		<div class="contentDiv" v-if="currentFeedItems && currentFeedItems.length === 0">
 			<div class="modalDiv">
 				<h2>No feed items found</h2>
-				<p>Looks like the selected feed isn't returning any items. Click on another feed on the left to try another one, or <router-link to="/user/addFeed">click here</router-link> to add a feed.</p>
+				<p>Looks like the selected feed isn't returning any items. Click on another feed on the left to try another one, or <router-link to="/profile/addFeed">click here</router-link> to add a feed.</p>
 			</div>
 		</div>
 		<Loading />

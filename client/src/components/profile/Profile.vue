@@ -57,7 +57,7 @@
         this.$store.dispatch('feeds/getFeeds', userid)
         .then(
           () => {
-            console.log("gotFeeds");
+            //console.log("gotFeeds");
           },
           error => {
             this.message =
