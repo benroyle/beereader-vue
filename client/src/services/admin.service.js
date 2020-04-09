@@ -4,7 +4,7 @@ const API_URL = 'http://localhost:8081/beereader-vue/';
 
 class AdminService {
   getUsers(userid) {
-    return axios.get(API_URL + 'adminGetUsers')
+    return axios.post(API_URL + 'adminGetUsers')
     .then(response => {
       return response.data;
     });
@@ -17,33 +17,23 @@ class AdminService {
       return response.data;
     });
   }
-  addUser(feed) {
-    return axios.post(API_URL + 'adminAddUser', {
-      sitename: feed.sitename,
-      siteurl: feed.siteurl,
-      userid: feed.userid
-    })
+  editUser(user) {
+    let userEdit = {
+      username: user.username,
+      id: user.id
+    };
+    if (user.password) {
+      userEdit.password = user.password;
+    }
+    return axios.post(API_URL + 'adminEditUser', userEdit)
     .then(response => {
       return response.data;
     });
   }
-  editUser(feed) {
-    return axios.post(API_URL + 'adminEditUser', {
-      sitename: feed.sitename,
-      siteurl: feed.siteurl,
-      id: feed.id,
-      userid: feed.userid
-    })
-    .then(response => {
-      return response.data;
-    });
-  }
-  deleteUser(feed) {
+  deleteUser(user) {
     return axios.post(API_URL + 'adminDeleteUser', {
-      sitename: feed.sitename,
-      siteurl: feed.siteurl,
-      id: feed.id,
-      userid: feed.userid
+      username: user.username,
+      id: user.id
     })
     .then(response => {
       return response.data;

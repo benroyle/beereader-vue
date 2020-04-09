@@ -4,16 +4,16 @@
       <h2>Edit User</h2>
       <form v-on:submit="handleSubmit">
         <div class="left">
-          Site name:
+          Username:
         </div>
         <div class="right">
-          <input type="text" name="sitename" id="sitename" placeholder="site name" v-model="sitename" />
+          <input type="text" name="username" id="username" placeholder="username" v-model="username" />
         </div>
         <div class="left">
-          User URL:
+          Password:
         </div>
         <div class="right">
-          <input type="text" name="siteurl" id="siteurl" placeholder="feed url" v-model="siteurl" />
+          <input type="text" name="password" id="password" placeholder="password" v-model="password" />
         </div>
         <div class="left">
           &nbsp;
@@ -33,7 +33,7 @@
     <div v-if="successful">
       <h2>User edited</h2>
       <p>{{ message }}</p>
-      <p>Please <router-link to="/app">click here</router-link> to return to the app.</p>
+      <p>Please <router-link to="/admin">click here</router-link> to return to the Admin section.</p>
     </div>
   </div>
 </template>
@@ -43,9 +43,9 @@
     name: 'EditUser',
     data() {
       return {
-        sitename: '',
-        siteurl: '',
-        feedid: '', 
+        username: '',
+        password: '',
+        id: '', 
         loading: false,
         successful: false,
         message: ''
@@ -60,13 +60,10 @@
       }
     },
     methods: {
-      validate(sitename, siteurl) {
+      validate(username) {
         let errorMsg = '';
-        if ((sitename === undefined) || (sitename === '')) {
-          errorMsg += "Site Name field is empty. ";
-        }
-        if ((siteurl === undefined) || (siteurl === '')) {
-          errorMsg += "Site URL field is empty. ";
+        if ((username === undefined) || (username === '')) {
+          errorMsg += "Username field is empty. ";
         }
         if (errorMsg !== '') {
           errorMsg += "Please complete the form and try again.";
@@ -88,16 +85,19 @@
         event.preventDefault();
         this.message = '';
         this.loading = true;
-        if (this.validate(this.sitename, this.siteurl) === true) {
-          let feed = {
-            id: this.feedid,
-            sitename: this.sitename,
-            siteurl: this.siteurl,
-            userid: this.$store.state.auth.user.id.toString()
+        if (this.validate(this.username) === true) {
+          let user = {
+            id: this.id,
+            username: this.username,
           };
-          this.$store.dispatch('feeds/editUser', feed)
+          if ((this.password !== undefined) && (this.password !== '')) {
+            user.password = this.password;
+          }
+          console.log(user);
+          this.$store.dispatch('admin/editUser', user)
           .then(
             data => {
+              console.log("done");
               this.loading = false;
               this.successful = true;
               this.message = data.message;
@@ -115,7 +115,7 @@
         }
       },
       goBack() {
-        this.$router.push("/profile");
+        this.$router.push("/admin");
       }
     },
     mounted() {
@@ -123,12 +123,11 @@
         this.$router.push('/');
       } else {
         if (this.$route.params.id) {
-          let feeds = this.$store.state.feeds.currentUsers;
-          for (let i = 0; i < feeds.length; i++) {
-            if (feeds[i].id.toString() === this.$route.params.id) {
-              this.sitename = feeds[i].sitename;
-              this.siteurl = feeds[i].siteurl;
-              this.feedid = this.$route.params.id;
+          let users = this.$store.state.admin.adminUsers;
+          for (let i = 0; i < users.length; i++) {
+            if (users[i].id.toString() === this.$route.params.id) {
+              this.username = users[i].username;
+              this.id = this.$route.params.id;
             }
           }
         }

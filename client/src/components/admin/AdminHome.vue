@@ -1,15 +1,14 @@
 <template>
-  <div class="profileHome">
+  <div class="adminHome">
     <h2>Admin Actions</h2>
-    <p><button v-on:click="buttonClicked('addUser')">Add user</button></p>
-    <form v-if="currentUsers.length > 0" v-on:submit="handleSubmit">
+    <form v-if="adminUsers.length > 0" v-on:submit="handleSubmit">
       <div class="left">
         User:
       </div>
       <div class="right">
         <select name="userSelecter" id="userSelecter" v-model="selected">
           <option disabled value="">Please select one</option>
-          <option v-for="(user,index) in currentUsers" :key="index" :value="user.id">{{user.sitename}}</option>
+          <option v-for="(user,index) in adminUsers" :key="index" :value="user.id">{{user.username}}</option>
         </select>
       </div>
       <div class="left">
@@ -35,8 +34,8 @@
       currentUser() {
         return this.$store.state.auth.user;
       },
-      currentUsers() {
-        return this.$store.state.users.currentUsers;
+      adminUsers() {
+        return this.$store.state.admin.adminUsers;
       },
       isLoggedIn() {
         return this.$store.state.auth.status.loggedIn;

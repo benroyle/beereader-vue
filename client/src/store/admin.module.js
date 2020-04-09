@@ -2,12 +2,12 @@ import AdminService from '../services/admin.service'
 
 const initialState = () => {
   return {
-    currentUsers: [],
-    currentUser: {}
+    adminUsers: [],
+    adminUser: {}
   }
 };
 
-const users = {
+const admin = {
   namespaced: true,
   state: initialState(),
   actions: {
@@ -23,7 +23,7 @@ const users = {
         }
       );
     },
-   getUser({ commit }, user) {
+    getUser({ commit }, user) {
       return AdminService.getUser(user).then(
         user => {
           commit('getUserSuccess', user);
@@ -31,18 +31,6 @@ const users = {
         },
         error => {
           commit('getUserFailure');
-          return Promise.reject(error);
-        }
-      );
-    },
-    addUser({ commit }, user) {
-      return AdminService.addUser(user).then(
-        users => {
-          commit('addUserSuccess', users);
-          return Promise.resolve(users);
-        },
-        error => {
-          commit('addUserFailure');
           return Promise.reject(error);
         }
       );
@@ -74,36 +62,30 @@ const users = {
   },
   mutations: {
     getUsersSuccess(state, users) {
-      state.currentUsers = users;
+      state.adminUsers = users;
     },
     getUsersFailure(state) {
-      state.currentUsers = null;
+      state.adminUsers = null;
     },
     getUserSuccess(state, user) {
-      state.currentUser = user;
+      state.adminUser = user;
     },
     getUserFailure(state) {
-      state.currentUser = null;
-    },
-    addUserSuccess(state, users) {
-      state.currentUsers = users;
-    },
-    addUserFailure(state) {
-      state.currentUsers = null;
+      state.adminUser = null;
     },
     editUserSuccess(state, users) {
-      state.currentUsers = users;
+      state.adminUsers = users;
     },
     editUserFailure(state) {
-      state.currentUsers = null;
+      state.adminUsers = null;
     },
     deleteUserSuccess(state, users) {
-      state.currentUsers = users;
+      state.adminUsers = users;
     },
     deleteUserFailure(state) {
-      state.currentUsers = null;
+      state.adminUsers = null;
     }
   }
 };
 
-export default users;
+export default admin;

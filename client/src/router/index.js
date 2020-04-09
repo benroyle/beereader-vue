@@ -4,7 +4,6 @@ import Login from '@/components/Login'
 import AppFrame from '@/components/AppFrame'
 import Admin from '@/components/admin/Admin'
 import AdminHome from '@/components/admin/AdminHome'
-import AddUser from '@/components/admin/AddUser'
 import DeleteUser from '@/components/admin/DeleteUser'
 import EditUser from '@/components/admin/EditUser'
 import Profile from '@/components/profile/Profile'
@@ -40,19 +39,8 @@ export default new Router({
 		},
 		{
 			path: '/admin',
-			name: 'Admin',
 			component: Admin,
 			children: [
-				{
-					path: '',
-					name: 'AdminHome',
-					component: AdminHome,
-				},
-				{
-					path: 'addUser',
-					name: 'AddUser',
-					component: AddUser
-				},
 				{
 					path: 'editUser/:id',
 					name: 'EditUser',
@@ -62,19 +50,18 @@ export default new Router({
 					path: 'deleteUser/:id',
 					name: 'DeleteUser',
 					component: DeleteUser
+				},
+				{
+					path: '',
+					name: 'AdminHome',
+					component: AdminHome,
 				}
 			]
 		},
 		{
 			path: '/profile',
-			name: 'Profile',
 			component: Profile,
 			children: [
-				{
-					path: '',
-					name: 'ProfileHome',
-					component: ProfileHome,
-				},
 				{
 					path: 'addFeed',
 					name: 'AddFeed',
@@ -99,6 +86,11 @@ export default new Router({
 					path: 'importOPML',
 					name: 'ImportOPML',
 					component: ImportOPML
+				},
+				{
+					path: '',
+					name: 'ProfileHome',
+					component: ProfileHome,
 				}
 			]
 		},

@@ -4,22 +4,16 @@
       <h2>Delete User</h2>
       <form v-on:submit="handleSubmit">
         <div class="left">
-          Site name:
+          Username:
         </div>
         <div class="right">
-          {{ sitename }}
-        </div>
-        <div class="left">
-          User URL:
-        </div>
-        <div class="right">
-          {{ siteurl }}
+          {{ username }}
         </div>
         <div class="left">
           &nbsp;
         </div>
         <div class="right">
-          <button type="submit" class="submitButton" :disabled="loading">Delete this feed</button>
+          <button type="submit" class="submitButton" :disabled="loading">Delete this user</button>
           <button type="reset" class="cancelButton" v-on:click="goBack">Cancel</button>
         </div>
         <div class="left">
@@ -33,7 +27,7 @@
     <div v-if="successful">
       <h2>User deleted</h2>
       <p>{{ message }}</p>
-      <p>Please <router-link to="/app">click here</router-link> to return to the app.</p>
+      <p>Please <router-link to="/admin">click here</router-link> to return to the Admin section.</p>
     </div>
   </div>
 </template>
@@ -43,9 +37,9 @@
     name: 'DeleteUser',
     data() {
       return {
-        sitename: '',
-        siteurl: '',
-        feedid: '', 
+        username: '',
+        password: '',
+        id: '', 
         loading: false,
         successful: false,
         message: ''
@@ -72,13 +66,11 @@
         event.preventDefault();
         this.message = '';
         this.loading = true;
-        let feed = {
-          id: this.feedid,
-          sitename: this.sitename,
-          siteurl: this.siteurl,
-          userid: this.$store.state.auth.user.id.toString()
+        let user = {
+          id: this.id,
+          username: this.username
         };
-        this.$store.dispatch('feeds/deleteUser', feed)
+        this.$store.dispatch('admin/deleteUser', user)
         .then(
           data => {
             this.loading = false;
@@ -97,7 +89,7 @@
         );
       },
       goBack() {
-        this.$router.push("/profile");
+        this.$router.push("/admin");
       }
     },
     mounted() {
@@ -105,12 +97,11 @@
         this.$router.push('/');
       } else {
         if (this.$route.params.id) {
-          let feeds = this.$store.state.feeds.currentUsers;
-          for (let i = 0; i < feeds.length; i++) {
-            if (feeds[i].id.toString() === this.$route.params.id) {
-              this.sitename = feeds[i].sitename;
-              this.siteurl = feeds[i].siteurl;
-              this.feedid = this.$route.params.id;
+          let users = this.$store.state.admin.adminUsers;
+          for (let i = 0; i < users.length; i++) {
+            if (users[i].id.toString() === this.$route.params.id) {
+              this.username = users[i].username;
+              this.id = this.$route.params.id;
             }
           }
         }
