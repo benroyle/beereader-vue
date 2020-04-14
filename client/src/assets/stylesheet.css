@@ -24,7 +24,7 @@ form button:last-of-type { margin-right: 0px; }
 .headerRow .title .titleContainer .titleFont.yellow { background-color: #ffca31; color: #292929; }
 .headerRow .greeting { display: flex; justify-content: center; align-items: center; width: 200px; min-height: 90px; float: left; clear: right; }
 .headerRow .greeting .username { margin-left: 6px; font-weight: 700; }
-.headerRow nav { display: flex; justify-content: flex-end; align-items: center; width: calc(100% - 465px); height: 90px; float: left; clear: right; }
+.headerRow nav { display: flex; justify-content: flex-end; align-items: center; width: calc(100% - 465px); min-height: 90px; float: left; clear: right; }
 .headerRow nav .links { float: right; clear: right; text-align: right; background-color: #ffca31; padding: 0 15px; border: 1px solid #292929; margin-right: 15px; }
 .headerRow nav .links a { margin-right: 20px; color: #292929; background-color: #ffca31; font-weight: 400; padding: 0 15px; }
 .headerRow nav .links a:last-of-type { margin-right: 0; }
@@ -113,15 +113,22 @@ form button:last-of-type { margin-right: 0px; }
   .contentRow .navbar { width: 25%; }
   .contentRow .contentDiv { width: calc(75% - 15px); }
 }
+@media only screen and (max-width: 900px) {
+  .headerRow { width: calc(100% - 30px); padding: 0 15px; margin-bottom: 20px; }
+  .headerRow .title { width: 100%; height: auto; min-height: 40px; float: left; clear: right; padding-left: 0; }
+  .headerRow .greeting { width: 50%; min-height: 60px; }
+  .headerRow nav { width: 50%; min-height: 60px; }
+}
 @media only screen and (max-width: 800px) {
   .contentRow .navbar { width: 250px; }
   .contentRow .contentDiv { width: calc(100% - 265px); }
 }
 @media only screen and (max-width: 700px) {
-  .headerRow .title { width: calc(100% - 30px); height: auto; padding: 0 15px; min-height: 60px; float: left; clear: right; }
+  .headerRow { width: calc(100% - 30px); padding: 0 15px; margin-bottom: 20px; }
+  .headerRow .title { width: 100%; height: auto; min-height: 40px; float: left; clear: right; padding-left: 0; }
   .headerRow .greeting { width: 100%; height: auto; min-height: 40px; float: left; clear: right; }
-  .headerRow nav { width: 100%; height: auto; min-height: 60px; float: left; clear: right; }
-  .headerRow nav .links { width: calc(100% - 30px); text-align: center; margin-left: 15px; }
+  .headerRow nav { width: 100%; height: auto; min-height: 40px; float: left; clear: right; }
+  .headerRow nav .links { display: inline-block; width: 100%; -webkit-box-sizing: border-box; box-sizing: border-box; float: unset; clear: unset; margin-right: 0; padding: 0; text-align: center; }
   .contentRow { min-height: calc(100vh - 224px); }
   .contentRow .navbar { width: 100%; min-height: auto; float: left; clear: right; margin-bottom: 15px; }
   .contentRow .contentDiv { width: 100%; min-height: auto; float: left; clear: right; }
