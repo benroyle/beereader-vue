@@ -8,13 +8,13 @@
             <label for="username">Username:</label>
           </div>
           <div class="right">
-            <input type="text" name="username" placeholder="username" v-model="user.username" />
+            <input type="text" name="usernameField" placeholder="username" v-model="user.username" />
           </div>
           <div class="left">
             <label for="password">Password:</label>
           </div>
           <div class="right">
-            <input type="password" name="password" placeholder="password" v-model="user.password" />
+            <input type="password" name="passwordField" placeholder="password" v-model="user.password" />
           </div>
           <div class="left">
             &nbsp;
@@ -58,18 +58,21 @@
       }
     },
     methods: {
-      validationSuccessful(response) {
-        if (!req.data.token) {
-          this.processErrorMsg({message:"Invalid token. Please try again."});
-          return;
+      validate(username, password) {
+        let errorMsg = '';
+        if ((username === undefined) || (username === '')) {
+          errorMsg += "Username field is empty. ";
         }
-        if ((response.data.length === 0) || (response === false)) {
-          this.processErrorMsg({message:"Username and /or password fields are incorrect. Please try again."});
-          return;
+        if ((password === undefined) || (password === '')) {
+          errorMsg += "Password field is empty. ";
         }
-        localStorage.token = req.data.token;
-        this.error = false;
-        this.$router.replace(this.$route.query.redirect || '/app');
+        if (errorMsg !== '') {
+          errorMsg += "Please complete the form and try again.";
+          this.processErrorMsg(errorMsg);
+          return false;
+        } else {
+          return true;
+        }
       },
       processErrorMsg(text) {
         this.message = text.message;
@@ -80,32 +83,23 @@
         event.preventDefault();
         this.message = '';
         this.loading = true;
-        if ((this.username !== '') && (this.password !== '')) {
-          this.$store.dispatch('auth/login', this.user).then(
-            () => {
+        if (this.validate(this.user.username, this.user.password) === true) {
+          this.$store.dispatch('auth/login', this.user)
+          .then(
+            data => {
               this.loading = false;
               this.successful = true;
               this.$router.push('/app');
             },
             error => {
               this.loading = false;
-              this.message =
+              let errorMsg =
                 (error.response && error.response.data) ||
                 error.message ||
                 error.toString();
-              this.processErrorMsg(this.message);
+              this.processErrorMsg(errorMsg);
             }
           );
-        } else {
-          if ((this.username === '') && (this.password === '')) {
-            this.processErrorMsg({message:"Username and password fields are empty. Please complete the form and try again."});
-          } else {
-            if (this.username === '') {
-              this.processErrorMsg({message:"Username field is empty. Please complete the form and try again."});
-            } else {
-              this.processErrorMsg({message:"Password field is empty. Please complete the form and try again."});
-            }
-          }
         }
       },
     }

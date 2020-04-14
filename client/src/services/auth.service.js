@@ -4,7 +4,7 @@ const API_URL = 'http://localhost:8081/beereader-vue/';
 
 class AuthService {
   login(user) {
-    return axios.post(API_URL + 'checkAuth', {
+    return axios.post(API_URL + 'signin', {
       username: user.username,
       password: user.password
     })
