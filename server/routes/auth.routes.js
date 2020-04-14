@@ -15,5 +15,5 @@ module.exports = function(app) {
   	verifySignUp.checkRolesExisted
   ],
   controller.signup);
-  app.post("/beereader-vue/checkAuth", controller.checkAuth);
+  app.post("/beereader-vue/signin", controller.signin);
 };
