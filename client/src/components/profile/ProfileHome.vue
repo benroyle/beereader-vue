@@ -1,16 +1,20 @@
 <template>
   <div class="profileHome">
     <h2>{{currentUser.username}} Profile</h2>
-    <p><strong>Token:</strong> {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}</p>
-    <p><strong>Id:</strong> {{currentUser.id}}</p>
-    <p><strong>Authorities:</strong></p>
-    <ul>
-      <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
-    </ul>
-    <p><button v-on:click="buttonClicked('addFeed')">Add feed</button></p>
-    <p><button v-on:click="buttonClicked('deleteAllFeeds')">Delete all feeds</button></p>
-    <p><button v-on:click="buttonClicked('importOPML')">Import OPML</button></p>
+    <div class="left">Token:</div>
+    <div class="right">{{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}</div>
+    <div class="left">Id:</div>
+    <div class="right">{{currentUser.id}}</div>
+    <div class="left">Authorities:</div>
+    <div class="right">
+      <span v-for="(role,index) in currentUser.roles" :key="index">{{role}}</span>
+    </div>
     <form v-if="currentFeeds.length > 0" v-on:submit="handleSubmit">
+      <div class="left">Functions:</div>
+      <div class="right">
+        <button v-on:click="buttonClicked('addFeed')">Add feed</button>
+        <button v-on:click="buttonClicked('deleteAllFeeds')">Delete all feeds</button><button v-on:click="buttonClicked('importOPML')">Import OPML</button>
+      </div>
       <div class="left">
         Feed:
       </div>
