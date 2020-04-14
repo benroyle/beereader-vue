@@ -53,7 +53,7 @@
         this.$store.dispatch('admin/getUsers')
         .then(
           () => {
-            console.log("gotUsers");
+            //console.log("gotUsers");
           },
           error => {
             this.message =

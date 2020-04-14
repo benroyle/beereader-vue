@@ -1,5 +1,5 @@
 <template>
-	<div class="item" v-bind:class="{ active: isActive }">
+	<div class="item">
 		<div class="title" v-on:click="setActiveFeedItem">
 			{{this.getTitle(item.title)}}
 		</div>
@@ -18,18 +18,15 @@
 	export default {
 		name: 'ContentItem',
 		props: ['item'],
-		computed: {
-			isActive() {
-				if (this.$props.item.id === this.$store.state.feeds.activeFeedItem.id) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		},
 		methods: {
 			setActiveFeedItem() {
-				this.$store.dispatch('feeds/setActiveFeedItem', this.$props.item.id)
+				let passData;
+				if (this.$props.item.id === this.$store.state.feeds.activeFeedItem.id) {
+					passData = false;
+				} else {
+					passData = this.$props.item.id;
+				}
+				this.$store.dispatch('feeds/setActiveFeedItem', passData)
         .then(
           response => {
           	//console.log("current feeditemid is " + response);

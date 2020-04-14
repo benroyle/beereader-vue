@@ -113,10 +113,14 @@ const feeds = {
       }
     },
     setActiveFeedItem(state, feeditemid) {
-      for (let i = 0; i < state.currentFeedItems.length; i++) {
-        if (state.currentFeedItems[i].id === feeditemid) {
-          state.activeFeedItem = state.currentFeedItems[i];
+      if (feeditemid) {
+        for (let i = 0; i < state.currentFeedItems.length; i++) {
+          if (state.currentFeedItems[i].id === feeditemid) {
+            state.activeFeedItem = state.currentFeedItems[i];
+          }
         }
+      } else {
+        state.activeFeedItem = {};
       }
     },
     getFeedItemsSuccess(state, items) {

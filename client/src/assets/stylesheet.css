@@ -122,6 +122,7 @@ form button:last-of-type { margin-right: 0px; }
 @media only screen and (max-width: 800px) {
   .contentRow .navbar { width: 250px; }
   .contentRow .contentDiv { width: calc(100% - 265px); }
+  .contentRow .modalDiv { margin-top: 0; width: calc(100% - 30px); left: 0; }
 }
 @media only screen and (max-width: 700px) {
   .headerRow { width: calc(100% - 30px); padding: 0 15px; margin-bottom: 20px; }
