@@ -1,6 +1,6 @@
 <template>
-  <div class="contentRow">
-    <div class="modalDiv" v-if="!successful">
+  <div class="addFeed">
+    <div v-if="!successful">
       <h2>Add Feed</h2>
       <p>As of now, this supports RSS and XML feeds. Support for Atom and RDF feeds to be added at a later date.</p>
       <form v-on:submit="handleSubmit">
@@ -32,7 +32,7 @@
         </div>
       </form>
     </div>
-    <div class="modalDiv" v-if="successful">
+    <div v-if="successful">
       <h2>Feed added</h2>
       <p>{{ message }}</p>
       <p>Please <router-link to="/app">click here</router-link> to return to the app, or <router-link to="/profile/importOPML">click here</router-link> to import an OPML file of feeds.</p>

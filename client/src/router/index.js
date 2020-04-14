@@ -2,7 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import AppFrame from '@/components/AppFrame'
+import Admin from '@/components/admin/Admin'
+import AdminHome from '@/components/admin/AdminHome'
+import DeleteUser from '@/components/admin/DeleteUser'
+import EditUser from '@/components/admin/EditUser'
 import Profile from '@/components/profile/Profile'
+import ProfileHome from '@/components/profile/ProfileHome'
 import AddFeed from '@/components/profile/AddFeed'
 import DeleteAllFeeds from '@/components/profile/DeleteAllFeeds'
 import DeleteFeed from '@/components/profile/DeleteFeed'
@@ -33,34 +38,61 @@ export default new Router({
 			component: AppFrame
 		},
 		{
+			path: '/admin',
+			component: Admin,
+			children: [
+				{
+					path: 'editUser/:id',
+					name: 'EditUser',
+					component: EditUser
+				},
+				{
+					path: 'deleteUser/:id',
+					name: 'DeleteUser',
+					component: DeleteUser
+				},
+				{
+					path: '',
+					name: 'AdminHome',
+					component: AdminHome,
+				}
+			]
+		},
+		{
 			path: '/profile',
-			name: 'Profile',
 			component: Profile,
-		},
-		{
-			path: '/profile/addFeed',
-			name: 'AddFeed',
-			component: AddFeed
-		},
-		{
-			path: '/profile/editFeed/:id',
-			name: 'EditFeed',
-			component: EditFeed
-		},
-		{
-			path: '/profile/deleteAllFeeds',
-			name: 'DeleteAllFeeds',
-			component: DeleteAllFeeds
-		},
-		{
-			path: '/profile/deleteFeed/:id',
-			name: 'DeleteFeed',
-			component: DeleteFeed
-		},
-		{
-			path: '/profile/importOPML',
-			name: 'ImportOPML',
-			component: ImportOPML
+			children: [
+				{
+					path: 'addFeed',
+					name: 'AddFeed',
+					component: AddFeed
+				},
+				{
+					path: 'editFeed/:id',
+					name: 'EditFeed',
+					component: EditFeed
+				},
+				{
+					path: 'deleteAllFeeds',
+					name: 'DeleteAllFeeds',
+					component: DeleteAllFeeds
+				},
+				{
+					path: 'deleteFeed/:id',
+					name: 'DeleteFeed',
+					component: DeleteFeed
+				},
+				{
+					path: 'importOPML',
+					name: 'ImportOPML',
+					component: ImportOPML
+				},
+				{
+					path: '',
+					name: 'ProfileHome',
+					component: ProfileHome,
+				}
+			]
 		},
 		{
 			path: '/logout',

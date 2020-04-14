@@ -1,6 +1,6 @@
 <template>
-  <div class="contentRow">
-    <div class="modalDiv" v-if="!successful">
+  <div class="deleteAllFeeds">
+    <div v-if="!successful">
       <h2>Delete All Feeds</h2>
       <form v-on:submit="handleSubmit">
         <div class="left">
@@ -24,7 +24,7 @@
         </div>
       </form>
     </div>
-    <div class="modalDiv" v-if="successful">
+    <div v-if="successful">
       <h2>Feeds deleted</h2>
       <p>{{ message }}</p>
       <p>Please <router-link to="/app">click here</router-link> to return to the app.</p>

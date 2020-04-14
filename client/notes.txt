@@ -1,1 +1,3 @@
 raven-reader in github!
+
+login - look at error message when user doesn't exist
