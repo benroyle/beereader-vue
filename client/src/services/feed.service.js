@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8081/beereader-vue/';
+const API_URL = 'http://localhost:8081/beereaderServer/';
 
 class FeedService {
   getFeeds(userid) {
@@ -97,7 +97,7 @@ export default new FeedService();
 }
 
 async function getFeeds(id, random) {
-  await axios.post('http://localhost:8081/beereader-vue/getFeeds/', { 'id': id }, config)
+  await axios.post('http://localhost:8081/beereaderServer/getFeeds/', { 'id': id }, config)
   .then((response) => (response.data))
   .then((feeds) => {
     if (feeds !== undefined) {

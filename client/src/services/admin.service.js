@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8081/beereader-vue/';
+const API_URL = 'http://localhost:8081/beereaderServer/';
 
 class AdminService {
   getUsers(userid) {

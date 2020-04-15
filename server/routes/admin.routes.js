@@ -12,15 +12,15 @@ module.exports = function(app) {
     next();
   });
 
-  app.post("/beereader-vue/adminGetUsers", adminController.adminGetUsers);
+  app.post("/beereaderServer/adminGetUsers", adminController.adminGetUsers);
 
-  app.post("/beereader-vue/adminGetUser", adminController.adminGetUser);
+  app.post("/beereaderServer/adminGetUser", adminController.adminGetUser);
 
-  app.post("/beereader-vue/adminEditUser",
+  app.post("/beereaderServer/adminEditUser",
   [
     verifyUsers.checkDuplicateUserName
   ],
   adminController.adminEditUser);
   
-  app.post("/beereader-vue/adminDeleteUser", adminController.adminDeleteUser);
+  app.post("/beereaderServer/adminDeleteUser", adminController.adminDeleteUser);
 };

@@ -12,24 +12,24 @@ module.exports = function(app) {
     next();
   });
 
-  app.post("/beereader-vue/getFeeds", controller.getFeeds);
+  app.post("/beereaderServer/getFeeds", controller.getFeeds);
 
-  app.post("/beereader-vue/getFeedItems", controller.getFeedItems);
+  app.post("/beereaderServer/getFeedItems", controller.getFeedItems);
 
-  app.post("/beereader-vue/addFeed",
+  app.post("/beereaderServer/addFeed",
   [
     verifyFeeds.checkDuplicateFeedName,
     verifyFeeds.checkDuplicateFeedURL
   ],
   controller.addFeed);
 
-  app.post("/beereader-vue/editFeed",
+  app.post("/beereaderServer/editFeed",
   [
     verifyFeeds.checkDuplicateFeedName
   ],
   controller.editFeed);
   
-  app.post("/beereader-vue/deleteFeed", controller.deleteFeed);
+  app.post("/beereaderServer/deleteFeed", controller.deleteFeed);
   
-  app.post("/beereader-vue/deleteAllFeeds", controller.deleteAllFeeds);
+  app.post("/beereaderServer/deleteAllFeeds", controller.deleteAllFeeds);
 };
